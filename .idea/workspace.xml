@@ -1,15 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/StudentAgentBitch.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+    <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="Initialize the CSP model and solver&#10;All tasks that are fixed are considered interval var because they have a specific begin, duration and end&#10;All optional tasks (in this case Gym) have a domain of possible intervals that can take, it's the solver job to find a opening to fill, this &quot;optional&quot; will be set according to a bool_var that defines if the task exists&#10;The solver doesn't have still an objective, so the solution it gives is the one where it doesn't put gym anywhere">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,6 +25,7 @@
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "Python.main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "master"
   }
@@ -51,6 +45,51 @@
       <option name="presentableId" value="Default" />
       <updated>1785192095880</updated>
     </task>
+    <task id="LOCAL-00001" summary="Add tasks&#10;MinutesOfTheWeek() calculates the minutes of that time from the beginning of Monday&#10;OverlapTasks verifies if there is an overlap in the schedule of two tasks&#10;This tasks are not CSP variables because they are fixed values, but are used in the restriction to avoid overlaps&#10;The time is seen as a readable string and as a int to calculate the overlaps">
+      <option name="closed" value="true" />
+      <created>1785250028239</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1785250028239</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Initialize the CSP model and solver&#10;All tasks that are fixed are considered interval var because they have a specific begin, duration and end&#10;All optional tasks (in this case Gym) have a domain of possible intervals that can take, it's the solver job to find a opening to fill, this &quot;optional&quot; will be set according to a bool_var that defines if the task exists&#10;The solver doesn't have still an objective, so the solution it gives is the one where it doesn't put gym anywhere">
+      <option name="closed" value="true" />
+      <created>1785272736172</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1785272736172</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="flexibleTasks" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Add tasks&#10;MinutesOfTheWeek() calculates the minutes of that time from the beginning of Monday&#10;OverlapTasks verifies if there is an overlap in the schedule of two tasks&#10;This tasks are not CSP variables because they are fixed values, but are used in the restriction to avoid overlaps&#10;The time is seen as a readable string and as a int to calculate the overlaps" />
+    <MESSAGE value="Initialize the CSP model and solver&#10;All tasks that are fixed are considered interval var because they have a specific begin, duration and end&#10;All optional tasks (in this case Gym) have a domain of possible intervals that can take, it's the solver job to find a opening to fill, this &quot;optional&quot; will be set according to a bool_var that defines if the task exists&#10;The solver doesn't have still an objective, so the solution it gives is the one where it doesn't put gym anywhere" />
+    <option name="LAST_COMMIT_MESSAGE" value="Initialize the CSP model and solver&#10;All tasks that are fixed are considered interval var because they have a specific begin, duration and end&#10;All optional tasks (in this case Gym) have a domain of possible intervals that can take, it's the solver job to find a opening to fill, this &quot;optional&quot; will be set according to a bool_var that defines if the task exists&#10;The solver doesn't have still an objective, so the solution it gives is the one where it doesn't put gym anywhere" />
   </component>
 </project>
