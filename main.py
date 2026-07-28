@@ -1,4 +1,6 @@
 
+from ortools.sat.python import cp_model
+
 def minutesOfTheWeek(day, hour, minutes):
     """
     Calculates the minutes since the start of the week to the given time
@@ -17,14 +19,30 @@ tasks = [("Aula BD Pratica", ("Terça", "16:00"), ("Terça", "18:00"), minutesOf
          ("Aula LAP Teorica", ("Quinta", "11:30"), ("Quinta", "13:00"), minutesOfTheWeek(3,11,30), minutesOfTheWeek(3,13,0)),
 ]
 
-def overlapTasks():
-    for i in range(len(tasks)):
-        for j in range(len(tasks)):
-            if i == j: continue
-            if tasks[i][4] > tasks[j][3] and tasks[j][4] > tasks[i][3]:
-                print(tasks[i], tasks[j])
-                print("error")
-                return
-    print("No overlaps")
+model = cp_model.CpModel()
 
-overlapTasks()
+intervalos = []
+for nome,_,_, begin, end in tasks:
+    duration = end - begin
+    interval = model.new_interval_var(begin, duration,end, nome)
+    intervalos.append(interval)
+
+bool_var = model.new_bool_var("Ginasio_Presente")
+ginasio_dominio = cp_model.Domain.FromIntervals([[minutesOfTheWeek(0,8,0), minutesOfTheWeek(0,21,0)],
+                                                [minutesOfTheWeek(1,8,0), minutesOfTheWeek(1,21,0)],
+                                                 [minutesOfTheWeek(2,8,0), minutesOfTheWeek(2,21,0)],
+                                                 [minutesOfTheWeek(3,8,0), minutesOfTheWeek(3,21,0)],
+                                                 [minutesOfTheWeek(4,8,0), minutesOfTheWeek(4,21,0)]])
+Gym = model.new_int_var_from_domain(ginasio_dominio, "Ginasio")
+gym_var = model.new_optional_interval_var(Gym, 60, Gym + 60, bool_var, "Ginasio_Interval")
+intervalos.append(gym_var)
+
+model.add_no_overlap(intervalos)
+
+solver = cp_model.CpSolver()
+status = solver.solve(model)
+
+print(solver.Value(Gym))
+print(solver.value(bool_var))
+
+print(solver.status_name(status))
