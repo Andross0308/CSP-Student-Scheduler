@@ -21,6 +21,7 @@ tasks = [("Aula BD Pratica", ("Terça", "16:00"), ("Terça", "18:00"), minutesOf
 
 model = cp_model.CpModel()
 
+#All time intervals that the model receives
 intervalos = []
 for nome,_,_, begin, end in tasks:
     duration = end - begin
