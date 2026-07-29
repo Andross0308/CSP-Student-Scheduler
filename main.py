@@ -38,11 +38,7 @@ def fixedTasks():
 boolean_variables = []
 bool_var = model.new_bool_var("Ginasio_Presente")
 boolean_variables.append(bool_var)
-dominio = cp_model.Domain.FromIntervals([[minutesOfTheWeek(0, 8, 0), minutesOfTheWeek(0, 21, 0)],
-                                         [minutesOfTheWeek(1,8,0), minutesOfTheWeek(1,21,0)],
-                                         [minutesOfTheWeek(2,8,0), minutesOfTheWeek(2,21,0)],
-                                         [minutesOfTheWeek(3,8,0), minutesOfTheWeek(3,21,0)],
-                                         [minutesOfTheWeek(4,8,0), minutesOfTheWeek(4,21,0)]])
+dominio = cp_model.Domain.FromIntervals([[minutesOfTheWeek(0, 8, 0), minutesOfTheWeek(0, 8, 1)]])
 Gym = model.new_int_var_from_domain(dominio, "Ginasio")
 gym_var = model.new_optional_interval_var(Gym, 60, Gym + 60, bool_var, "Ginasio_Interval")
 intervals.append(gym_var)
@@ -53,11 +49,11 @@ Chess = model.new_int_var_from_domain(dominio, "Xadrez")
 xadrez_var = model.new_optional_interval_var(Chess, 30, Chess + 30, chess_var, "Xadrez_Interval")
 intervals.append(xadrez_var)
 
-model.maximize(sum(boolean_variables))
+pesos = [3, 2]
+
+model.maximize(sum(bool_var * peso for bool_var,peso in zip(boolean_variables, pesos)))
 
 model.add_no_overlap(intervals)
-
-
 
 solver = cp_model.CpSolver()
 status = solver.solve(model)
