@@ -38,14 +38,20 @@ def fixedTasks():
 boolean_variables = []
 bool_var = model.new_bool_var("Ginasio_Presente")
 boolean_variables.append(bool_var)
-ginasio_dominio = cp_model.Domain.FromIntervals([[minutesOfTheWeek(0,8,0), minutesOfTheWeek(0,21,0)],
-                                                [minutesOfTheWeek(1,8,0), minutesOfTheWeek(1,21,0)],
-                                                 [minutesOfTheWeek(2,8,0), minutesOfTheWeek(2,21,0)],
-                                                 [minutesOfTheWeek(3,8,0), minutesOfTheWeek(3,21,0)],
-                                                 [minutesOfTheWeek(4,8,0), minutesOfTheWeek(4,21,0)]])
-Gym = model.new_int_var_from_domain(ginasio_dominio, "Ginasio")
+dominio = cp_model.Domain.FromIntervals([[minutesOfTheWeek(0, 8, 0), minutesOfTheWeek(0, 21, 0)],
+                                         [minutesOfTheWeek(1,8,0), minutesOfTheWeek(1,21,0)],
+                                         [minutesOfTheWeek(2,8,0), minutesOfTheWeek(2,21,0)],
+                                         [minutesOfTheWeek(3,8,0), minutesOfTheWeek(3,21,0)],
+                                         [minutesOfTheWeek(4,8,0), minutesOfTheWeek(4,21,0)]])
+Gym = model.new_int_var_from_domain(dominio, "Ginasio")
 gym_var = model.new_optional_interval_var(Gym, 60, Gym + 60, bool_var, "Ginasio_Interval")
 intervals.append(gym_var)
+
+chess_var = model.new_bool_var("Xadrez_Presente")
+boolean_variables.append(chess_var)
+Chess = model.new_int_var_from_domain(dominio, "Xadrez")
+xadrez_var = model.new_optional_interval_var(Chess, 30, Chess + 30, chess_var, "Xadrez_Interval")
+intervals.append(xadrez_var)
 
 model.maximize(sum(boolean_variables))
 
@@ -58,5 +64,7 @@ status = solver.solve(model)
 
 print(solver.Value(Gym))
 print(solver.value(bool_var))
+print(solver.Value(Chess))
+print(solver.value(chess_var))
 
 print(solver.status_name(status))
