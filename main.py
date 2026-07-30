@@ -35,10 +35,12 @@ def fixedTasks():
         interval = model.new_interval_var(begin, duration,end, nome)
         intervals.append(interval)
 
+
+fixedTasks()
 boolean_variables = []
 bool_var = model.new_bool_var("Ginasio_Presente")
 boolean_variables.append(bool_var)
-dominio = cp_model.Domain.FromIntervals([[minutesOfTheWeek(0, 8, 0), minutesOfTheWeek(0, 8, 1)]])
+dominio = cp_model.Domain.FromIntervals([[minutesOfTheWeek(0, 8, 0), minutesOfTheWeek(0, 21, 0)]])
 Gym = model.new_int_var_from_domain(dominio, "Ginasio")
 gym_var = model.new_optional_interval_var(Gym, 60, Gym + 60, bool_var, "Ginasio_Interval")
 intervals.append(gym_var)
