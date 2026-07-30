@@ -38,6 +38,7 @@ def fixedTasks():
 
 fixedTasks()
 boolean_variables = []
+
 "Gym Optional Task"
 bool_var = model.new_bool_var("Ginasio_Presente")
 boolean_variables.append(bool_var)

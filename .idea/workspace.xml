@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="Fixing bug where there was not any fixed tasks and giving a valid interval for optimal tasks">
+    <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="Adding a new optional task with variable duration, add restriction to verify start + duration = end but the model chooses the minimum time possible">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
@@ -91,7 +91,15 @@
       <option name="project" value="LOCAL" />
       <updated>1785409504613</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Adding a new optional task with variable duration, add restriction to verify start + duration = end but the model chooses the minimum time possible">
+      <option name="closed" value="true" />
+      <created>1785411791721</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1785411791721</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -123,6 +131,7 @@
     <MESSAGE value="Merge with flexibleTasks" />
     <MESSAGE value="Adding weights to optimal tasks so that the solver prioritizes a tasks with higher priorities" />
     <MESSAGE value="Fixing bug where there was not any fixed tasks and giving a valid interval for optimal tasks" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixing bug where there was not any fixed tasks and giving a valid interval for optimal tasks" />
+    <MESSAGE value="Adding a new optional task with variable duration, add restriction to verify start + duration = end but the model chooses the minimum time possible" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adding a new optional task with variable duration, add restriction to verify start + duration = end but the model chooses the minimum time possible" />
   </component>
 </project>
