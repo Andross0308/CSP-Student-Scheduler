@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="Adding weights to optimal tasks so that the solver prioritizes a tasks with higher priorities">
+    <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="Fixing bug where there was not any fixed tasks and giving a valid interval for optimal tasks">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
@@ -26,16 +26,16 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python.main.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "VariableDuration"
   }
-}</component>
+}]]></component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -83,7 +83,15 @@
       <option name="project" value="LOCAL" />
       <updated>1785361336689</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Fixing bug where there was not any fixed tasks and giving a valid interval for optimal tasks">
+      <option name="closed" value="true" />
+      <created>1785409504613</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1785409504613</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -114,6 +122,7 @@
     <MESSAGE value="Initialize the CSP model and solver&#10;All tasks that are fixed are considered interval var because they have a specific begin, duration and end&#10;All optional tasks (in this case Gym) have a domain of possible intervals that can take, it's the solver job to find a opening to fill, this &quot;optional&quot; will be set according to a bool_var that defines if the task exists&#10;The solver doesn't have still an objective, so the solution it gives is the one where it doesn't put gym anywhere" />
     <MESSAGE value="Merge with flexibleTasks" />
     <MESSAGE value="Adding weights to optimal tasks so that the solver prioritizes a tasks with higher priorities" />
-    <option name="LAST_COMMIT_MESSAGE" value="Adding weights to optimal tasks so that the solver prioritizes a tasks with higher priorities" />
+    <MESSAGE value="Fixing bug where there was not any fixed tasks and giving a valid interval for optimal tasks" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixing bug where there was not any fixed tasks and giving a valid interval for optimal tasks" />
   </component>
 </project>
