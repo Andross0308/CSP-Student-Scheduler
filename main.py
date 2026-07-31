@@ -1,4 +1,3 @@
-
 from ortools.sat.python import cp_model
 
 def minutesOfTheWeek(day, hour, minutes):
@@ -14,7 +13,10 @@ def minutesOfTheWeek(day, hour, minutes):
 model = cp_model.CpModel()
 
 #All time intervals that the model receives
+tasks = {}
 intervals = []
+boolean_variables = []
+pesos = []
 
 def fixedTasks():
     tasks = [("Aula BD Pratica", ("Terça", "16:00"), ("Terça", "18:00"), minutesOfTheWeek(1, 16, 0),
@@ -36,10 +38,32 @@ def fixedTasks():
         intervals.append(interval)
 
 
+def createNewOptionalTask(name, domainStart, domainEnd, durationMin, durationMax, peso):
+    bool_var = model.new_bool_var(f"{name}_Present")
+    boolean_variables.append(bool_var)
+    startDomain = cp_model.Domain.FromIntervals([[domainStart, domainEnd]])
+    start = model.new_int_var_from_domain(startDomain, f"{name}_Start")
+    duration = model.new_int_var(durationMin, durationMax, f"{name}_Duration")
+    endDomain =  cp_model.Domain.FromIntervals([[domainStart + durationMin, domainEnd + durationMax]])
+    end = model.new_int_var_from_domain(endDomain, f"{name}_End")
+    model.add(start + duration == end)
+    var = model.new_optional_interval_var(start, duration, end, bool_var, f"{name}_Interval")
+    intervals.append(var)
+    pesos.append(peso)
+    tasks[name] = {"bool": bool_var, "start": start, "duration": duration, "end": end}
+
 fixedTasks()
-boolean_variables = []
+createNewOptionalTask("Gym", minutesOfTheWeek(0, 8, 0), minutesOfTheWeek(0, 21, 0)
+                      , 60, 60, 3)
+createNewOptionalTask("Chess", minutesOfTheWeek(0, 8, 0), minutesOfTheWeek(0, 21, 0)
+                      , 30, 30, 2)
+createNewOptionalTask("Study", minutesOfTheWeek(0, 10, 00), minutesOfTheWeek(0, 16, 00),
+                      30, 120, 5)
+createNewOptionalTask("Library", minutesOfTheWeek(0, 10, 00), minutesOfTheWeek(0, 16, 00),
+                      60, 180, 5)
 
 "Gym Optional Task"
+"""
 bool_var = model.new_bool_var("Ginasio_Presente")
 boolean_variables.append(bool_var)
 dominio = cp_model.Domain.FromIntervals([[minutesOfTheWeek(0, 8, 0), minutesOfTheWeek(0, 21, 0)]])
@@ -76,9 +100,7 @@ LibraryEndDuration = cp_model.Domain.FromIntervals([[minutesOfTheWeek(0, 11, 00)
 LibraryEnd = model.new_int_var_from_domain(LibraryEndDuration, "Estudar_Bibliotca_Fim")
 model.add(LibraryStart + LibraryDuration == LibraryEnd)
 Library_var = model.new_optional_interval_var(LibraryStart, LibraryDuration, LibraryEnd, library_var, "Estudar_Biblioteca")
-intervals.append(Library_var)
-
-pesos = [3, 2, 5, 5]
+intervals.append(Library_var)"""
 
 model.maximize(sum(bool_var * peso for bool_var,peso in zip(boolean_variables, pesos)))
 
@@ -87,15 +109,15 @@ model.add_no_overlap(intervals)
 solver = cp_model.CpSolver()
 status = solver.solve(model)
 
-print(solver.Value(Gym))
-print(solver.value(bool_var))
-print(solver.Value(Chess))
-print(solver.value(chess_var))
-print(solver.Value(Study))
-print(solver.value(study_var))
-print(solver.value(StudyDuration))
-print(solver.value(LibraryStart))
-print(solver.value(library_var))
-print(solver.value(LibraryDuration))
+print(solver.Value(tasks["Gym"]["start"]))
+print(solver.value(tasks["Gym"]["bool"]))
+print(solver.Value(tasks["Chess"]["start"]))
+print(solver.value(tasks["Chess"]["bool"]))
+print(solver.Value(tasks["Study"]["start"]))
+print(solver.value(tasks["Study"]["bool"]))
+print(solver.value(tasks["Study"]["duration"]))
+print(solver.value(tasks["Library"]["start"]))
+print(solver.value(tasks["Library"]["bool"]))
+print(solver.value(tasks["Library"]["duration"]))
 
 print(solver.status_name(status))
