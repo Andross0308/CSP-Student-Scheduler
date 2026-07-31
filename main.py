@@ -66,7 +66,19 @@ model.add(Study + StudyDuration == StudyEnd)
 Study_var = model.new_optional_interval_var(Study, StudyDuration, StudyEnd, study_var, "Estudar_Interval")
 intervals.append(Study_var)
 
-pesos = [3, 2, 5]
+"Study In The Library"
+library_var = model.new_bool_var("Library_Presente")
+boolean_variables.append(library_var)
+LibraryDomain = cp_model.Domain.FromIntervals([[minutesOfTheWeek(0, 10, 00), minutesOfTheWeek(0, 16, 00)]])
+LibraryStart = model.new_int_var_from_domain(LibraryDomain, "Estudar_Biblioteca")
+LibraryDuration = model.new_int_var(60, 180, "Estudar_Biblioteca")
+LibraryEndDuration = cp_model.Domain.FromIntervals([[minutesOfTheWeek(0, 11, 00), minutesOfTheWeek(0, 19, 00)]])
+LibraryEnd = model.new_int_var_from_domain(LibraryEndDuration, "Estudar_Bibliotca_Fim")
+model.add(LibraryStart + LibraryDuration == LibraryEnd)
+Library_var = model.new_optional_interval_var(LibraryStart, LibraryDuration, LibraryEnd, library_var, "Estudar_Biblioteca")
+intervals.append(Library_var)
+
+pesos = [3, 2, 5, 5]
 
 model.maximize(sum(bool_var * peso for bool_var,peso in zip(boolean_variables, pesos)))
 
@@ -81,5 +93,9 @@ print(solver.Value(Chess))
 print(solver.value(chess_var))
 print(solver.Value(Study))
 print(solver.value(study_var))
+print(solver.value(StudyDuration))
+print(solver.value(LibraryStart))
+print(solver.value(library_var))
+print(solver.value(LibraryDuration))
 
 print(solver.status_name(status))
