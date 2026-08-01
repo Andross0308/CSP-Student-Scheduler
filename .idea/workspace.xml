@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="Creation of a function that calls everything and is called in the beginning of the process">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-    </list>
+    <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="Now the solveSchedule verifies the status and only prints the information of the values if the status is OPTIMAL or FEASIBLE. Any other case prints error message" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -139,7 +136,15 @@
       <option name="project" value="LOCAL" />
       <updated>1785588452270</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Now the solveSchedule verifies the status and only prints the information of the values if the status is OPTIMAL or FEASIBLE. Any other case prints error message">
+      <option name="closed" value="true" />
+      <created>1785603140757</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1785603140757</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -177,6 +182,7 @@
     <MESSAGE value="Creating a data Structure with all optional tasks and simplify the signature of the createNewOptionalTask() function" />
     <MESSAGE value="Create solveSchedule() and showInformation() to clean the rest of the code, the solver and show information part" />
     <MESSAGE value="Creation of a function that calls everything and is called in the beginning of the process" />
-    <option name="LAST_COMMIT_MESSAGE" value="Creation of a function that calls everything and is called in the beginning of the process" />
+    <MESSAGE value="Now the solveSchedule verifies the status and only prints the information of the values if the status is OPTIMAL or FEASIBLE. Any other case prints error message" />
+    <option name="LAST_COMMIT_MESSAGE" value="Now the solveSchedule verifies the status and only prints the information of the values if the status is OPTIMAL or FEASIBLE. Any other case prints error message" />
   </component>
 </project>
