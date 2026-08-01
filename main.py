@@ -1,5 +1,7 @@
 from ortools.sat.python import cp_model
 
+model = cp_model.CpModel()
+
 def minutesOfTheWeek(day, hour, minutes):
     """
     Calculates the minutes since the start of the week to the given time
@@ -9,8 +11,6 @@ def minutesOfTheWeek(day, hour, minutes):
     :return: the time in minutes since the start of the week
     """
     return day * 1440 + hour * 60 + minutes
-
-model = cp_model.CpModel()
 
 #Filed Data Structures
 optionalTasks = {"Gym": { "domainStart": minutesOfTheWeek(0, 8, 0),
@@ -52,7 +52,6 @@ def fixedTasks():
         interval = model.new_interval_var(begin, duration,end, nome)
         intervals.append(interval)
 
-
 def createNewOptionalTask(Name, Data):
     bool_var = model.new_bool_var(f"{Name}_Present")
     boolean_variables.append(bool_var)
@@ -67,17 +66,26 @@ def createNewOptionalTask(Name, Data):
     pesos.append(Data["peso"])
     tasks[Name] = {"bool": bool_var, "start": start, "duration": duration, "end": end}
 
+def solveSchedule(model):
+    model.maximize(sum(bool_var * peso for bool_var, peso in zip(boolean_variables, pesos)))
+    model.add_no_overlap(intervals)
+    solver = cp_model.CpSolver()
+    status = solver.solve(model)
+    showInformation(solver, status)
+
+def showInformation(solver, status):
+    for name in optionalTasks.keys():
+        print(f"{name} starts at {solver.Value(tasks[name]["start"])}")
+        print(f"{name} starts at {solver.value(tasks[name]["bool"])}")
+        print(f"{name} starts at {solver.value(tasks[name]["duration"])}")
+    print(solver.status_name(status))
+
 fixedTasks()
 for name, data in optionalTasks.items():
     createNewOptionalTask(name, data)
 
-model.maximize(sum(bool_var * peso for bool_var,peso in zip(boolean_variables, pesos)))
-
-model.add_no_overlap(intervals)
-
-solver = cp_model.CpSolver()
-status = solver.solve(model)
-
+solveSchedule(model)
+"""
 print(solver.Value(tasks["Gym"]["start"]))
 print(solver.value(tasks["Gym"]["bool"]))
 print(solver.Value(tasks["Chess"]["start"]))
@@ -89,4 +97,4 @@ print(solver.value(tasks["Library"]["start"]))
 print(solver.value(tasks["Library"]["bool"]))
 print(solver.value(tasks["Library"]["duration"]))
 
-print(solver.status_name(status))
+print(solver.status_name(status))"""
