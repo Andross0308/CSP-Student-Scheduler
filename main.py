@@ -1,7 +1,5 @@
 from ortools.sat.python import cp_model
 
-model = cp_model.CpModel()
-
 def minutesOfTheWeek(day, hour, minutes):
     """
     Calculates the minutes since the start of the week to the given time
@@ -33,7 +31,7 @@ intervals = []
 boolean_variables = []
 pesos = []
 
-def fixedTasks():
+def fixedTasks(model):
     fixed_tasks = [("Aula BD Pratica", ("Terça", "16:00"), ("Terça", "18:00"), minutesOfTheWeek(1, 16, 0),
                     minutesOfTheWeek(1, 18, 0)),
                    ("Aula LAP Pratica", ("Terça", "14:00"), ("Terça", "16:00"), minutesOfTheWeek(1, 14, 0),
@@ -52,19 +50,19 @@ def fixedTasks():
         interval = model.new_interval_var(begin, duration,end, nome)
         intervals.append(interval)
 
-def createNewOptionalTask(Name, Data):
-    bool_var = model.new_bool_var(f"{Name}_Present")
+def createNewOptionalTask(name, data, model):
+    bool_var = model.new_bool_var(f"{name}_Present")
     boolean_variables.append(bool_var)
-    startDomain = cp_model.Domain.FromIntervals([[Data["domainStart"], Data["domainEnd"]]])
-    start = model.new_int_var_from_domain(startDomain, f"{Name}_Start")
-    duration = model.new_int_var(Data["durationMin"], Data["durationMax"], f"{Name}_Duration")
-    endDomain =  cp_model.Domain.FromIntervals([[Data["domainStart"] + Data["durationMin"], Data["domainEnd"] + Data["durationMax"]]])
-    end = model.new_int_var_from_domain(endDomain, f"{Name}_End")
+    startDomain = cp_model.Domain.FromIntervals([[data["domainStart"], data["domainEnd"]]])
+    start = model.new_int_var_from_domain(startDomain, f"{name}_Start")
+    duration = model.new_int_var(data["durationMin"], data["durationMax"], f"{name}_Duration")
+    endDomain =  cp_model.Domain.FromIntervals([[data["domainStart"] + data["durationMin"], data["domainEnd"] + data["durationMax"]]])
+    end = model.new_int_var_from_domain(endDomain, f"{name}_End")
     model.add(start + duration == end)
-    var = model.new_optional_interval_var(start, duration, end, bool_var, f"{Name}_Interval")
+    var = model.new_optional_interval_var(start, duration, end, bool_var, f"{name}_Interval")
     intervals.append(var)
-    pesos.append(Data["peso"])
-    tasks[Name] = {"bool": bool_var, "start": start, "duration": duration, "end": end}
+    pesos.append(data["peso"])
+    tasks[name] = {"bool": bool_var, "start": start, "duration": duration, "end": end}
 
 def solveSchedule(model):
     model.maximize(sum(bool_var * peso for bool_var, peso in zip(boolean_variables, pesos)))
@@ -76,25 +74,16 @@ def solveSchedule(model):
 def showInformation(solver, status):
     for name in optionalTasks.keys():
         print(f"{name} starts at {solver.Value(tasks[name]["start"])}")
-        print(f"{name} starts at {solver.value(tasks[name]["bool"])}")
-        print(f"{name} starts at {solver.value(tasks[name]["duration"])}")
+        print(f"{name} presence at {solver.value(tasks[name]["bool"])}")
+        print(f"{name} duration at {solver.value(tasks[name]["duration"])}")
     print(solver.status_name(status))
 
-fixedTasks()
-for name, data in optionalTasks.items():
-    createNewOptionalTask(name, data)
+def executeSchedule():
+    model = cp_model.CpModel()
+    fixedTasks(model)
+    for name, data in optionalTasks.items():
+        createNewOptionalTask(name, data, model)
+    solveSchedule(model)
 
-solveSchedule(model)
-"""
-print(solver.Value(tasks["Gym"]["start"]))
-print(solver.value(tasks["Gym"]["bool"]))
-print(solver.Value(tasks["Chess"]["start"]))
-print(solver.value(tasks["Chess"]["bool"]))
-print(solver.Value(tasks["Study"]["start"]))
-print(solver.value(tasks["Study"]["bool"]))
-print(solver.value(tasks["Study"]["duration"]))
-print(solver.value(tasks["Library"]["start"]))
-print(solver.value(tasks["Library"]["bool"]))
-print(solver.value(tasks["Library"]["duration"]))
-
-print(solver.status_name(status))"""
+if __name__ == "__main__":
+    executeSchedule()
