@@ -73,9 +73,9 @@ def solveSchedule(model):
 
 def showInformation(solver, status):
     for name in optionalTasks.keys():
-        print(f"{name} starts at {solver.Value(tasks[name]["start"])}")
-        print(f"{name} presence at {solver.value(tasks[name]["bool"])}")
-        print(f"{name} duration at {solver.value(tasks[name]["duration"])}")
+        print(f"{name} starts at {solver.Value(tasks[name]['start'])}")
+        print(f"{name} presence at {solver.value(tasks[name]['bool'])}")
+        print(f"{name} duration at {solver.value(tasks[name]['duration'])}")
     print(solver.status_name(status))
 
 def executeSchedule():
