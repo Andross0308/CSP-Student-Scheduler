@@ -36,8 +36,8 @@ def fixedTasks(model):
                     minutesOfTheWeek(1, 18, 0)),
                    ("Aula LAP Pratica", ("Terça", "14:00"), ("Terça", "16:00"), minutesOfTheWeek(1, 14, 0),
               minutesOfTheWeek(1, 16, 0)),
-                   ("Aula PED Pratica", ("Segunda", "10:00"), ("Segunda", "12:00"), minutesOfTheWeek(0, 10, 0),
-              minutesOfTheWeek(0, 12, 0)),
+                   ("Aula PED Pratica", ("Segunda", "10:00"), ("Segunda", "12:00"), minutesOfTheWeek(1, 10, 0),
+              minutesOfTheWeek(1, 12, 0)),
                    ("Aula TC Pratica", ("Segunda", "8:00"), ("Segunda", "10:00"), minutesOfTheWeek(0, 8, 0),
               minutesOfTheWeek(0, 10, 0)),
                    ("Aula BD Teorica", ("Quarta", "10:00"), ("Quarta", "11:30"), minutesOfTheWeek(2, 10, 0),
@@ -69,7 +69,10 @@ def solveSchedule(model):
     model.add_no_overlap(intervals)
     solver = cp_model.CpSolver()
     status = solver.solve(model)
-    showInformation(solver, status)
+    if status == cp_model.OPTIMAL or status == cp_model.FEASIBLE:
+            showInformation(solver, status)
+    else:
+        print("No solution found")
 
 def showInformation(solver, status):
     for name in optionalTasks.keys():
