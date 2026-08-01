@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="Commit to merge">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="Creation of a function that calls everything and is called in the beginning of the process">
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -33,7 +32,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "MoreRestrictions"
+    "git-widget-placeholder": "cleanCode"
   }
 }]]></component>
   <component name="SharedIndexes">
@@ -99,7 +98,47 @@
       <option name="project" value="LOCAL" />
       <updated>1785411791721</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Creating a new optional task of variable duration which is &quot;Study in the Library&quot;, serves to see if multiple variables what is the parameters of the variable &#10;In this example, the library has a 9h to 16h schedule, but I don't want to be there before 10h, so the start domain is [10h, 16h]">
+      <option name="closed" value="true" />
+      <created>1785497683346</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1785497683346</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Create function createNewOptionalTask() to create a new Optional Task and a dict that stores all information of every task">
+      <option name="closed" value="true" />
+      <created>1785515350740</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1785515350740</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Creating a data Structure with all optional tasks and simplify the signature of the createNewOptionalTask() function">
+      <option name="closed" value="true" />
+      <created>1785587243720</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1785587243720</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Create solveSchedule() and showInformation() to clean the rest of the code, the solver and show information part">
+      <option name="closed" value="true" />
+      <created>1785587982203</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1785587982203</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Creation of a function that calls everything and is called in the beginning of the process">
+      <option name="closed" value="true" />
+      <created>1785588452270</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1785588452270</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -132,6 +171,11 @@
     <MESSAGE value="Adding weights to optimal tasks so that the solver prioritizes a tasks with higher priorities" />
     <MESSAGE value="Fixing bug where there was not any fixed tasks and giving a valid interval for optimal tasks" />
     <MESSAGE value="Adding a new optional task with variable duration, add restriction to verify start + duration = end but the model chooses the minimum time possible" />
-    <option name="LAST_COMMIT_MESSAGE" value="Adding a new optional task with variable duration, add restriction to verify start + duration = end but the model chooses the minimum time possible" />
+    <MESSAGE value="Creating a new optional task of variable duration which is &quot;Study in the Library&quot;, serves to see if multiple variables what is the parameters of the variable &#10;In this example, the library has a 9h to 16h schedule, but I don't want to be there before 10h, so the start domain is [10h, 16h]" />
+    <MESSAGE value="Create function createNewOptionalTask() to create a new Optional Task and a dict that stores all information of every task" />
+    <MESSAGE value="Creating a data Structure with all optional tasks and simplify the signature of the createNewOptionalTask() function" />
+    <MESSAGE value="Create solveSchedule() and showInformation() to clean the rest of the code, the solver and show information part" />
+    <MESSAGE value="Creation of a function that calls everything and is called in the beginning of the process" />
+    <option name="LAST_COMMIT_MESSAGE" value="Creation of a function that calls everything and is called in the beginning of the process" />
   </component>
 </project>
