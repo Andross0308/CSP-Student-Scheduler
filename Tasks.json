@@ -1,0 +1,20 @@
+{
+  "fixedTasks": [
+    {"nome": "Aula BD Pratica",
+    "dia": "Terça", "HoraInicio": "16:00",
+    "HoraFim": "17:00"}
+  ],
+  "optionalTasks": [
+    {"nome": "Gym",
+      "domains": [
+        {"dia": "Segunda",
+          "HoraInicio": "8:00",
+          "HoraFim": "21:00"},
+        {"dia": "Terça",
+          "HoraInicio": "8:00",
+          "HoraFim": "21:00"}],
+      "durationMin": 60,
+      "durationMax": 60,
+      "peso": 3}
+  ]
+}

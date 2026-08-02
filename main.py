@@ -1,3 +1,4 @@
+import json
 from ortools.sat.python import cp_model
 
 def minutesOfTheWeek(day, hour, minutes):
@@ -83,6 +84,9 @@ def showInformation(solver, status):
 
 
 def executeSchedule():
+    with open("Tasks.json", encoding="utf-8") as f:
+        data = json.load(f)
+    print(data)
     model = cp_model.CpModel()
     fixedTasks(model)
     for name, data in optionalTasks.items():
