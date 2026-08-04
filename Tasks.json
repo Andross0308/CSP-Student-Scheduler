@@ -7,10 +7,10 @@
   "optionalTasks": [
     {"nome": "Gym",
       "domains": [
-        {"dia": "Segunda",
+        {"day": "Segunda",
           "HoraInicio": "8:00",
           "HoraFim": "21:00"},
-        {"dia": "Terça",
+        {"day": "Terça",
           "HoraInicio": "8:00",
           "HoraFim": "21:00"}],
       "durationMin": 60,
