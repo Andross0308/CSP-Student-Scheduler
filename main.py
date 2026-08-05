@@ -34,23 +34,14 @@ intervals = []
 boolean_variables = []
 pesos = []
 
-def fixedTasks(model):
-    fixed_tasks = [("Aula BD Pratica", ("Terça", "16:00"), ("Terça", "18:00"), minutesOfTheWeek(1, 16, 0),
-                    minutesOfTheWeek(1, 18, 0)),
-                   ("Aula LAP Pratica", ("Terça", "14:00"), ("Terça", "16:00"), minutesOfTheWeek(1, 14, 0),
-              minutesOfTheWeek(1, 16, 0)),
-                   ("Aula PED Pratica", ("Segunda", "10:00"), ("Segunda", "12:00"), minutesOfTheWeek(1, 10, 0),
-              minutesOfTheWeek(1, 12, 0)),
-                   ("Aula TC Pratica", ("Segunda", "8:00"), ("Segunda", "10:00"), minutesOfTheWeek(0, 8, 0),
-              minutesOfTheWeek(0, 10, 0)),
-                   ("Aula BD Teorica", ("Quarta", "10:00"), ("Quarta", "11:30"), minutesOfTheWeek(2, 10, 0),
-              minutesOfTheWeek(2, 11, 30)),
-                   ("Aula LAP Teorica", ("Quinta", "11:30"), ("Quinta", "13:00"), minutesOfTheWeek(3, 11, 30),
-              minutesOfTheWeek(3, 13, 0)),
-                   ]
-    for nome,_,_, begin, end in fixed_tasks:
-        duration = end - begin
-        interval = model.new_interval_var(begin, duration,end, nome)
+def fixedTasks(data, model):
+    for Task in data["fixedTasks"]:
+        day = Days_Int[Task["day"]]
+        StartHour, StartMinute = Task["HoraInicio"].split(":")
+        EndHour, EndMinute = Task["HoraFim"].split(":")
+        Begin = minutesOfTheWeek(day, int(StartHour), int(StartMinute))
+        End = minutesOfTheWeek(day, int(EndHour), int(EndMinute))
+        interval = model.new_interval_var(Begin, End - Begin, End, Task["name"])
         intervals.append(interval)
 
 def createNewOptionalTask(name, data, model):
@@ -92,7 +83,7 @@ def executeSchedule():
     with open("Tasks.json", encoding="utf-8") as f:
         data = json.load(f)
     model = cp_model.CpModel()
-    fixedTasks(model)
+    fixedTasks(data, model)
     Optional = data["optionalTasks"]
     for task in Optional:
         windows = []
@@ -104,7 +95,7 @@ def executeSchedule():
             End = minutesOfTheWeek(day, int(hourEnd), int(minuteEnd))
             windows.append([Start, End])
         task["intervals"] = windows
-        createNewOptionalTask(task["nome"], task, model)
+        createNewOptionalTask(task["name"], task, model)
 
     """
     for name, data in optionalTasks.items()

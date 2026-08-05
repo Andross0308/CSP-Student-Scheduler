@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="Creating a JSON to store all the tasks, divided by fixed and optimal tasks">
+    <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="Changing the createNewOptionalTask to receive the JSON instead of the hardcode Python dict">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Tasks.json" beforeDir="false" afterPath="$PROJECT_DIR$/Tasks.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
@@ -30,11 +30,11 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Python.main.executor": "Debug",
+    "Python.main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master"
+    "git-widget-placeholder": "JSON"
   }
 }]]></component>
   <component name="SharedIndexes">
@@ -164,7 +164,15 @@
       <option name="project" value="LOCAL" />
       <updated>1785671362460</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Changing the createNewOptionalTask to receive the JSON instead of the hardcode Python dict">
+      <option name="closed" value="true" />
+      <created>1785839642226</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1785839642226</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -205,6 +213,7 @@
     <MESSAGE value="Now the solveSchedule verifies the status and only prints the information of the values if the status is OPTIMAL or FEASIBLE. Any other case prints error message" />
     <MESSAGE value="Changing order of the information of the solver values and status" />
     <MESSAGE value="Creating a JSON to store all the tasks, divided by fixed and optimal tasks" />
-    <option name="LAST_COMMIT_MESSAGE" value="Creating a JSON to store all the tasks, divided by fixed and optimal tasks" />
+    <MESSAGE value="Changing the createNewOptionalTask to receive the JSON instead of the hardcode Python dict" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changing the createNewOptionalTask to receive the JSON instead of the hardcode Python dict" />
   </component>
 </project>

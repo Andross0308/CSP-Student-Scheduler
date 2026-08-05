@@ -1,11 +1,33 @@
 {
   "fixedTasks": [
-    {"nome": "Aula BD Pratica",
-    "dia": "Terça", "HoraInicio": "16:00",
-    "HoraFim": "17:00"}
+    {
+      "name": "Aula BD Pratica",
+    "day": "Terça", "HoraInicio": "16:00",
+    "HoraFim": "17:00"},
+    {
+      "name": "Aula LAP Pratica",
+    "day": "Terça", "HoraInicio": "14:00",
+    "HoraFim": "16:00"},
+    {
+      "name": "Aula PED Pratica",
+    "day": "Segunda", "HoraInicio": "10:00",
+    "HoraFim": "12:00"},
+    {
+      "name": "Aula TC Pratica",
+    "day": "Segunda", "HoraInicio": "8:00",
+    "HoraFim": "10:00"},
+    {
+      "name": "Aula BD Teorica",
+    "day": "Quarta", "HoraInicio": "10:00",
+    "HoraFim": "11:30"},
+    {
+      "name": "Aula LAP Teorica",
+    "day": "Quinta", "HoraInicio": "11:30",
+    "HoraFim": "13:00"}
   ],
   "optionalTasks": [
-    {"nome": "Gym",
+    {
+      "name": "Gym",
       "domains": [
         {"day": "Segunda",
           "HoraInicio": "8:00",
