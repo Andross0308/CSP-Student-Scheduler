@@ -37,6 +37,37 @@
           "HoraFim": "21:00"}],
       "durationMin": 60,
       "durationMax": 60,
-      "peso": 3}
+      "peso": 3},
+    {
+      "name": "Chess",
+      "domains": [
+        {"day": "Segunda",
+          "HoraInicio": "8:00",
+          "HoraFim": "21:00"},
+        {"day": "Terça",
+          "HoraInicio": "8:00",
+          "HoraFim": "21:00"}],
+      "durationMin": 30,
+      "durationMax": 30,
+      "peso": 2},
+    {
+      "name": "Study",
+      "domains": [
+        {"day": "Segunda",
+          "HoraInicio": "10:00",
+          "HoraFim": "16:00"}
+        ],
+      "durationMin": 30,
+      "durationMax": 120,
+      "peso": 5},
+    {
+      "name": "Library",
+      "domains": [
+        {"day": "Segunda",
+          "HoraInicio": "10:00",
+          "HoraFim": "16:00"}],
+      "durationMin": 30,
+      "durationMax": 120,
+      "peso": 5}
   ]
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="Changing the createNewOptionalTask to receive the JSON instead of the hardcode Python dict">
+    <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="Changing the fixedTasks to receive information from the JSON instead of the hardcoded Python dict">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Tasks.json" beforeDir="false" afterPath="$PROJECT_DIR$/Tasks.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
@@ -172,7 +172,15 @@
       <option name="project" value="LOCAL" />
       <updated>1785839642226</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Changing the fixedTasks to receive information from the JSON instead of the hardcoded Python dict">
+      <option name="closed" value="true" />
+      <created>1785924961852</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1785924961852</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -214,6 +222,7 @@
     <MESSAGE value="Changing order of the information of the solver values and status" />
     <MESSAGE value="Creating a JSON to store all the tasks, divided by fixed and optimal tasks" />
     <MESSAGE value="Changing the createNewOptionalTask to receive the JSON instead of the hardcode Python dict" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changing the createNewOptionalTask to receive the JSON instead of the hardcode Python dict" />
+    <MESSAGE value="Changing the fixedTasks to receive information from the JSON instead of the hardcoded Python dict" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changing the fixedTasks to receive information from the JSON instead of the hardcoded Python dict" />
   </component>
 </project>

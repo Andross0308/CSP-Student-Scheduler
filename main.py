@@ -59,7 +59,21 @@ def createNewOptionalTask(name, data, model):
     var = model.new_optional_interval_var(start, duration, end, bool_var, f"{name}_Interval")
     intervals.append(var)
     pesos.append(data["peso"])
-    tasks[name] = {"bool": bool_var, "start": start, "duration": duration, "end": w_end}
+    tasks[name] = {"bool": bool_var, "start": start, "duration": duration, "end": end}
+
+
+def addOptionalTasks(optionals, model):
+    for task in optionals:
+        windows = []
+        for domain in task["domains"]:
+            day = Days_Int[domain["day"]]
+            hourStart, minuteStart = domain["HoraInicio"].split(":")
+            hourEnd, minuteEnd = domain["HoraFim"].split(":")
+            Start = minutesOfTheWeek(day, int(hourStart), int(minuteStart))
+            End = minutesOfTheWeek(day, int(hourEnd), int(minuteEnd))
+            windows.append([Start, End])
+        task["intervals"] = windows
+        createNewOptionalTask(task["name"], task, model)
 
 def solveSchedule(model):
     model.maximize(sum(bool_var * peso for bool_var, peso in zip(boolean_variables, pesos)))
@@ -84,22 +98,7 @@ def executeSchedule():
         data = json.load(f)
     model = cp_model.CpModel()
     fixedTasks(data, model)
-    Optional = data["optionalTasks"]
-    for task in Optional:
-        windows = []
-        for domain in task["domains"]:
-            day = Days_Int[domain["day"]]
-            hourStart, minuteStart = domain["HoraInicio"].split(":")
-            hourEnd, minuteEnd = domain["HoraFim"].split(":")
-            Start = minutesOfTheWeek(day, int(hourStart), int(minuteStart))
-            End = minutesOfTheWeek(day, int(hourEnd), int(minuteEnd))
-            windows.append([Start, End])
-        task["intervals"] = windows
-        createNewOptionalTask(task["name"], task, model)
-
-    """
-    for name, data in optionalTasks.items()
-        createNewOptionalTask(name, data, model)"""
+    addOptionalTasks(data["optionalTasks"], model)
     solveSchedule(model)
 
 if __name__ == "__main__":
