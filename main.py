@@ -16,7 +16,7 @@ boolean_variables = []
 pesos = []
 
 def fixedTasks(data, model):
-    for task in data["fixedTasks"]:
+    for task in data:
         Begin = minutesOfTheWeek(task, "HoraInicio")
         End = minutesOfTheWeek(task, "HoraFim")
         interval = model.new_interval_var(Begin, End - Begin, End, task["name"])
@@ -72,7 +72,7 @@ def executeSchedule():
     with open("Tasks.json", encoding="utf-8") as f:
         data = json.load(f)
     model = cp_model.CpModel()
-    fixedTasks(data, model)
+    fixedTasks(data["fixedTasks"], model)
     addOptionalTasks(data["optionalTasks"], model)
     solveSchedule(model)
 
