@@ -1,30 +1,11 @@
 import json
 from ortools.sat.python import cp_model
 
-def minutesOfTheWeek(day, hour, minutes):
-    """
-    Calculates the minutes since the start of the week to the given time
-    :param day: Day of the week
-    :param hour: Hour of the given time
-    :param minutes: Minutes of the given time
-    :return: the time in minutes since the start of the week
-    """
-    return day * 1440 + hour * 60 + minutes
+def minutesOfTheWeek(task, time):
+    day = Days_Int[task["day"]]
+    hour, minute = task[time].split(":")
+    return day * 1440 + int(hour) * 60 + int(minute)
 
-#Filed Data Structures
-optionalTasks = {"Gym": { "domainStart": minutesOfTheWeek(0, 8, 0),
-                 "domainEnd": minutesOfTheWeek(0, 21, 0), "durationMin": 60,
-                 "durationMax": 60, "peso": 3},
-                 "Chess": {"domainStart": minutesOfTheWeek(0, 8, 0),
-                 "domainEnd": minutesOfTheWeek(0, 21, 0), "durationMin": 30,
-                 "durationMax": 30, "peso": 2},
-                 "Study": {"domainStart": minutesOfTheWeek(0, 10, 0),
-                 "domainEnd": minutesOfTheWeek(0, 16, 0), "durationMin": 30,
-                 "durationMax": 120, "peso": 5},
-                 "Library": {"domainStart": minutesOfTheWeek(0, 10, 0),
-                 "domainEnd": minutesOfTheWeek(0, 16, 0), "durationMin": 60,
-                 "durationMax": 180, "peso": 5}
-                 }
 
 Days_Int = {"Segunda": 0, "Terça": 1, "Quarta": 2, "Quinta": 3, "Sexta": 4, "Sabado": 5, "Domingo": 6}
 
@@ -35,13 +16,10 @@ boolean_variables = []
 pesos = []
 
 def fixedTasks(data, model):
-    for Task in data["fixedTasks"]:
-        day = Days_Int[Task["day"]]
-        StartHour, StartMinute = Task["HoraInicio"].split(":")
-        EndHour, EndMinute = Task["HoraFim"].split(":")
-        Begin = minutesOfTheWeek(day, int(StartHour), int(StartMinute))
-        End = minutesOfTheWeek(day, int(EndHour), int(EndMinute))
-        interval = model.new_interval_var(Begin, End - Begin, End, Task["name"])
+    for task in data["fixedTasks"]:
+        Begin = minutesOfTheWeek(task, "HoraInicio")
+        End = minutesOfTheWeek(task, "HoraFim")
+        interval = model.new_interval_var(Begin, End - Begin, End, task["name"])
         intervals.append(interval)
 
 def createNewOptionalTask(name, data, model):
@@ -66,11 +44,8 @@ def addOptionalTasks(optionals, model):
     for task in optionals:
         windows = []
         for domain in task["domains"]:
-            day = Days_Int[domain["day"]]
-            hourStart, minuteStart = domain["HoraInicio"].split(":")
-            hourEnd, minuteEnd = domain["HoraFim"].split(":")
-            Start = minutesOfTheWeek(day, int(hourStart), int(minuteStart))
-            End = minutesOfTheWeek(day, int(hourEnd), int(minuteEnd))
+            Start = minutesOfTheWeek(domain, "HoraInicio")
+            End = minutesOfTheWeek(domain, "HoraFim")
             windows.append([Start, End])
         task["intervals"] = windows
         createNewOptionalTask(task["name"], task, model)
@@ -87,7 +62,7 @@ def solveSchedule(model):
 
 def showInformation(solver, status):
     print(solver.status_name(status))
-    for name in optionalTasks.keys():
+    for name in tasks:
         print(f"{name} starts at {solver.Value(tasks[name]['start'])}")
         print(f"{name} presence at {solver.value(tasks[name]['bool'])}")
         print(f"{name} duration at {solver.value(tasks[name]['duration'])}")
