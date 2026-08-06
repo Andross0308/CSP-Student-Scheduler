@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="Change fixedTasks() to receive only the fixed Tasks instead of all the JSON">
+    <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="Crates a JSON file (output.json) that stores all the tasks, in the correct schedule, divided into name, start and end (all tasks present have bool == 1)">
+      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/output.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tasks.json" beforeDir="false" afterPath="$PROJECT_DIR$/Tasks.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,9 +34,16 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "JSON"
+    "git-widget-placeholder": "JSON",
+    "last_opened_file_path": "C:/Users/acosm/OneDrive/Ambiente de Trabalho/AI projects/StudentAgentBitch",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\acosm\OneDrive\Ambiente de Trabalho\AI projects\StudentAgentBitch" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -204,7 +211,15 @@
       <option name="project" value="LOCAL" />
       <updated>1785943374477</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Crates a JSON file (output.json) that stores all the tasks, in the correct schedule, divided into name, start and end (all tasks present have bool == 1)">
+      <option name="closed" value="true" />
+      <created>1786013981183</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1786013981183</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -250,6 +265,7 @@
     <MESSAGE value="Creating function to create optional Tasks from the JSON" />
     <MESSAGE value="Changing minutesOfTheWeek function to receive the full task and calculate the minutes since the beginning of the week" />
     <MESSAGE value="Change fixedTasks() to receive only the fixed Tasks instead of all the JSON" />
-    <option name="LAST_COMMIT_MESSAGE" value="Change fixedTasks() to receive only the fixed Tasks instead of all the JSON" />
+    <MESSAGE value="Crates a JSON file (output.json) that stores all the tasks, in the correct schedule, divided into name, start and end (all tasks present have bool == 1)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Crates a JSON file (output.json) that stores all the tasks, in the correct schedule, divided into name, start and end (all tasks present have bool == 1)" />
   </component>
 </project>
