@@ -3,7 +3,7 @@ import json
 from ortools.sat.python import cp_model
 
 Days_Int = {"Segunda": 0, "Terça": 1, "Quarta": 2, "Quinta": 3, "Sexta": 4, "Sabado": 5, "Domingo": 6}
-Int_Days = {value: key for key, value in Days_Int.items()}
+Int_Days = {value: key for  key, value in Days_Int.items()}
 
 #Empty Data Structures
 tasks = {}

@@ -1,3 +1,4 @@
+
 # What the program does 
 
 This project uses a CSP model to create a schedule for a week, given a certain number of tasks, that could be fixed and 

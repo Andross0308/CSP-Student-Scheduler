@@ -27,7 +27,7 @@
   ],
   "optionalTasks": [
     {
-      "name": "Gym",
+      "name":"Gym",
       "domains": [
         {"day": "Segunda",
           "HoraInicio": "8:00",
