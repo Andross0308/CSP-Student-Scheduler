@@ -1,32 +1,9 @@
 import json
+
 from ortools.sat.python import cp_model
 
-def minutesOfTheWeek(day, hour, minutes):
-    """
-    Calculates the minutes since the start of the week to the given time
-    :param day: Day of the week
-    :param hour: Hour of the given time
-    :param minutes: Minutes of the given time
-    :return: the time in minutes since the start of the week
-    """
-    return day * 1440 + hour * 60 + minutes
-
-#Filed Data Structures
-optionalTasks = {"Gym": { "domainStart": minutesOfTheWeek(0, 8, 0),
-                 "domainEnd": minutesOfTheWeek(0, 21, 0), "durationMin": 60,
-                 "durationMax": 60, "peso": 3},
-                 "Chess": {"domainStart": minutesOfTheWeek(0, 8, 0),
-                 "domainEnd": minutesOfTheWeek(0, 21, 0), "durationMin": 30,
-                 "durationMax": 30, "peso": 2},
-                 "Study": {"domainStart": minutesOfTheWeek(0, 10, 0),
-                 "domainEnd": minutesOfTheWeek(0, 16, 0), "durationMin": 30,
-                 "durationMax": 120, "peso": 5},
-                 "Library": {"domainStart": minutesOfTheWeek(0, 10, 0),
-                 "domainEnd": minutesOfTheWeek(0, 16, 0), "durationMin": 60,
-                 "durationMax": 180, "peso": 5}
-                 }
-
 Days_Int = {"Segunda": 0, "Terça": 1, "Quarta": 2, "Quinta": 3, "Sexta": 4, "Sabado": 5, "Domingo": 6}
+Int_Days = {value: key for key, value in Days_Int.items()}
 
 #Empty Data Structures
 tasks = {}
@@ -34,23 +11,27 @@ intervals = []
 boolean_variables = []
 pesos = []
 
-def fixedTasks(model):
-    fixed_tasks = [("Aula BD Pratica", ("Terça", "16:00"), ("Terça", "18:00"), minutesOfTheWeek(1, 16, 0),
-                    minutesOfTheWeek(1, 18, 0)),
-                   ("Aula LAP Pratica", ("Terça", "14:00"), ("Terça", "16:00"), minutesOfTheWeek(1, 14, 0),
-              minutesOfTheWeek(1, 16, 0)),
-                   ("Aula PED Pratica", ("Segunda", "10:00"), ("Segunda", "12:00"), minutesOfTheWeek(1, 10, 0),
-              minutesOfTheWeek(1, 12, 0)),
-                   ("Aula TC Pratica", ("Segunda", "8:00"), ("Segunda", "10:00"), minutesOfTheWeek(0, 8, 0),
-              minutesOfTheWeek(0, 10, 0)),
-                   ("Aula BD Teorica", ("Quarta", "10:00"), ("Quarta", "11:30"), minutesOfTheWeek(2, 10, 0),
-              minutesOfTheWeek(2, 11, 30)),
-                   ("Aula LAP Teorica", ("Quinta", "11:30"), ("Quinta", "13:00"), minutesOfTheWeek(3, 11, 30),
-              minutesOfTheWeek(3, 13, 0)),
-                   ]
-    for nome,_,_, begin, end in fixed_tasks:
-        duration = end - begin
-        interval = model.new_interval_var(begin, duration,end, nome)
+def minutesOfTheWeek(task, time):
+    day = Days_Int[task["day"]]
+    hour, minute = task[time].split(":")
+    return day * 1440 + int(hour) * 60 + int(minute)
+
+def minutesIntoSchedule(minutes):
+    day = Int_Days[minutes // 1440]
+    hour = (minutes % 1440) // 60
+    minute = (minutes % 1440) % 60
+    return {"day": day, "hour": hour, "minute": minute}
+
+def fixedTasks(data, model):
+    for task in data:
+        begin = minutesOfTheWeek(task, "HoraInicio")
+        end = minutesOfTheWeek(task, "HoraFim")
+        begin_cons = model.new_constant(begin)
+        end_cons = model.new_constant(end)
+        duration = model.new_constant(end - begin)
+        interval = model.new_interval_var(begin_cons, duration, end_cons, task["name"])
+        tasks[task["name"]] = {"bool": model.new_constant(1), "start": begin_cons,
+                               "duration": duration, "end": end_cons}
         intervals.append(interval)
 
 def createNewOptionalTask(name, data, model):
@@ -68,7 +49,17 @@ def createNewOptionalTask(name, data, model):
     var = model.new_optional_interval_var(start, duration, end, bool_var, f"{name}_Interval")
     intervals.append(var)
     pesos.append(data["peso"])
-    tasks[name] = {"bool": bool_var, "start": start, "duration": duration, "end": w_end}
+    tasks[name] = {"bool": bool_var, "start": start, "duration": duration, "end": end}
+
+def addOptionalTasks(optionals, model):
+    for task in optionals:
+        windows = []
+        for domain in task["domains"]:
+            Start = minutesOfTheWeek(domain, "HoraInicio")
+            End = minutesOfTheWeek(domain, "HoraFim")
+            windows.append([Start, End])
+        task["intervals"] = windows
+        createNewOptionalTask(task["name"], task, model)
 
 def solveSchedule(model):
     model.maximize(sum(bool_var * peso for bool_var, peso in zip(boolean_variables, pesos)))
@@ -76,39 +67,34 @@ def solveSchedule(model):
     solver = cp_model.CpSolver()
     status = solver.solve(model)
     if status == cp_model.OPTIMAL or status == cp_model.FEASIBLE:
-            showInformation(solver, status)
+        generateOutput(solver)
     else:
         print("No solution found")
 
 def showInformation(solver, status):
     print(solver.status_name(status))
-    for name in optionalTasks.keys():
+    for name in tasks:
         print(f"{name} starts at {solver.Value(tasks[name]['start'])}")
         print(f"{name} presence at {solver.value(tasks[name]['bool'])}")
         print(f"{name} duration at {solver.value(tasks[name]['duration'])}")
 
 
+def generateOutput(solver):
+    schedule = []
+    for task in tasks:
+        if solver.value(tasks[task]["bool"]) == 1:
+            begin = minutesIntoSchedule(solver.value(tasks[task]["start"]))
+            end = minutesIntoSchedule(solver.value(tasks[task]["end"]))
+            schedule.append({"name": task, "start": begin, "end": end})
+    with open("output.json", mode="w", encoding="utf-8") as f:
+        json.dump(schedule, f, ensure_ascii=False)
+
 def executeSchedule():
     with open("Tasks.json", encoding="utf-8") as f:
         data = json.load(f)
     model = cp_model.CpModel()
-    fixedTasks(model)
-    Optional = data["optionalTasks"]
-    for task in Optional:
-        windows = []
-        for domain in task["domains"]:
-            day = Days_Int[domain["day"]]
-            hourStart, minuteStart = domain["HoraInicio"].split(":")
-            hourEnd, minuteEnd = domain["HoraFim"].split(":")
-            Start = minutesOfTheWeek(day, int(hourStart), int(minuteStart))
-            End = minutesOfTheWeek(day, int(hourEnd), int(minuteEnd))
-            windows.append([Start, End])
-        task["intervals"] = windows
-        createNewOptionalTask(task["nome"], task, model)
-
-    """
-    for name, data in optionalTasks.items()
-        createNewOptionalTask(name, data, model)"""
+    fixedTasks(data["fixedTasks"], model)
+    addOptionalTasks(data["optionalTasks"], model)
     solveSchedule(model)
 
 if __name__ == "__main__":
