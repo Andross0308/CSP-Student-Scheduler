@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="Crates a JSON file (output.json) that stores all the tasks, in the correct schedule, divided into name, start and end (all tasks present have bool == 1)">
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+    <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="Creating README.md and removing showInformation function">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -219,7 +218,15 @@
       <option name="project" value="LOCAL" />
       <updated>1786013981183</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="Creating README.md and removing showInformation function">
+      <option name="closed" value="true" />
+      <created>1786028219809</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1786028219809</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -266,6 +273,7 @@
     <MESSAGE value="Changing minutesOfTheWeek function to receive the full task and calculate the minutes since the beginning of the week" />
     <MESSAGE value="Change fixedTasks() to receive only the fixed Tasks instead of all the JSON" />
     <MESSAGE value="Crates a JSON file (output.json) that stores all the tasks, in the correct schedule, divided into name, start and end (all tasks present have bool == 1)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Crates a JSON file (output.json) that stores all the tasks, in the correct schedule, divided into name, start and end (all tasks present have bool == 1)" />
+    <MESSAGE value="Creating README.md and removing showInformation function" />
+    <option name="LAST_COMMIT_MESSAGE" value="Creating README.md and removing showInformation function" />
   </component>
 </project>
