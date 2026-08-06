@@ -71,14 +71,6 @@ def solveSchedule(model):
     else:
         print("No solution found")
 
-def showInformation(solver, status):
-    print(solver.status_name(status))
-    for name in tasks:
-        print(f"{name} starts at {solver.Value(tasks[name]['start'])}")
-        print(f"{name} presence at {solver.value(tasks[name]['bool'])}")
-        print(f"{name} duration at {solver.value(tasks[name]['duration'])}")
-
-
 def generateOutput(solver):
     schedule = []
     for task in tasks:

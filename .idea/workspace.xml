@@ -3,8 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="Crates a JSON file (output.json) that stores all the tasks, in the correct schedule, divided into name, start and end (all tasks present have bool == 1)">
       <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/output.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,7 +34,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "JSON",
+    "git-widget-placeholder": "master",
     "last_opened_file_path": "C:/Users/acosm/OneDrive/Ambiente de Trabalho/AI projects/StudentAgentBitch",
     "settings.editor.selected.configurable": "preferences.pluginManager"
   }
