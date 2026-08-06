@@ -1,13 +1,9 @@
 import json
+
 from ortools.sat.python import cp_model
 
-def minutesOfTheWeek(task, time):
-    day = Days_Int[task["day"]]
-    hour, minute = task[time].split(":")
-    return day * 1440 + int(hour) * 60 + int(minute)
-
-
 Days_Int = {"Segunda": 0, "Terça": 1, "Quarta": 2, "Quinta": 3, "Sexta": 4, "Sabado": 5, "Domingo": 6}
+Int_Days = {value: key for key, value in Days_Int.items()}
 
 #Empty Data Structures
 tasks = {}
@@ -15,11 +11,27 @@ intervals = []
 boolean_variables = []
 pesos = []
 
+def minutesOfTheWeek(task, time):
+    day = Days_Int[task["day"]]
+    hour, minute = task[time].split(":")
+    return day * 1440 + int(hour) * 60 + int(minute)
+
+def minutesIntoSchedule(minutes):
+    day = Int_Days[minutes // 1440]
+    hour = (minutes % 1440) // 60
+    minute = (minutes % 1440) % 60
+    return {"day": day, "hour": hour, "minute": minute}
+
 def fixedTasks(data, model):
     for task in data:
-        Begin = minutesOfTheWeek(task, "HoraInicio")
-        End = minutesOfTheWeek(task, "HoraFim")
-        interval = model.new_interval_var(Begin, End - Begin, End, task["name"])
+        begin = minutesOfTheWeek(task, "HoraInicio")
+        end = minutesOfTheWeek(task, "HoraFim")
+        begin_cons = model.new_constant(begin)
+        end_cons = model.new_constant(end)
+        duration = model.new_constant(end - begin)
+        interval = model.new_interval_var(begin_cons, duration, end_cons, task["name"])
+        tasks[task["name"]] = {"bool": model.new_constant(1), "start": begin_cons,
+                               "duration": duration, "end": end_cons}
         intervals.append(interval)
 
 def createNewOptionalTask(name, data, model):
@@ -39,7 +51,6 @@ def createNewOptionalTask(name, data, model):
     pesos.append(data["peso"])
     tasks[name] = {"bool": bool_var, "start": start, "duration": duration, "end": end}
 
-
 def addOptionalTasks(optionals, model):
     for task in optionals:
         windows = []
@@ -56,7 +67,7 @@ def solveSchedule(model):
     solver = cp_model.CpSolver()
     status = solver.solve(model)
     if status == cp_model.OPTIMAL or status == cp_model.FEASIBLE:
-            showInformation(solver, status)
+        generateOutput(solver)
     else:
         print("No solution found")
 
@@ -67,6 +78,16 @@ def showInformation(solver, status):
         print(f"{name} presence at {solver.value(tasks[name]['bool'])}")
         print(f"{name} duration at {solver.value(tasks[name]['duration'])}")
 
+
+def generateOutput(solver):
+    schedule = []
+    for task in tasks:
+        if solver.value(tasks[task]["bool"]) == 1:
+            begin = minutesIntoSchedule(solver.value(tasks[task]["start"]))
+            end = minutesIntoSchedule(solver.value(tasks[task]["end"]))
+            schedule.append({"name": task, "start": begin, "end": end})
+    with open("output.json", mode="w", encoding="utf-8") as f:
+        json.dump(schedule, f, ensure_ascii=False)
 
 def executeSchedule():
     with open("Tasks.json", encoding="utf-8") as f:
