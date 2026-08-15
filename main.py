@@ -1,4 +1,5 @@
 import json
+import datetime as dt
 
 from ortools.sat.python import cp_model
 
@@ -16,16 +17,25 @@ def minutesOfTheWeek(task, time):
     hour, minute = task[time].split(":")
     return day * 1440 + int(hour) * 60 + int(minute)
 
+def dateToMinutes(task, timeField, referenceTime):
+    todayDay = referenceTime.weekday()
+    targetDay = Days_Int[task["day"]]
+    days = (targetDay - todayDay) % 7
+    hour, minute = task[timeField].split(":")
+    taskDate = (referenceTime + dt.timedelta(days=days)).replace(hour=int(hour), minute=int(minute))
+    taskMinutes = int((taskDate - referenceTime).total_seconds() // 60)
+    return taskMinutes
+
 def minutesIntoSchedule(minutes):
     day = Int_Days[minutes // 1440]
     hour = (minutes % 1440) // 60
     minute = (minutes % 1440) % 60
     return {"day": day, "hour": hour, "minute": minute}
 
-def fixedTasks(data, model):
+def fixedTasks(data, model, referenceTime):
     for task in data:
-        begin = minutesOfTheWeek(task, "HoraInicio")
-        end = minutesOfTheWeek(task, "HoraFim")
+        begin = dateToMinutes(task, "HoraInicio", referenceTime)
+        end = dateToMinutes(task, "HoraFim", referenceTime)
         begin_cons = model.new_constant(begin)
         end_cons = model.new_constant(end)
         duration = model.new_constant(end - begin)
@@ -34,7 +44,7 @@ def fixedTasks(data, model):
                                "duration": duration, "end": end_cons}
         intervals.append(interval)
 
-def createNewOptionalTask(name, data, model):
+def createNewOptionalTask(name, data, model, referenceTime):
     bool_var = model.new_bool_var(f"{name}_Present")
     boolean_variables.append(bool_var)
     startDomain = cp_model.Domain.FromIntervals(data["intervals"])
@@ -51,7 +61,7 @@ def createNewOptionalTask(name, data, model):
     pesos.append(data["peso"])
     tasks[name] = {"bool": bool_var, "start": start, "duration": duration, "end": end}
 
-def addOptionalTasks(optionals, model):
+def addOptionalTasks(optionals, model, referenceTime):
     for task in optionals:
         windows = []
         for domain in task["domains"]:
@@ -59,7 +69,7 @@ def addOptionalTasks(optionals, model):
             End = minutesOfTheWeek(domain, "HoraFim")
             windows.append([Start, End])
         task["intervals"] = windows
-        createNewOptionalTask(task["name"], task, model)
+        createNewOptionalTask(task["name"], task, model, referenceTime)
 
 def solveSchedule(model):
     model.maximize(sum(bool_var * peso for bool_var, peso in zip(boolean_variables, pesos)))
@@ -85,8 +95,9 @@ def executeSchedule():
     with open("Tasks.json", encoding="utf-8") as f:
         data = json.load(f)
     model = cp_model.CpModel()
-    fixedTasks(data["fixedTasks"], model)
-    addOptionalTasks(data["optionalTasks"], model)
+    referenceTime = dt.datetime.now()
+    fixedTasks(data["fixedTasks"], model, referenceTime)
+    addOptionalTasks(data["optionalTasks"], model, referenceTime)
     solveSchedule(model)
 
 if __name__ == "__main__":
