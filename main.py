@@ -12,11 +12,6 @@ intervals = []
 boolean_variables = []
 pesos = []
 
-def minutesOfTheWeek(task, time):
-    day = Days_Int[task["day"]]
-    hour, minute = task[time].split(":")
-    return day * 1440 + int(hour) * 60 + int(minute)
-
 def dateToMinutes(task, timeField, referenceTime):
     todayDay = referenceTime.weekday()
     targetDay = Days_Int[task["day"]]
@@ -26,11 +21,9 @@ def dateToMinutes(task, timeField, referenceTime):
     taskMinutes = int((taskDate - referenceTime).total_seconds() // 60)
     return taskMinutes
 
-def minutesIntoSchedule(minutes):
-    day = Int_Days[minutes // 1440]
-    hour = (minutes % 1440) // 60
-    minute = (minutes % 1440) % 60
-    return {"day": day, "hour": hour, "minute": minute}
+def minutesIntoSchedule(minutes, referenceTime):
+    date = referenceTime + dt.timedelta(minutes=minutes)
+    return {"date": date.isoformat(timespec="seconds"), "day_week": Int_Days[date.weekday()]}
 
 def fixedTasks(data, model, referenceTime):
     for task in data:
@@ -69,24 +62,24 @@ def addOptionalTasks(optionals, model, referenceTime):
             End = dateToMinutes(domain, "HoraFim", referenceTime)
             windows.append([Start, End])
         task["intervals"] = windows
-        createNewOptionalTask(task["name"], task, model, referenceTime)
+        createNewOptionalTask(task["name"], task, model)
 
-def solveSchedule(model):
+def solveSchedule(model, referenceTime):
     model.maximize(sum(bool_var * peso for bool_var, peso in zip(boolean_variables, pesos)))
     model.add_no_overlap(intervals)
     solver = cp_model.CpSolver()
     status = solver.solve(model)
     if status == cp_model.OPTIMAL or status == cp_model.FEASIBLE:
-        generateOutput(solver)
+        generateOutput(solver, referenceTime)
     else:
         print("No solution found")
 
-def generateOutput(solver):
+def generateOutput(solver, referenceTime):
     schedule = []
     for task in tasks:
         if solver.value(tasks[task]["bool"]) == 1:
-            begin = minutesIntoSchedule(solver.value(tasks[task]["start"]))
-            end = minutesIntoSchedule(solver.value(tasks[task]["end"]))
+            begin = minutesIntoSchedule(solver.value(tasks[task]["start"]), referenceTime)
+            end = minutesIntoSchedule(solver.value(tasks[task]["end"]), referenceTime)
             schedule.append({"name": task, "start": begin, "end": end})
     with open("output.json", mode="w", encoding="utf-8") as f:
         json.dump(schedule, f, ensure_ascii=False, indent=3)
@@ -95,10 +88,10 @@ def executeSchedule():
     with open("Tasks.json", encoding="utf-8") as f:
         data = json.load(f)
     model = cp_model.CpModel()
-    referenceTime = dt.datetime.now()
+    referenceTime = dt.datetime.now().replace(second=0)
     fixedTasks(data["fixedTasks"], model, referenceTime)
     addOptionalTasks(data["optionalTasks"], model, referenceTime)
-    solveSchedule(model)
+    solveSchedule(model, referenceTime)
 
 if __name__ == "__main__":
     executeSchedule()
