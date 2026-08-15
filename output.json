@@ -1,1 +1,132 @@
-[{"name": "Aula BD Pratica", "start": {"day": "Quarta", "hour": 23, "minute": 40}, "end": {"day": "Quinta", "hour": 1, "minute": 40}}, {"name": "Aula LAP Pratica", "start": {"day": "Quarta", "hour": 21, "minute": 40}, "end": {"day": "Quarta", "hour": 23, "minute": 40}}, {"name": "Aula PED Pratica", "start": {"day": "Terça", "hour": 17, "minute": 40}, "end": {"day": "Terça", "hour": 19, "minute": 40}}, {"name": "Aula TC Pratica", "start": {"day": "Terça", "hour": 15, "minute": 40}, "end": {"day": "Terça", "hour": 17, "minute": 40}}, {"name": "Aula BD Teorica", "start": {"day": "Quinta", "hour": 17, "minute": 40}, "end": {"day": "Quinta", "hour": 19, "minute": 10}}, {"name": "Aula LAP Teorica", "start": {"day": "Sexta", "hour": 19, "minute": 10}, "end": {"day": "Sexta", "hour": 20, "minute": 40}}, {"name": "Gym", "start": {"day": "Segunda", "hour": 8, "minute": 30}, "end": {"day": "Segunda", "hour": 9, "minute": 30}}, {"name": "Chess", "start": {"day": "Segunda", "hour": 8, "minute": 0}, "end": {"day": "Segunda", "hour": 8, "minute": 30}}, {"name": "Study", "start": {"day": "Segunda", "hour": 10, "minute": 0}, "end": {"day": "Segunda", "hour": 10, "minute": 30}}, {"name": "Library", "start": {"day": "Segunda", "hour": 10, "minute": 30}, "end": {"day": "Segunda", "hour": 11, "minute": 0}}]
+[
+   {
+      "name": "Aula BD Pratica",
+      "start": {
+         "day": "Quarta",
+         "hour": 23,
+         "minute": 22
+      },
+      "end": {
+         "day": "Quinta",
+         "hour": 1,
+         "minute": 22
+      }
+   },
+   {
+      "name": "Aula LAP Pratica",
+      "start": {
+         "day": "Quarta",
+         "hour": 21,
+         "minute": 22
+      },
+      "end": {
+         "day": "Quarta",
+         "hour": 23,
+         "minute": 22
+      }
+   },
+   {
+      "name": "Aula PED Pratica",
+      "start": {
+         "day": "Terça",
+         "hour": 17,
+         "minute": 22
+      },
+      "end": {
+         "day": "Terça",
+         "hour": 19,
+         "minute": 22
+      }
+   },
+   {
+      "name": "Aula TC Pratica",
+      "start": {
+         "day": "Terça",
+         "hour": 15,
+         "minute": 22
+      },
+      "end": {
+         "day": "Terça",
+         "hour": 17,
+         "minute": 22
+      }
+   },
+   {
+      "name": "Aula BD Teorica",
+      "start": {
+         "day": "Quinta",
+         "hour": 17,
+         "minute": 22
+      },
+      "end": {
+         "day": "Quinta",
+         "hour": 18,
+         "minute": 52
+      }
+   },
+   {
+      "name": "Aula LAP Teorica",
+      "start": {
+         "day": "Sexta",
+         "hour": 18,
+         "minute": 52
+      },
+      "end": {
+         "day": "Sexta",
+         "hour": 20,
+         "minute": 22
+      }
+   },
+   {
+      "name": "Gym",
+      "start": {
+         "day": "Terça",
+         "hour": 20,
+         "minute": 52
+      },
+      "end": {
+         "day": "Terça",
+         "hour": 21,
+         "minute": 52
+      }
+   },
+   {
+      "name": "Chess",
+      "start": {
+         "day": "Terça",
+         "hour": 19,
+         "minute": 22
+      },
+      "end": {
+         "day": "Terça",
+         "hour": 19,
+         "minute": 52
+      }
+   },
+   {
+      "name": "Study",
+      "start": {
+         "day": "Terça",
+         "hour": 19,
+         "minute": 52
+      },
+      "end": {
+         "day": "Terça",
+         "hour": 20,
+         "minute": 22
+      }
+   },
+   {
+      "name": "Library",
+      "start": {
+         "day": "Terça",
+         "hour": 20,
+         "minute": 22
+      },
+      "end": {
+         "day": "Terça",
+         "hour": 20,
+         "minute": 52
+      }
+   }
+]

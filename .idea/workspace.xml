@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="Pushing into GitHub">
+    <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="Change fixedTasks to calculate minutes of the week sice the current time and defining when it will take place">
       <change afterPath="$PROJECT_DIR$/credentials.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
@@ -278,7 +278,15 @@
       <option name="project" value="LOCAL" />
       <updated>1786033671085</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Change fixedTasks to calculate minutes of the week sice the current time and defining when it will take place">
+      <option name="closed" value="true" />
+      <created>1786807854529</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1786807854529</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -338,6 +346,7 @@
     <MESSAGE value="Creating README.md and removing showInformation function" />
     <MESSAGE value="Updating README.md" />
     <MESSAGE value="Pushing into GitHub" />
-    <option name="LAST_COMMIT_MESSAGE" value="Pushing into GitHub" />
+    <MESSAGE value="Change fixedTasks to calculate minutes of the week sice the current time and defining when it will take place" />
+    <option name="LAST_COMMIT_MESSAGE" value="Change fixedTasks to calculate minutes of the week sice the current time and defining when it will take place" />
   </component>
 </project>

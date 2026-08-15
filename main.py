@@ -44,7 +44,7 @@ def fixedTasks(data, model, referenceTime):
                                "duration": duration, "end": end_cons}
         intervals.append(interval)
 
-def createNewOptionalTask(name, data, model, referenceTime):
+def createNewOptionalTask(name, data, model):
     bool_var = model.new_bool_var(f"{name}_Present")
     boolean_variables.append(bool_var)
     startDomain = cp_model.Domain.FromIntervals(data["intervals"])
@@ -65,8 +65,8 @@ def addOptionalTasks(optionals, model, referenceTime):
     for task in optionals:
         windows = []
         for domain in task["domains"]:
-            Start = minutesOfTheWeek(domain, "HoraInicio")
-            End = minutesOfTheWeek(domain, "HoraFim")
+            Start = dateToMinutes(domain,"HoraInicio", referenceTime)
+            End = dateToMinutes(domain, "HoraFim", referenceTime)
             windows.append([Start, End])
         task["intervals"] = windows
         createNewOptionalTask(task["name"], task, model, referenceTime)
@@ -89,7 +89,7 @@ def generateOutput(solver):
             end = minutesIntoSchedule(solver.value(tasks[task]["end"]))
             schedule.append({"name": task, "start": begin, "end": end})
     with open("output.json", mode="w", encoding="utf-8") as f:
-        json.dump(schedule, f, ensure_ascii=False)
+        json.dump(schedule, f, ensure_ascii=False, indent=3)
 
 def executeSchedule():
     with open("Tasks.json", encoding="utf-8") as f:
