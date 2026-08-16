@@ -1,5 +1,16 @@
 [
    {
+      "name": "Teste",
+      "start": {
+         "date": "2026-08-16T14:59:00",
+         "day_week": "Domingo"
+      },
+      "end": {
+         "date": "2026-08-16T15:29:00",
+         "day_week": "Domingo"
+      }
+   },
+   {
       "name": "Aula BD Pratica",
       "start": {
          "date": "2026-08-18T16:00:00",
