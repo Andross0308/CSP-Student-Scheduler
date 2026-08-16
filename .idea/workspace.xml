@@ -4,11 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="Change addOptionalTasks() to calculate minutes of the week using the dateToMinutes function, also changing the dump in the output.json to write in paragraphs">
-      <change afterPath="$PROJECT_DIR$/credentials.json" afterDir="false" />
+    <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="Changing the format of the output.json so that contains both the day of the week and the date of the event">
+      <change afterPath="$PROJECT_DIR$/JSON file/credentials.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tasks.json" beforeDir="false" afterPath="$PROJECT_DIR$/JSON file/Tasks.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/output.json" beforeDir="false" afterPath="$PROJECT_DIR$/output.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/output.json" beforeDir="false" afterPath="$PROJECT_DIR$/JSON file/output.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,26 +55,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Python.main.executor": "Run",
-    "Python.test_calendar_auth.executor": "Run",
-    "RunOnceActivity.MCP Project settings loaded": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "DaysOfTheWeekReader",
-    "last_opened_file_path": "C:/Users/acosm/OneDrive/Ambiente de Trabalho/AI projects/StudentAgentBitch",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test_calendar_auth.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;DaysOfTheWeekReader&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/acosm/OneDrive/Ambiente de Trabalho/AI projects/StudentAgentBitch&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   },
-  "keyToStringList": {
-    "ChangesTree.GroupingKeys": [
-      "directory",
-      "repository"
+  &quot;keyToStringList&quot;: {
+    &quot;ChangesTree.GroupingKeys&quot;: [
+      &quot;directory&quot;,
+      &quot;repository&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\acosm\OneDrive\Ambiente de Trabalho\AI projects\StudentAgentBitch" />
@@ -294,7 +295,15 @@
       <option name="project" value="LOCAL" />
       <updated>1786808974011</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="Changing the format of the output.json so that contains both the day of the week and the date of the event">
+      <option name="closed" value="true" />
+      <created>1786812735080</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1786812735080</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -331,7 +340,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Add tasks&#10;MinutesOfTheWeek() calculates the minutes of that time from the beginning of Monday&#10;OverlapTasks verifies if there is an overlap in the schedule of two tasks&#10;This tasks are not CSP variables because they are fixed values, but are used in the restriction to avoid overlaps&#10;The time is seen as a readable string and as a int to calculate the overlaps" />
     <MESSAGE value="Initialize the CSP model and solver&#10;All tasks that are fixed are considered interval var because they have a specific begin, duration and end&#10;All optional tasks (in this case Gym) have a domain of possible intervals that can take, it's the solver job to find a opening to fill, this &quot;optional&quot; will be set according to a bool_var that defines if the task exists&#10;The solver doesn't have still an objective, so the solution it gives is the one where it doesn't put gym anywhere" />
     <MESSAGE value="Merge with flexibleTasks" />
     <MESSAGE value="Adding weights to optimal tasks so that the solver prioritizes a tasks with higher priorities" />
@@ -356,6 +364,18 @@
     <MESSAGE value="Pushing into GitHub" />
     <MESSAGE value="Change fixedTasks to calculate minutes of the week sice the current time and defining when it will take place" />
     <MESSAGE value="Change addOptionalTasks() to calculate minutes of the week using the dateToMinutes function, also changing the dump in the output.json to write in paragraphs" />
-    <option name="LAST_COMMIT_MESSAGE" value="Change addOptionalTasks() to calculate minutes of the week using the dateToMinutes function, also changing the dump in the output.json to write in paragraphs" />
+    <MESSAGE value="Changing the format of the output.json so that contains both the day of the week and the date of the event" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changing the format of the output.json so that contains both the day of the week and the date of the event" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/test_calendar_auth.py</url>
+          <line>24</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
