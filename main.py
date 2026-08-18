@@ -92,8 +92,10 @@ def addOptionalTasks(optionals, model, referenceTime, previousSchedule):
         windows = []
         for domain in task["domains"]:
             Start = dateToMinutes(domain,"HoraInicio", referenceTime)
+            Start = 0 if Start < 0 else Start
             End = dateToMinutes(domain, "HoraFim", referenceTime)
-            windows.append([Start, End])
+            if End >= 0:
+                windows.append([Start, End])
         task["intervals"] = windows
         createNewOptionalTask(task["name"], task, model, previousSchedule)
 
@@ -109,10 +111,13 @@ def solveSchedule(model, referenceTime):
 
 def generateOutput(solver, referenceTime):
     schedule = []
+    for b in stability_bonus:
+        print(solver.value(b))
     for task in tasks:
         if solver.value(tasks[task]["bool"]) == 1:
             begin = minutesIntoSchedule(solver.value(tasks[task]["start"]), referenceTime)
             end = minutesIntoSchedule(solver.value(tasks[task]["end"]), referenceTime)
+
             schedule.append({"name": task, "start": begin, "end": end})
     with open("JSON_file/output.json", mode="w", encoding="utf-8") as f:
         json.dump(schedule, f, ensure_ascii=False, indent=3)
@@ -124,8 +129,8 @@ def loadPreviousSchedule(referenceTime):
         data = json.load(f)
     result={}
     for task in data:
-        begin = dt.datetime.fromisoformat(task["start"]["dateTime"])
-        end = dt.datetime.fromisoformat(task["end"]["dateTime"])
+        begin = googleEventToMinutes(task, "start", referenceTime)
+        end = googleEventToMinutes(task, "end", referenceTime)
         result[task["name"]] = {"start": begin, "end": end}
     return result
 
