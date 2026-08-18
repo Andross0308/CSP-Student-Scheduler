@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="Making so that the output.json is read in the beginning to have a starting point&#10;Problem: With different reference times, there can't be a way to verify if the newStart and previousStart are the same">
+    <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="Solved the real problem, optional tasks were being put in past times&#10;Solution: if the task could already began but still not finished, the window would be [0, End], 0 being the current time&#10;Otherwise if the end already past, the window wouldn't be added to the solver">
       <change afterPath="$PROJECT_DIR$/JSON_file/credentials.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,7 +22,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="dc83c605e010165c1014595a6ed395bd0772feb7" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -62,7 +60,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "dc83c605",
+    "git-widget-placeholder": "readSchedule",
     "last_opened_file_path": "C:/Users/acosm/OneDrive/Ambiente de Trabalho/AI projects/StudentAgentBitch",
     "settings.editor.selected.configurable": "preferences.pluginManager"
   },
@@ -312,7 +310,15 @@
       <option name="project" value="LOCAL" />
       <updated>1787046028453</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="Solved the real problem, optional tasks were being put in past times&#10;Solution: if the task could already began but still not finished, the window would be [0, End], 0 being the current time&#10;Otherwise if the end already past, the window wouldn't be added to the solver">
+      <option name="closed" value="true" />
+      <created>1787050756738</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1787050756738</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -349,7 +355,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Merge with flexibleTasks" />
     <MESSAGE value="Adding weights to optimal tasks so that the solver prioritizes a tasks with higher priorities" />
     <MESSAGE value="Fixing bug where there was not any fixed tasks and giving a valid interval for optimal tasks" />
     <MESSAGE value="Adding a new optional task with variable duration, add restriction to verify start + duration = end but the model chooses the minimum time possible" />
@@ -374,7 +379,8 @@
     <MESSAGE value="Change addOptionalTasks() to calculate minutes of the week using the dateToMinutes function, also changing the dump in the output.json to write in paragraphs" />
     <MESSAGE value="Changing the format of the output.json so that contains both the day of the week and the date of the event" />
     <MESSAGE value="Making so that the output.json is read in the beginning to have a starting point&#10;Problem: With different reference times, there can't be a way to verify if the newStart and previousStart are the same" />
-    <option name="LAST_COMMIT_MESSAGE" value="Making so that the output.json is read in the beginning to have a starting point&#10;Problem: With different reference times, there can't be a way to verify if the newStart and previousStart are the same" />
+    <MESSAGE value="Solved the real problem, optional tasks were being put in past times&#10;Solution: if the task could already began but still not finished, the window would be [0, End], 0 being the current time&#10;Otherwise if the end already past, the window wouldn't be added to the solver" />
+    <option name="LAST_COMMIT_MESSAGE" value="Solved the real problem, optional tasks were being put in past times&#10;Solution: if the task could already began but still not finished, the window would be [0, End], 0 being the current time&#10;Otherwise if the end already past, the window wouldn't be added to the solver" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -383,11 +389,6 @@
           <url>file://$PROJECT_DIR$/test_calendar_auth.py</url>
           <line>24</line>
           <option name="timeStamp" value="6" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/main.py</url>
-          <line>29</line>
-          <option name="timeStamp" value="11" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
