@@ -15,6 +15,7 @@ tasks = {}
 intervals = []
 boolean_variables = []
 pesos = []
+stability_bonus = []
 
 def dateToMinutes(task, timeField, referenceTime):
     todayDay = referenceTime.weekday()
@@ -27,7 +28,7 @@ def dateToMinutes(task, timeField, referenceTime):
 
 def minutesIntoSchedule(minutes, referenceTime):
     date = referenceTime + dt.timedelta(minutes=minutes)
-    return {"date": date.isoformat(timespec="seconds"), "day_week": Int_Days[date.weekday()]}
+    return {"dateTime": date.isoformat(timespec="seconds"), "day_week": Int_Days[date.weekday()]}
 
 def googleEventToMinutes(event, field, referenceTime):
     time = dt.datetime.fromisoformat(event[field]['dateTime']).replace(tzinfo=None)
@@ -55,35 +56,51 @@ def addFixedEntry(name, begin, end, model):
                            "duration": duration, "end": end_cons}
     intervals.append(interval)
 
-def createNewOptionalTask(name, data, model):
+def createNewOptionalTask(name, data, model, previousSchedule):
     bool_var = model.new_bool_var(f"{name}_Present")
     boolean_variables.append(bool_var)
     startDomain = cp_model.Domain.FromIntervals(data["intervals"])
+
+
     start = model.new_int_var_from_domain(startDomain, f"{name}_Start")
+    keep = name in previousSchedule.keys()
+    if keep:
+        previousStart = previousSchedule[name]["start"]
+        keep_schedule = model.new_bool_var(f"{name}_Keep")
+        model.add(start == previousStart).only_enforce_if(keep_schedule)
+        model.add(start != previousStart).only_enforce_if(~keep_schedule)
+        stability_bonus.append(keep_schedule)
+
     duration = model.new_int_var(data["durationMin"], data["durationMax"], f"{name}_Duration")
+
+
     end_window = []
     for w_begin, w_end in data["intervals"]:
         end_window.append([w_begin + data["durationMin"], w_end + data["durationMax"]])
     endDomain =  cp_model.Domain.FromIntervals(end_window)
     end = model.new_int_var_from_domain(endDomain, f"{name}_End")
+
+
     model.add(start + duration == end)
     var = model.new_optional_interval_var(start, duration, end, bool_var, f"{name}_Interval")
     intervals.append(var)
     pesos.append(data["peso"])
     tasks[name] = {"bool": bool_var, "start": start, "duration": duration, "end": end}
 
-def addOptionalTasks(optionals, model, referenceTime):
+def addOptionalTasks(optionals, model, referenceTime, previousSchedule):
     for task in optionals:
         windows = []
         for domain in task["domains"]:
             Start = dateToMinutes(domain,"HoraInicio", referenceTime)
+            Start = 0 if Start < 0 else Start
             End = dateToMinutes(domain, "HoraFim", referenceTime)
-            windows.append([Start, End])
+            if End >= 0:
+                windows.append([Start, End])
         task["intervals"] = windows
-        createNewOptionalTask(task["name"], task, model)
+        createNewOptionalTask(task["name"], task, model, previousSchedule)
 
 def solveSchedule(model, referenceTime):
-    model.maximize(sum(bool_var * peso for bool_var, peso in zip(boolean_variables, pesos)))
+    model.maximize(sum(bool_var * peso for bool_var, peso in zip(boolean_variables, pesos)) + sum(stability_bonus))
     model.add_no_overlap(intervals)
     solver = cp_model.CpSolver()
     status = solver.solve(model)
@@ -94,24 +111,40 @@ def solveSchedule(model, referenceTime):
 
 def generateOutput(solver, referenceTime):
     schedule = []
+    for b in stability_bonus:
+        print(solver.value(b))
     for task in tasks:
         if solver.value(tasks[task]["bool"]) == 1:
             begin = minutesIntoSchedule(solver.value(tasks[task]["start"]), referenceTime)
             end = minutesIntoSchedule(solver.value(tasks[task]["end"]), referenceTime)
+
             schedule.append({"name": task, "start": begin, "end": end})
-    with open("JSON file/output.json", mode="w", encoding="utf-8") as f:
+    with open("JSON_file/output.json", mode="w", encoding="utf-8") as f:
         json.dump(schedule, f, ensure_ascii=False, indent=3)
+
+def loadPreviousSchedule(referenceTime):
+    if not os.path.exists("JSON_file/output.json"):
+        return {}
+    with open("JSON_file/output.json", encoding="utf-8") as f:
+        data = json.load(f)
+    result={}
+    for task in data:
+        begin = googleEventToMinutes(task, "start", referenceTime)
+        end = googleEventToMinutes(task, "end", referenceTime)
+        result[task["name"]] = {"start": begin, "end": end}
+    return result
+
 
 def GoogleConnection(referenceTime, model):
     SCOPES = ["https://www.googleapis.com/auth/calendar.readonly"]
     creds = None
-    if os.path.exists("JSON file/token.json"):
-        creds = Credentials.from_authorized_user_file("JSON file/token.json", SCOPES)
+    if os.path.exists("JSON_file/token.json"):
+        creds = Credentials.from_authorized_user_file("JSON_file/token.json", SCOPES)
 
     if not creds or not creds.valid:
-        flow = InstalledAppFlow.from_client_secrets_file("JSON file/credentials.json", SCOPES)
+        flow = InstalledAppFlow.from_client_secrets_file("JSON_file/credentials.json", SCOPES)
         creds = flow.run_local_server(port=8000)
-        with open("JSON file/token.json", "w") as f:
+        with open("JSON_file/token.json", "w") as f:
             f.write(creds.to_json())
 
     service = build("calendar", "v3", credentials=creds)
@@ -127,13 +160,14 @@ def GoogleConnection(referenceTime, model):
     addGoogleEvents(events_result['items'], model, referenceTime)
 
 def executeSchedule():
-    with open("JSON file/Tasks.json", encoding="utf-8") as f:
+    with open("JSON_file/Tasks.json", encoding="utf-8") as f:
         data = json.load(f)
     model = cp_model.CpModel()
     referenceTime = dt.datetime.now().replace(second=0)
+    previousSchedule = loadPreviousSchedule(referenceTime)
     GoogleConnection(referenceTime, model)
     fixedTasks(data["fixedTasks"], model, referenceTime)
-    addOptionalTasks(data["optionalTasks"], model, referenceTime)
+    addOptionalTasks(data["optionalTasks"], model, referenceTime, previousSchedule)
     solveSchedule(model, referenceTime)
 
 if __name__ == "__main__":
