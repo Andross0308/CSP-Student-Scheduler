@@ -30,15 +30,15 @@ def minutesIntoSchedule(minutes, referenceTime):
     date = referenceTime + dt.timedelta(minutes=minutes)
     return {"dateTime": date.isoformat(timespec="seconds"), "day_week": Int_Days[date.weekday()]}
 
-def googleEventToMinutes(event, field, referenceTime):
+def dateTimeFieldToMinutes(event, field, referenceTime):
     time = dt.datetime.fromisoformat(event[field]['dateTime']).replace(tzinfo=None)
     minutes = int((time - referenceTime).total_seconds() // 60)
     return minutes
 
 def addGoogleEvents(events, model, referenceTime):
     for event in events:
-        begin = googleEventToMinutes(event, "start", referenceTime)
-        end = googleEventToMinutes(event, "end", referenceTime)
+        begin = dateTimeFieldToMinutes(event, "start", referenceTime)
+        end = dateTimeFieldToMinutes(event, "end", referenceTime)
         addFixedEntry(event["summary"], begin, end, model)
 
 def fixedTasks(data, model, referenceTime):
@@ -59,9 +59,9 @@ def addFixedEntry(name, begin, end, model):
 def createNewOptionalTask(name, data, model, previousSchedule):
     bool_var = model.new_bool_var(f"{name}_Present")
     boolean_variables.append(bool_var)
+
+
     startDomain = cp_model.Domain.FromIntervals(data["intervals"])
-
-
     start = model.new_int_var_from_domain(startDomain, f"{name}_Start")
     keep = name in previousSchedule.keys()
     if keep:
@@ -75,8 +75,8 @@ def createNewOptionalTask(name, data, model, previousSchedule):
 
 
     end_window = []
-    for w_begin, w_end in data["intervals"]:
-        end_window.append([w_begin + data["durationMin"], w_end + data["durationMax"]])
+    for begin, end in data["intervals"]:
+        end_window.append([begin + data["durationMin"], end + data["durationMax"]])
     endDomain =  cp_model.Domain.FromIntervals(end_window)
     end = model.new_int_var_from_domain(endDomain, f"{name}_End")
 
@@ -91,11 +91,11 @@ def addOptionalTasks(optionals, model, referenceTime, previousSchedule):
     for task in optionals:
         windows = []
         for domain in task["domains"]:
-            Start = dateToMinutes(domain,"HoraInicio", referenceTime)
-            Start = 0 if Start < 0 else Start
-            End = dateToMinutes(domain, "HoraFim", referenceTime)
-            if End >= 0:
-                windows.append([Start, End])
+            start = dateToMinutes(domain,"HoraInicio", referenceTime)
+            start = 0 if start < 0 else start
+            end = dateToMinutes(domain, "HoraFim", referenceTime)
+            if end >= 0:
+                windows.append([start, end])
         task["intervals"] = windows
         createNewOptionalTask(task["name"], task, model, previousSchedule)
 
@@ -129,8 +129,8 @@ def loadPreviousSchedule(referenceTime):
         data = json.load(f)
     result={}
     for task in data:
-        begin = googleEventToMinutes(task, "start", referenceTime)
-        end = googleEventToMinutes(task, "end", referenceTime)
+        begin = dateTimeFieldToMinutes(task, "start", referenceTime)
+        end = dateTimeFieldToMinutes(task, "end", referenceTime)
         result[task["name"]] = {"start": begin, "end": end}
     return result
 
