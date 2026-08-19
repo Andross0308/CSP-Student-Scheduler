@@ -135,29 +135,37 @@ def loadPreviousSchedule(referenceTime):
     return result
 
 
-def GoogleConnection(referenceTime, model):
+def get_credentials(token, credentials):
     SCOPES = ["https://www.googleapis.com/auth/calendar.readonly"]
     creds = None
-    if os.path.exists("JSON_file/token.json"):
-        creds = Credentials.from_authorized_user_file("JSON_file/token.json", SCOPES)
+    if os.path.exists(token):
+        creds = Credentials.from_authorized_user_file(token, SCOPES)
 
     if not creds or not creds.valid:
-        flow = InstalledAppFlow.from_client_secrets_file("JSON_file/credentials.json", SCOPES)
+        flow = InstalledAppFlow.from_client_secrets_file(credentials, SCOPES)
         creds = flow.run_local_server(port=8000)
         with open("JSON_file/token.json", "w") as f:
             f.write(creds.to_json())
 
-    service = build("calendar", "v3", credentials=creds)
+    return creds
+
+def fetchUpcomingEvents(service, days=7):
     timeMin = dt.datetime.now()
-    timeMax = (dt.timedelta(days=7) + timeMin)
-    events_result = service.events().list(
+    timeMax = (dt.timedelta(days) + timeMin)
+    return service.events().list(
         calendarId="primary",
         timeMin=timeMin.isoformat() + "Z",
         timeMax=timeMax.isoformat() + "Z",
         singleEvents=True,
         orderBy="startTime"
     ).execute()
-    addGoogleEvents(events_result['items'], model, referenceTime)
+
+def GoogleConnection(referenceTime, model):
+    creds = get_credentials("JSON_file/token.json", "JSON_file/credentials.json")
+
+    service = build("calendar", "v3", credentials=creds)
+    events = fetchUpcomingEvents(service)
+    addGoogleEvents(events['items'], model, referenceTime)
 
 def executeSchedule():
     with open("JSON_file/Tasks.json", encoding="utf-8") as f:
