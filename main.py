@@ -27,7 +27,7 @@ def dateToMinutes(task, timeField, referenceTime):
     return taskMinutes
 
 def minutesIntoSchedule(minutes, referenceTime):
-    date = referenceTime + dt.timedelta(minutes=minutes)
+    date = referenceTime + dt.timedelta(minutes=minutes)       #Problem Here!!!!!!!!
     return {"dateTime": date.isoformat(timespec="seconds"), "day_week": Int_Days[date.weekday()]}
 
 def dateTimeFieldToMinutes(event, field, referenceTime):
@@ -56,36 +56,55 @@ def addFixedEntry(name, begin, end, model):
                            "duration": duration, "end": end_cons}
     intervals.append(interval)
 
+
+def create_task_stability(model, name, start, previous_schedule):
+
+    keep_schedule = None
+    if name in previous_schedule:
+        previous_start = previous_schedule[name]["start"]
+        keep_schedule = model.new_bool_var(f"{name}_Keep")
+        model.add(start == previous_start).only_enforce_if(keep_schedule)
+        model.add(start != previous_start).only_enforce_if(~keep_schedule)
+        stability_bonus.append(keep_schedule)
+
+def create_task_start_and_duration(model, name, data):
+    start_domain = cp_model.Domain.FromIntervals(data["intervals"])
+    start = model.new_int_var_from_domain(start_domain, f"{name}_Start")
+    duration = model.new_int_var(data["durationMin"], data["durationMax"], f"{name}_Duration")
+    return start, duration
+
+def create_task_end(model, name, data):
+    end_window = [
+        [begin + data["durationMin"], end + data["durationMax"]]
+        for begin, end in data["intervals"]
+    ]
+    end_domain = cp_model.Domain.FromIntervals(end_window)
+    return model.new_int_var_from_domain(end_domain, f"{name}_End")
+
+
+def register_optional_task_interval(model, name, data, start, duration, end, bool_var):
+    model.add(start + duration == end)
+    interval_var = model.new_optional_interval_var(start, duration, end, bool_var, f"{name}_Interval")
+
+    intervals.append(interval_var)
+    pesos.append(data["peso"])
+    tasks[name] = {
+        "bool": bool_var,
+        "start": start,
+        "duration": duration,
+        "end": end
+    }
+
 def createNewOptionalTask(name, data, model, previousSchedule):
     bool_var = model.new_bool_var(f"{name}_Present")
     boolean_variables.append(bool_var)
+    start, duration = create_task_start_and_duration(model, name, data)
 
+    create_task_stability(model, name, start, previousSchedule)
 
-    startDomain = cp_model.Domain.FromIntervals(data["intervals"])
-    start = model.new_int_var_from_domain(startDomain, f"{name}_Start")
-    keep = name in previousSchedule.keys()
-    if keep:
-        previousStart = previousSchedule[name]["start"]
-        keep_schedule = model.new_bool_var(f"{name}_Keep")
-        model.add(start == previousStart).only_enforce_if(keep_schedule)
-        model.add(start != previousStart).only_enforce_if(~keep_schedule)
-        stability_bonus.append(keep_schedule)
+    end = create_task_end(model, name, data)
 
-    duration = model.new_int_var(data["durationMin"], data["durationMax"], f"{name}_Duration")
-
-
-    end_window = []
-    for begin, end in data["intervals"]:
-        end_window.append([begin + data["durationMin"], end + data["durationMax"]])
-    endDomain =  cp_model.Domain.FromIntervals(end_window)
-    end = model.new_int_var_from_domain(endDomain, f"{name}_End")
-
-
-    model.add(start + duration == end)
-    var = model.new_optional_interval_var(start, duration, end, bool_var, f"{name}_Interval")
-    intervals.append(var)
-    pesos.append(data["peso"])
-    tasks[name] = {"bool": bool_var, "start": start, "duration": duration, "end": end}
+    register_optional_task_interval(model, name, data, start, duration, end, bool_var)
 
 def addOptionalTasks(optionals, model, referenceTime, previousSchedule):
     for task in optionals:
