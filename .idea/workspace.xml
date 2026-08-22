@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="Splitting the googleConnection() into getCrediantials() and fetchUpcomingEvents()">
+    <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="Splitting the createNewOptionalTasks into small and different functions to simplify code">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
@@ -335,7 +335,15 @@
       <option name="project" value="LOCAL" />
       <updated>1787159358220</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="Splitting the createNewOptionalTasks into small and different functions to simplify code">
+      <option name="closed" value="true" />
+      <created>1787321578289</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1787321578289</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -372,7 +380,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Adding a new optional task with variable duration, add restriction to verify start + duration = end but the model chooses the minimum time possible" />
     <MESSAGE value="Creating a new optional task of variable duration which is &quot;Study in the Library&quot;, serves to see if multiple variables what is the parameters of the variable &#10;In this example, the library has a 9h to 16h schedule, but I don't want to be there before 10h, so the start domain is [10h, 16h]" />
     <MESSAGE value="Create function createNewOptionalTask() to create a new Optional Task and a dict that stores all information of every task" />
     <MESSAGE value="Creating a data Structure with all optional tasks and simplify the signature of the createNewOptionalTask() function" />
@@ -397,7 +404,8 @@
     <MESSAGE value="Solved the real problem, optional tasks were being put in past times&#10;Solution: if the task could already began but still not finished, the window would be [0, End], 0 being the current time&#10;Otherwise if the end already past, the window wouldn't be added to the solver" />
     <MESSAGE value="Changing signature of the googleEventsToMinutes() into dateTimeFieldToMinutes() and changing some variables to better understand" />
     <MESSAGE value="Splitting the googleConnection() into getCrediantials() and fetchUpcomingEvents()" />
-    <option name="LAST_COMMIT_MESSAGE" value="Splitting the googleConnection() into getCrediantials() and fetchUpcomingEvents()" />
+    <MESSAGE value="Splitting the createNewOptionalTasks into small and different functions to simplify code" />
+    <option name="LAST_COMMIT_MESSAGE" value="Splitting the createNewOptionalTasks into small and different functions to simplify code" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -409,22 +417,17 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>195</line>
+          <line>189</line>
           <option name="timeStamp" value="19" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>20</line>
-          <option name="timeStamp" value="20" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/main.py</url>
-          <line>136</line>
+          <line>130</line>
           <option name="timeStamp" value="23" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>137</line>
+          <line>131</line>
           <option name="timeStamp" value="24" />
         </line-breakpoint>
       </breakpoints>
