@@ -11,12 +11,13 @@ from openai import OpenAI
 Days_Int = {"Segunda": 0, "Terça": 1, "Quarta": 2, "Quinta": 3, "Sexta": 4, "Sabado": 5, "Domingo": 6}
 Int_Days = {value: key for  key, value in Days_Int.items()}
 
-#Empty Data Structures
-tasks = {}
-intervals = []
-boolean_variables = []
-pesos = []
-stability_bonus = []
+def initialize_global_variables():
+    global tasks, intervals, boolean_variables, pesos, stability_bonus
+    tasks = {}
+    intervals = []
+    boolean_variables = []
+    pesos = []
+    stability_bonus = []
 
 def date_to_minutes(task, timeField, referenceTime):
     todayDay = referenceTime.weekday()
@@ -219,6 +220,7 @@ Pedido do Utilizador: [PEDIDO DO UTILIZADOR]""".replace("[PEDIDO DO UTILIZADOR]"
     return response.choices[0].message.content
 
 if __name__ == "__main__":
+    initialize_global_variables()
     print(os.environ.get("OPENAI_API_KEY"))
     client = OpenAI()
     llmHelp = ask_llm("Tenho aula de AB à Quarta das 16h às 18h, e jogar Terraria à tarde, peso 3, entre 8h e 21h de Segunda a Sexta, durante 1 hora", client)
