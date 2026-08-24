@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="Splitting the createNewOptionalTasks into small and different functions to simplify code">
+    <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="Adding first connection to OpenAi to receive a JSON of tasks using natural language">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
@@ -61,7 +61,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "implementLLM",
     "last_opened_file_path": "C:/Users/acosm/OneDrive/Ambiente de Trabalho/AI projects/StudentAgentBitch",
     "settings.editor.selected.configurable": "preferences.pluginManager"
   },
@@ -343,7 +343,23 @@
       <option name="project" value="LOCAL" />
       <updated>1787321578289</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="Changing signature of functions to snake_case">
+      <option name="closed" value="true" />
+      <created>1787427356370</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1787427356370</updated>
+    </task>
+    <task id="LOCAL-00033" summary="Adding first connection to OpenAi to receive a JSON of tasks using natural language">
+      <option name="closed" value="true" />
+      <created>1787569267217</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1787569267217</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -380,8 +396,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Creating a new optional task of variable duration which is &quot;Study in the Library&quot;, serves to see if multiple variables what is the parameters of the variable &#10;In this example, the library has a 9h to 16h schedule, but I don't want to be there before 10h, so the start domain is [10h, 16h]" />
-    <MESSAGE value="Create function createNewOptionalTask() to create a new Optional Task and a dict that stores all information of every task" />
     <MESSAGE value="Creating a data Structure with all optional tasks and simplify the signature of the createNewOptionalTask() function" />
     <MESSAGE value="Create solveSchedule() and showInformation() to clean the rest of the code, the solver and show information part" />
     <MESSAGE value="Creation of a function that calls everything and is called in the beginning of the process" />
@@ -405,7 +419,9 @@
     <MESSAGE value="Changing signature of the googleEventsToMinutes() into dateTimeFieldToMinutes() and changing some variables to better understand" />
     <MESSAGE value="Splitting the googleConnection() into getCrediantials() and fetchUpcomingEvents()" />
     <MESSAGE value="Splitting the createNewOptionalTasks into small and different functions to simplify code" />
-    <option name="LAST_COMMIT_MESSAGE" value="Splitting the createNewOptionalTasks into small and different functions to simplify code" />
+    <MESSAGE value="Changing signature of functions to snake_case" />
+    <MESSAGE value="Adding first connection to OpenAi to receive a JSON of tasks using natural language" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adding first connection to OpenAi to receive a JSON of tasks using natural language" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -417,18 +433,18 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>189</line>
-          <option name="timeStamp" value="19" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/main.py</url>
-          <line>130</line>
+          <line>131</line>
           <option name="timeStamp" value="23" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>131</line>
+          <line>132</line>
           <option name="timeStamp" value="24" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>194</line>
+          <option name="timeStamp" value="27" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
