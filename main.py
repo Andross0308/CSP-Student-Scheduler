@@ -6,6 +6,7 @@ from ortools.sat.python import cp_model
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
+from openai import OpenAI
 
 Days_Int = {"Segunda": 0, "Terça": 1, "Quarta": 2, "Quinta": 3, "Sexta": 4, "Sabado": 5, "Domingo": 6}
 Int_Days = {value: key for  key, value in Days_Int.items()}
@@ -191,5 +192,31 @@ def execute_schedule():
     add_optional_tasks(data["optionalTasks"], model, referenceTime, previousSchedule)
     solve_schedule(model, referenceTime)
 
+def ask_llm(user_request, client):
+    prompt = """Preciso que cries um documento com a informaçao necessario da tarefa do utilizador para puder utilizar no meu programa responde apenas com o JSON, sem texto antes ou depois, em que pode ser uma tarefa fixa, dividida em 'name', 'day', 'HoraInicio', 'HoraFim', ou pode ser opcional, dividida em 'name', 'domains' (que terá uma lista de elementos com os atributos 'day','HoraInicio','HoraFim'), 'durationMin', 'durationMax', 'peso' Exemplo:
+{
+    "fixedTasks": [{
+    "name": "Aula BD Pratica", "day": "Terça", "HoraInicio": "16:00", "HoraFim": "18:00"}], "optionalTasks": [{
+      "name":"Gym",
+      "domains": [
+        {"day": "Segunda",
+          "HoraInicio": "8:00",
+          "HoraFim": "21:00"},
+        {"day": "Terça",
+          "HoraInicio": "8:00",
+          "HoraFim": "21:00"}],
+      "durationMin": 60,
+      "durationMax": 60,
+      "peso": 3}
+   ]
+}
+
+Pedido do Utilizador: [PEDIDO DO UTILIZADOR]""".replace("[PEDIDO DO UTILIZADOR]", user_request)
+    response = client.chat.completions.create(model="gpt-4o-mini", messages=[{"role": "user", "content": prompt}])
+    print("shit")
+
 if __name__ == "__main__":
-    execute_schedule()
+    #execute_schedule()
+    print(os.environ.get("OPENAI_API_KEY"))
+    client = OpenAI()
+    ask_llm("Tenho aula de BD à Terça das 16h às 18h, e quero ir ao Ginásio à tarde, peso 3, entre 8h e 21h de Segunda a Sexta, durante 1 hora", client)

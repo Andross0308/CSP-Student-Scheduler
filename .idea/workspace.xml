@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="Splitting the createNewOptionalTasks into small and different functions to simplify code">
+    <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="Changing signature of functions to snake_case">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
@@ -55,7 +55,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Python.main.executor": "Run",
+    "Python.main.executor": "Debug",
     "Python.test_calendar_auth.executor": "Run",
     "RunOnceActivity.MCP Project settings loaded": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -343,7 +343,15 @@
       <option name="project" value="LOCAL" />
       <updated>1787321578289</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="Changing signature of functions to snake_case">
+      <option name="closed" value="true" />
+      <created>1787427356370</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1787427356370</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -380,7 +388,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Creating a new optional task of variable duration which is &quot;Study in the Library&quot;, serves to see if multiple variables what is the parameters of the variable &#10;In this example, the library has a 9h to 16h schedule, but I don't want to be there before 10h, so the start domain is [10h, 16h]" />
     <MESSAGE value="Create function createNewOptionalTask() to create a new Optional Task and a dict that stores all information of every task" />
     <MESSAGE value="Creating a data Structure with all optional tasks and simplify the signature of the createNewOptionalTask() function" />
     <MESSAGE value="Create solveSchedule() and showInformation() to clean the rest of the code, the solver and show information part" />
@@ -405,7 +412,8 @@
     <MESSAGE value="Changing signature of the googleEventsToMinutes() into dateTimeFieldToMinutes() and changing some variables to better understand" />
     <MESSAGE value="Splitting the googleConnection() into getCrediantials() and fetchUpcomingEvents()" />
     <MESSAGE value="Splitting the createNewOptionalTasks into small and different functions to simplify code" />
-    <option name="LAST_COMMIT_MESSAGE" value="Splitting the createNewOptionalTasks into small and different functions to simplify code" />
+    <MESSAGE value="Changing signature of functions to snake_case" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changing signature of functions to snake_case" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -417,18 +425,23 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>189</line>
+          <line>190</line>
           <option name="timeStamp" value="19" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>130</line>
+          <line>131</line>
           <option name="timeStamp" value="23" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>131</line>
+          <line>132</line>
           <option name="timeStamp" value="24" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>214</line>
+          <option name="timeStamp" value="25" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
