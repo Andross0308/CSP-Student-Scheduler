@@ -181,7 +181,7 @@ def google_connection(referenceTime, model):
     events = fetch_upcoming_events(service)
     add_google_events(events['items'], model, referenceTime)
 
-def execute_schedule():
+def execute_schedule(llm_response):
     with open("JSON_file/Tasks.json", encoding="utf-8") as f:
         data = json.load(f)
     model = cp_model.CpModel()
@@ -190,6 +190,9 @@ def execute_schedule():
     google_connection(referenceTime, model)
     fixed_tasks(data["fixedTasks"], model, referenceTime)
     add_optional_tasks(data["optionalTasks"], model, referenceTime, previousSchedule)
+    llm_data = json.loads(llm_response)
+    fixed_tasks(llm_data["fixedTasks"], model, referenceTime)
+    add_optional_tasks(llm_data["optionalTasks"], model, referenceTime, previousSchedule)
     solve_schedule(model, referenceTime)
 
 def ask_llm(user_request, client):
@@ -213,10 +216,11 @@ def ask_llm(user_request, client):
 
 Pedido do Utilizador: [PEDIDO DO UTILIZADOR]""".replace("[PEDIDO DO UTILIZADOR]", user_request)
     response = client.chat.completions.create(model="gpt-4o-mini", messages=[{"role": "user", "content": prompt}])
-    print("shit")
+    return response.choices[0].message.content
 
 if __name__ == "__main__":
-    #execute_schedule()
     print(os.environ.get("OPENAI_API_KEY"))
     client = OpenAI()
-    ask_llm("Tenho aula de BD à Terça das 16h às 18h, e quero ir ao Ginásio à tarde, peso 3, entre 8h e 21h de Segunda a Sexta, durante 1 hora", client)
+    llmHelp = ask_llm("Tenho aula de AB à Quarta das 16h às 18h, e jogar Terraria à tarde, peso 3, entre 8h e 21h de Segunda a Sexta, durante 1 hora", client)
+    print(llmHelp)
+    execute_schedule(llmHelp)

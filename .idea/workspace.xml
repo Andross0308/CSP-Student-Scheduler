@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="Changing signature of functions to snake_case">
+    <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="Adding first connection to OpenAi to receive a JSON of tasks using natural language">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
@@ -55,13 +55,13 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Python.main.executor": "Debug",
+    "Python.main.executor": "Run",
     "Python.test_calendar_auth.executor": "Run",
     "RunOnceActivity.MCP Project settings loaded": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "implementLLM",
     "last_opened_file_path": "C:/Users/acosm/OneDrive/Ambiente de Trabalho/AI projects/StudentAgentBitch",
     "settings.editor.selected.configurable": "preferences.pluginManager"
   },
@@ -351,7 +351,15 @@
       <option name="project" value="LOCAL" />
       <updated>1787427356370</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="Adding first connection to OpenAi to receive a JSON of tasks using natural language">
+      <option name="closed" value="true" />
+      <created>1787569267217</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1787569267217</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -388,7 +396,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Create function createNewOptionalTask() to create a new Optional Task and a dict that stores all information of every task" />
     <MESSAGE value="Creating a data Structure with all optional tasks and simplify the signature of the createNewOptionalTask() function" />
     <MESSAGE value="Create solveSchedule() and showInformation() to clean the rest of the code, the solver and show information part" />
     <MESSAGE value="Creation of a function that calls everything and is called in the beginning of the process" />
@@ -413,7 +420,8 @@
     <MESSAGE value="Splitting the googleConnection() into getCrediantials() and fetchUpcomingEvents()" />
     <MESSAGE value="Splitting the createNewOptionalTasks into small and different functions to simplify code" />
     <MESSAGE value="Changing signature of functions to snake_case" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changing signature of functions to snake_case" />
+    <MESSAGE value="Adding first connection to OpenAi to receive a JSON of tasks using natural language" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adding first connection to OpenAi to receive a JSON of tasks using natural language" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -422,11 +430,6 @@
           <url>file://$PROJECT_DIR$/test_calendar_auth.py</url>
           <line>24</line>
           <option name="timeStamp" value="6" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/main.py</url>
-          <line>190</line>
-          <option name="timeStamp" value="19" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
@@ -440,8 +443,8 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>214</line>
-          <option name="timeStamp" value="25" />
+          <line>194</line>
+          <option name="timeStamp" value="27" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
