@@ -8,8 +8,28 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from openai import OpenAI
 
-Days_Int = {"Segunda": 0, "Terça": 1, "Quarta": 2, "Quinta": 3, "Sexta": 4, "Sabado": 5, "Domingo": 6}
-Int_Days = {value: key for  key, value in Days_Int.items()}
+DAYS_INT = {"Segunda": 0, "Terça": 1, "Quarta": 2, "Quinta": 3, "Sexta": 4, "Sabado": 5, "Domingo": 6}
+INT_DAYS = {value: key for key, value in DAYS_INT.items()}
+
+PROMPT = """Preciso que cries um documento com a informaçao necessario da tarefa do utilizador para puder utilizar no meu programa responde apenas com o JSON, sem texto antes ou depois, em que pode ser uma tarefa fixa, dividida em 'name', 'day', 'HoraInicio', 'HoraFim', ou pode ser opcional, dividida em 'name', 'domains' (que terá uma lista de elementos com os atributos 'day','HoraInicio','HoraFim'), 'durationMin', 'durationMax', 'peso' Exemplo:
+{
+    "fixedTasks": [{
+    "name": "Aula BD Pratica", "day": "Terça", "HoraInicio": "16:00", "HoraFim": "18:00"}], "optionalTasks": [{
+      "name":"Gym",
+      "domains": [
+        {"day": "Segunda",
+          "HoraInicio": "8:00",
+          "HoraFim": "21:00"},
+        {"day": "Terça",
+          "HoraInicio": "8:00",
+          "HoraFim": "21:00"}],
+      "durationMin": 60,
+      "durationMax": 60,
+      "peso": 3}
+   ]
+}
+
+Pedido do Utilizador: [PEDIDO DO UTILIZADOR]"""
 
 def initialize_global_variables():
     global tasks, intervals, boolean_variables, pesos, stability_bonus
@@ -20,33 +40,33 @@ def initialize_global_variables():
     stability_bonus = []
 
 def date_to_minutes(task, timeField, referenceTime):
-    todayDay = referenceTime.weekday()
-    targetDay = Days_Int[task["day"]]
-    days = (targetDay - todayDay) % 7
+    today_day = referenceTime.weekday()
+    target_day = DAYS_INT[task["day"]]
+    days = (target_day - today_day) % 7
     hour, minute = task[timeField].split(":")
-    taskDate = (referenceTime + dt.timedelta(days=days)).replace(hour=int(hour), minute=int(minute))
-    taskMinutes = int((taskDate - referenceTime).total_seconds() // 60)
-    return taskMinutes
+    task_date = (referenceTime + dt.timedelta(days=days)).replace(hour=int(hour), minute=int(minute))
+    task_minutes = int((task_date - referenceTime).total_seconds() // 60)
+    return task_minutes
 
-def minutes_into_schedule(minutes, referenceTime):
-    date = referenceTime + dt.timedelta(minutes=minutes)       #Problem Here!!!!!!!!
-    return {"dateTime": date.isoformat(timespec="seconds"), "day_week": Int_Days[date.weekday()]}
+def minutes_into_schedule(minutes, reference_time):
+    date = reference_time + dt.timedelta(minutes=minutes)       #Problem Here!!!!!!!!
+    return {"dateTime": date.isoformat(timespec="seconds"), "day_week": INT_DAYS[date.weekday()]}
 
-def date_time_field_to_minutes(event, field, referenceTime):
+def date_time_field_to_minutes(event, field, reference_time):
     time = dt.datetime.fromisoformat(event[field]['dateTime']).replace(tzinfo=None)
-    minutes = int((time - referenceTime).total_seconds() // 60)
+    minutes = int((time - reference_time).total_seconds() // 60)
     return minutes
 
-def add_google_events(events, model, referenceTime):
+def add_google_events(events, model, reference_time):
     for event in events:
-        begin = date_time_field_to_minutes(event, "start", referenceTime)
-        end = date_time_field_to_minutes(event, "end", referenceTime)
+        begin = date_time_field_to_minutes(event, "start", reference_time)
+        end = date_time_field_to_minutes(event, "end", reference_time)
         add_fixed_entry(event["summary"], begin, end, model)
 
-def fixed_tasks(data, model, referenceTime):
+def fixed_tasks(data, model, reference_time):
     for task in data:
-        begin = date_to_minutes(task, "HoraInicio", referenceTime)
-        end = date_to_minutes(task, "HoraFim", referenceTime)
+        begin = date_to_minutes(task, "HoraInicio", reference_time)
+        end = date_to_minutes(task, "HoraFim", reference_time)
         add_fixed_entry(task["name"], begin, end, model)
 
 def add_fixed_entry(name, begin, end, model):
@@ -102,50 +122,49 @@ def create_new_optional_task(name, data, model, previousSchedule):
     end = create_task_end(model, name, data)
     register_optional_tasks_interval(model, name, data, start, duration, end, bool_var)
 
-def add_optional_tasks(optionals, model, referenceTime, previousSchedule):
+def add_optional_tasks(optionals, model, reference_time, previous_schedule):
     for task in optionals:
         windows = []
         for domain in task["domains"]:
-            start = date_to_minutes(domain, "HoraInicio", referenceTime)
+            start = date_to_minutes(domain, "HoraInicio", reference_time)
             start = 0 if start < 0 else start
-            end = date_to_minutes(domain, "HoraFim", referenceTime)
+            end = date_to_minutes(domain, "HoraFim", reference_time)
             if end >= 0:
                 windows.append([start, end])
         task["intervals"] = windows
-        create_new_optional_task(task["name"], task, model, previousSchedule)
+        create_new_optional_task(task["name"], task, model, previous_schedule)
 
-def solve_schedule(model, referenceTime):
+def solve_schedule(model, reference_time):
     model.maximize(sum(bool_var * peso for bool_var, peso in zip(boolean_variables, pesos)) + sum(stability_bonus))
     model.add_no_overlap(intervals)
     solver = cp_model.CpSolver()
     status = solver.solve(model)
     if status == cp_model.OPTIMAL or status == cp_model.FEASIBLE:
-        generate_output(solver, referenceTime)
+        generate_output(solver, reference_time)
     else:
         print("No solution found")
 
-def generate_output(solver, referenceTime):
+def generate_output(solver, reference_time):
     schedule = []
     for b in stability_bonus:
         print(solver.value(b))
     for task in tasks:
         if solver.value(tasks[task]["bool"]) == 1:
-            begin = minutes_into_schedule(solver.value(tasks[task]["start"]), referenceTime)
-            end = minutes_into_schedule(solver.value(tasks[task]["end"]), referenceTime)
-
+            begin = minutes_into_schedule(solver.value(tasks[task]["start"]), reference_time)
+            end = minutes_into_schedule(solver.value(tasks[task]["end"]), reference_time)
             schedule.append({"name": task, "start": begin, "end": end})
     with open("JSON_file/output.json", mode="w", encoding="utf-8") as f:
         json.dump(schedule, f, ensure_ascii=False, indent=3)
 
-def load_previous_schedule(referenceTime):
+def load_previous_schedule(reference_time):
     if not os.path.exists("JSON_file/output.json"):
         return {}
     with open("JSON_file/output.json", encoding="utf-8") as f:
         data = json.load(f)
     result={}
     for task in data:
-        begin = date_time_field_to_minutes(task, "start", referenceTime)
-        end = date_time_field_to_minutes(task, "end", referenceTime)
+        begin = date_time_field_to_minutes(task, "start", reference_time)
+        end = date_time_field_to_minutes(task, "end", reference_time)
         result[task["name"]] = {"start": begin, "end": end}
     return result
 
@@ -165,12 +184,12 @@ def get_credentials(token, credentials):
     return creds
 
 def fetch_upcoming_events(service, days=7):
-    timeMin = dt.datetime.now()
-    timeMax = (dt.timedelta(days) + timeMin)
+    time_min = dt.datetime.now()
+    time_max = (dt.timedelta(days) + time_min)
     return service.events().list(
         calendarId="primary",
-        timeMin=timeMin.isoformat() + "Z",
-        timeMax=timeMax.isoformat() + "Z",
+        timeMin=time_min.isoformat() + "Z",
+        timeMax=time_max.isoformat() + "Z",
         singleEvents=True,
         orderBy="startTime"
     ).execute()
@@ -186,43 +205,25 @@ def execute_schedule(llm_response):
     with open("JSON_file/Tasks.json", encoding="utf-8") as f:
         data = json.load(f)
     model = cp_model.CpModel()
-    referenceTime = dt.datetime.now().replace(second=0)
-    previousSchedule = load_previous_schedule(referenceTime)
-    google_connection(referenceTime, model)
-    fixed_tasks(data["fixedTasks"], model, referenceTime)
-    add_optional_tasks(data["optionalTasks"], model, referenceTime, previousSchedule)
+    reference_time = dt.datetime.now().replace(second=0)
+    previous_schedule = load_previous_schedule(reference_time)
+    google_connection(reference_time, model)
+    fixed_tasks(data["fixedTasks"], model, reference_time)
+    add_optional_tasks(data["optionalTasks"], model, reference_time, previous_schedule)
     llm_data = json.loads(llm_response)
-    fixed_tasks(llm_data["fixedTasks"], model, referenceTime)
-    add_optional_tasks(llm_data["optionalTasks"], model, referenceTime, previousSchedule)
-    solve_schedule(model, referenceTime)
+    fixed_tasks(llm_data["fixedTasks"], model, reference_time)
+    add_optional_tasks(llm_data["optionalTasks"], model, reference_time, previous_schedule)
+    solve_schedule(model, reference_time)
 
 def ask_llm(user_request, client):
-    prompt = """Preciso que cries um documento com a informaçao necessario da tarefa do utilizador para puder utilizar no meu programa responde apenas com o JSON, sem texto antes ou depois, em que pode ser uma tarefa fixa, dividida em 'name', 'day', 'HoraInicio', 'HoraFim', ou pode ser opcional, dividida em 'name', 'domains' (que terá uma lista de elementos com os atributos 'day','HoraInicio','HoraFim'), 'durationMin', 'durationMax', 'peso' Exemplo:
-{
-    "fixedTasks": [{
-    "name": "Aula BD Pratica", "day": "Terça", "HoraInicio": "16:00", "HoraFim": "18:00"}], "optionalTasks": [{
-      "name":"Gym",
-      "domains": [
-        {"day": "Segunda",
-          "HoraInicio": "8:00",
-          "HoraFim": "21:00"},
-        {"day": "Terça",
-          "HoraInicio": "8:00",
-          "HoraFim": "21:00"}],
-      "durationMin": 60,
-      "durationMax": 60,
-      "peso": 3}
-   ]
-}
-
-Pedido do Utilizador: [PEDIDO DO UTILIZADOR]""".replace("[PEDIDO DO UTILIZADOR]", user_request)
-    response = client.chat.completions.create(model="gpt-4o-mini", messages=[{"role": "user", "content": prompt}])
+    PROMPT.replace("[PEDIDO DO UTILIZADOR]", user_request)
+    response = client.chat.completions.create(model="gpt-4o-mini", messages=[{"role": "user", "content": PROMPT}])
     return response.choices[0].message.content
 
 if __name__ == "__main__":
     initialize_global_variables()
     print(os.environ.get("OPENAI_API_KEY"))
     client = OpenAI()
-    llmHelp = ask_llm("Tenho aula de AB à Quarta das 16h às 18h, e jogar Terraria à tarde, peso 3, entre 8h e 21h de Segunda a Sexta, durante 1 hora", client)
-    print(llmHelp)
-    execute_schedule(llmHelp)
+    llm_help = ask_llm("Tenho aula de AB à Quarta das 16h às 18h, e jogar Terraria à tarde, peso 3, entre 8h e 21h de Segunda a Sexta, durante 1 hora", client)
+    print(llm_help)
+    execute_schedule(llm_help)
