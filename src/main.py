@@ -67,21 +67,21 @@ def add_google_events(events, model, reference_time):
     for event in events:
         begin = date_time_field_to_minutes(event, "start", reference_time)
         end = date_time_field_to_minutes(event, "end", reference_time)
-        add_fixed_entry(event["summary"], begin, end, model)
+        add_fixed_entry(event["summary"], begin, end, model, True)
 
 def fixed_tasks(data, model, reference_time):
     for task in data:
         begin = date_to_minutes(task, "HoraInicio", reference_time)
         end = date_to_minutes(task, "HoraFim", reference_time)
-        add_fixed_entry(task["name"], begin, end, model)
+        add_fixed_entry(task["name"], begin, end, model, False)
 
-def add_fixed_entry(name, begin, end, model):
+def add_fixed_entry(name, begin, end, model, bool):
     begin_cons = model.new_constant(begin)
     end_cons = model.new_constant(end)
     duration = model.new_constant(end - begin)
     interval = model.new_interval_var(begin_cons, duration, end_cons, name)
     tasks[name] = {"bool": model.new_constant(1), "start": begin_cons,
-                           "duration": duration, "end": end_cons}
+                           "duration": duration, "end": end_cons, "from_google": bool}
     intervals.append(interval)
 
 
@@ -117,7 +117,8 @@ def register_optional_tasks_interval(model, name, data, start, duration, end, bo
         "bool": bool_var,
         "start": start,
         "duration": duration,
-        "end": end
+        "end": end,
+        "from_google": False
     }
 
 def create_new_optional_task(name, data, model, previousSchedule):
