@@ -11,25 +11,31 @@ from openai import OpenAI
 DAYS_INT = {"Segunda": 0, "Terça": 1, "Quarta": 2, "Quinta": 3, "Sexta": 4, "Sabado": 5, "Domingo": 6}
 INT_DAYS = {value: key for key, value in DAYS_INT.items()}
 
-PROMPT = """Preciso que cries um documento com a informaçao necessario da tarefa do utilizador para puder utilizar no meu programa responde apenas com o JSON, sem texto antes ou depois, em que pode ser uma tarefa fixa, dividida em 'name', 'day', 'HoraInicio', 'HoraFim', ou pode ser opcional, dividida em 'name', 'domains' (que terá uma lista de elementos com os atributos 'day','HoraInicio','HoraFim'), 'durationMin', 'durationMax', 'peso' Exemplo:
+PROMPT = """Atua como um conversor de texto para JSON.
+A tua tarefa é extrair as informações do "NOVO PEDIDO DO UTILIZADOR" e formatá-las na estrutura JSON especificada.
+
+Regras estritas:
+1. Responde APENAS com o objeto JSON final.
+2. Não uses marcadores de código Markdown (como ```json ou ```). Não adiciones texto, explicações ou espaços antes ou depois do JSON.
+3. Não incluas os dados dos exemplos na resposta. Processa apenas o NOVO PEDIDO.
+
+Estrutura do JSON:
+- TAREFA FIXA (fixedTasks): "name", "day", "HoraInicio", "HoraFim"
+- TAREFA OPCIONAL (optionalTasks): "name", "domains" (lista com "day", "HoraInicio", "HoraFim"), "durationMin", "durationMax", "peso"
+
+Exemplo de formato esperado (NÃO incluir estes dados na resposta):
 {
-    "fixedTasks": [{
-    "name": "Aula BD Pratica", "day": "Terça", "HoraInicio": "16:00", "HoraFim": "18:00"}], "optionalTasks": [{
-      "name":"Gym",
-      "domains": [
-        {"day": "Segunda",
-          "HoraInicio": "8:00",
-          "HoraFim": "21:00"},
-        {"day": "Terça",
-          "HoraInicio": "8:00",
-          "HoraFim": "21:00"}],
-      "durationMin": 60,
-      "durationMax": 60,
-      "peso": 3}
-   ]
+  "fixedTasks": [],
+  "optionalTasks": [{
+    "name": "Exemplo",
+    "domains": [{"day": "Segunda", "HoraInicio": "8:00", "HoraFim": "21:00"}],
+    "durationMin": 60,
+    "durationMax": 60,
+    "peso": 3
+  }]
 }
 
-Pedido do Utilizador: [PEDIDO DO UTILIZADOR]"""
+NOVO PEDIDO DO UTILIZADOR: [PEDIDO DO UTILIZADOR]"""
 
 def initialize_global_variables():
     global tasks, intervals, boolean_variables, pesos, stability_bonus
@@ -153,24 +159,25 @@ def generate_output(solver, reference_time):
             begin = minutes_into_schedule(solver.value(tasks[task]["start"]), reference_time)
             end = minutes_into_schedule(solver.value(tasks[task]["end"]), reference_time)
             schedule.append({"name": task, "start": begin, "end": end})
-    with open("JSON_file/output.json", mode="w", encoding="utf-8") as f:
+    with open("../JSON_file/output.json", mode="w", encoding="utf-8") as f:
         json.dump(schedule, f, ensure_ascii=False, indent=3)
 
 def load_previous_schedule(reference_time):
-    if not os.path.exists("JSON_file/output.json"):
+    if not os.path.exists("../JSON_file/output.json"):
         return {}
-    with open("JSON_file/output.json", encoding="utf-8") as f:
+    with open("../JSON_file/output.json", encoding="utf-8") as f:
         data = json.load(f)
     result={}
     for task in data:
         begin = date_time_field_to_minutes(task, "start", reference_time)
         end = date_time_field_to_minutes(task, "end", reference_time)
-        result[task["name"]] = {"start": begin, "end": end}
+        if begin >= 0:
+            result[task["name"]] = {"start": begin, "end": end}
     return result
 
 
 def get_credentials(token, credentials):
-    SCOPES = ["https://www.googleapis.com/auth/calendar.readonly"]
+    SCOPES = ["https://www.googleapis.com/auth/calendar"]
     creds = None
     if os.path.exists(token):
         creds = Credentials.from_authorized_user_file(token, SCOPES)
@@ -178,34 +185,34 @@ def get_credentials(token, credentials):
     if not creds or not creds.valid:
         flow = InstalledAppFlow.from_client_secrets_file(credentials, SCOPES)
         creds = flow.run_local_server(port=8000)
-        with open("JSON_file/token.json", "w") as f:
+        with open("../JSON_file/token.json", "w") as f:
             f.write(creds.to_json())
 
     return creds
 
-def fetch_upcoming_events(service, days=7):
-    time_min = dt.datetime.now()
+def fetch_upcoming_events(creds, days=7):
+    service = build("calendar", "v3", credentials=creds)
+    time_min = dt.datetime.now(dt.timezone.utc)
     time_max = (dt.timedelta(days) + time_min)
     return service.events().list(
         calendarId="primary",
-        timeMin=time_min.isoformat() + "Z",
-        timeMax=time_max.isoformat() + "Z",
+        timeMin=time_min.isoformat(),
+        timeMax=time_max.isoformat(),
         singleEvents=True,
         orderBy="startTime"
     ).execute()
 
 def google_connection(referenceTime, model):
-    creds = get_credentials("JSON_file/token.json", "JSON_file/credentials.json")
+    creds = get_credentials("../JSON_file/token.json", "../JSON_file/credentials.json")
 
-    service = build("calendar", "v3", credentials=creds)
-    events = fetch_upcoming_events(service)
+    events = fetch_upcoming_events(creds)
     add_google_events(events['items'], model, referenceTime)
 
 def execute_schedule(llm_response):
-    with open("JSON_file/Tasks.json", encoding="utf-8") as f:
+    with open("../JSON_file/Tasks.json", encoding="utf-8") as f:
         data = json.load(f)
     model = cp_model.CpModel()
-    reference_time = dt.datetime.now().replace(second=0)
+    reference_time = dt.datetime.now().replace(second=0, microsecond=0)
     previous_schedule = load_previous_schedule(reference_time)
     google_connection(reference_time, model)
     fixed_tasks(data["fixedTasks"], model, reference_time)
@@ -216,14 +223,13 @@ def execute_schedule(llm_response):
     solve_schedule(model, reference_time)
 
 def ask_llm(user_request, client):
-    PROMPT.replace("[PEDIDO DO UTILIZADOR]", user_request)
-    response = client.chat.completions.create(model="gpt-4o-mini", messages=[{"role": "user", "content": PROMPT}])
+    prompt = PROMPT.replace("[PEDIDO DO UTILIZADOR]", user_request)
+    response = client.chat.completions.create(model="gpt-4o-mini", messages=[{"role": "user", "content": prompt}])
     return response.choices[0].message.content
 
 if __name__ == "__main__":
     initialize_global_variables()
-    print(os.environ.get("OPENAI_API_KEY"))
     client = OpenAI()
-    llm_help = ask_llm("Tenho aula de AB à Quarta das 16h às 18h, e jogar Terraria à tarde, peso 3, entre 8h e 21h de Segunda a Sexta, durante 1 hora", client)
+    llm_help = ask_llm("Quero jogar Terraria à tarde, peso 3, entre 8h e 21h de Segunda a Sexta, durante 1 hora", client)
     print(llm_help)
     execute_schedule(llm_help)
