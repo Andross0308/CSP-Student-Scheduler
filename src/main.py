@@ -55,8 +55,8 @@ def date_to_minutes(task, timeField, referenceTime):
     return task_minutes
 
 def minutes_into_schedule(minutes, reference_time):
-    date = reference_time + dt.timedelta(minutes=minutes)       #Problem Here!!!!!!!!
-    return {"dateTime": date.isoformat(timespec="seconds"), "day_week": INT_DAYS[date.weekday()]}
+    date = reference_time + dt.timedelta(minutes=minutes)
+    return date.isoformat(timespec="seconds")
 
 def date_time_field_to_minutes(event, field, reference_time):
     time = dt.datetime.fromisoformat(event[field]['dateTime']).replace(tzinfo=None)
@@ -67,21 +67,21 @@ def add_google_events(events, model, reference_time):
     for event in events:
         begin = date_time_field_to_minutes(event, "start", reference_time)
         end = date_time_field_to_minutes(event, "end", reference_time)
-        add_fixed_entry(event["summary"], begin, end, model)
+        add_fixed_entry(event["summary"], begin, end, model, True)
 
 def fixed_tasks(data, model, reference_time):
     for task in data:
         begin = date_to_minutes(task, "HoraInicio", reference_time)
         end = date_to_minutes(task, "HoraFim", reference_time)
-        add_fixed_entry(task["name"], begin, end, model)
+        add_fixed_entry(task["name"], begin, end, model, False)
 
-def add_fixed_entry(name, begin, end, model):
+def add_fixed_entry(name, begin, end, model, bool):
     begin_cons = model.new_constant(begin)
     end_cons = model.new_constant(end)
     duration = model.new_constant(end - begin)
     interval = model.new_interval_var(begin_cons, duration, end_cons, name)
     tasks[name] = {"bool": model.new_constant(1), "start": begin_cons,
-                           "duration": duration, "end": end_cons}
+                           "duration": duration, "end": end_cons, "from_google": bool}
     intervals.append(interval)
 
 
@@ -117,7 +117,8 @@ def register_optional_tasks_interval(model, name, data, start, duration, end, bo
         "bool": bool_var,
         "start": start,
         "duration": duration,
-        "end": end
+        "end": end,
+        "from_google": False
     }
 
 def create_new_optional_task(name, data, model, previousSchedule):
@@ -151,16 +152,28 @@ def solve_schedule(model, reference_time):
         print("No solution found")
 
 def generate_output(solver, reference_time):
-    schedule = []
-    for b in stability_bonus:
-        print(solver.value(b))
+    new_events = {}
     for task in tasks:
-        if solver.value(tasks[task]["bool"]) == 1:
+        if solver.value(tasks[task]["bool"]) == 1 and not tasks[task]["from_google"]:
             begin = minutes_into_schedule(solver.value(tasks[task]["start"]), reference_time)
             end = minutes_into_schedule(solver.value(tasks[task]["end"]), reference_time)
-            schedule.append({"name": task, "start": begin, "end": end})
-    with open("../JSON_file/output.json", mode="w", encoding="utf-8") as f:
-        json.dump(schedule, f, ensure_ascii=False, indent=3)
+            new_events[task] = {"start": begin, "end": end}
+    for task in new_events:
+        print("New task:")
+        print(f"Name: {task} \n Begin : {new_events[task]["start"]} \nEnd: {new_events[task]["end"]}\n")
+    confirm = input("Confirm this are the correct options to add to your calendar:")
+    if confirm == 'y':
+        service = build("calendar", "v3", credentials=get_credentials())
+        for task in new_events:
+            service.events().insert(
+                calendarId="primary",
+                body= {
+                    "summary": task,
+                    "start": {"dateTime": new_events[task]["start"], "timeZone": "Europe/Lisbon"},
+                    "end": {"dateTime": new_events[task]["end"], "timeZone": "Europe/Lisbon"}
+                }
+             ).execute()
+
 
 def load_previous_schedule(reference_time):
     if not os.path.exists("../JSON_file/output.json"):
@@ -176,7 +189,7 @@ def load_previous_schedule(reference_time):
     return result
 
 
-def get_credentials(token, credentials):
+def get_credentials(token = "../JSON_file/token.json", credentials = "../JSON_file/credentials.json"):
     SCOPES = ["https://www.googleapis.com/auth/calendar"]
     creds = None
     if os.path.exists(token):
