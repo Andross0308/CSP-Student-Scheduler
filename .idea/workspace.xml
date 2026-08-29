@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="Adding prompt from user to create new tasks in the module and changing some other things">
+    <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="Save it to tasks, whether it came from the Google Calendar or from the Tasks.json/LLM">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
     </list>
@@ -385,7 +385,15 @@
       <option name="project" value="LOCAL" />
       <updated>1787914297945</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="Save it to tasks, whether it came from the Google Calendar or from the Tasks.json/LLM">
+      <option name="closed" value="true" />
+      <created>1787916462421</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1787916462421</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -422,7 +430,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Now the solveSchedule verifies the status and only prints the information of the values if the status is OPTIMAL or FEASIBLE. Any other case prints error message" />
     <MESSAGE value="Changing order of the information of the solver values and status" />
     <MESSAGE value="Creating a JSON to store all the tasks, divided by fixed and optimal tasks" />
     <MESSAGE value="Changing the createNewOptionalTask to receive the JSON instead of the hardcode Python dict" />
@@ -447,7 +454,8 @@
     <MESSAGE value="Creating a function to create initialize the global variables" />
     <MESSAGE value="Changing the nomenclature of variables to all be snake_case" />
     <MESSAGE value="Adding prompt from user to create new tasks in the module and changing some other things" />
-    <option name="LAST_COMMIT_MESSAGE" value="Adding prompt from user to create new tasks in the module and changing some other things" />
+    <MESSAGE value="Save it to tasks, whether it came from the Google Calendar or from the Tasks.json/LLM" />
+    <option name="LAST_COMMIT_MESSAGE" value="Save it to tasks, whether it came from the Google Calendar or from the Tasks.json/LLM" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

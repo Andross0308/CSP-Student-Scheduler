@@ -153,6 +153,7 @@ def solve_schedule(model, reference_time):
 
 def generate_output(solver, reference_time):
     schedule = []
+    new_events = {}
     for b in stability_bonus:
         print(solver.value(b))
     for task in tasks:
@@ -160,6 +161,24 @@ def generate_output(solver, reference_time):
             begin = minutes_into_schedule(solver.value(tasks[task]["start"]), reference_time)
             end = minutes_into_schedule(solver.value(tasks[task]["end"]), reference_time)
             schedule.append({"name": task, "start": begin, "end": end})
+            if not tasks[task]["from_google"]:
+                new_events[task] = {"start": begin["dateTime"], "end": end["dateTime"]}
+    for task in new_events:
+        print("New task:")
+        print(f"Name: {task} \n Begin : {new_events[task]["start"]} \nEnd: {new_events[task]["end"]}\n")
+    confirm = input("Confirm this are the correct options to add to your calendar:")
+    if confirm == 'y':
+        service = build("calendar", "v3", credentials=get_credentials())
+        for task in new_events:
+            service.events().insert(
+                calendarId="primary",
+                body= {
+                    "summary": task,
+                    "start": {"dateTime": new_events[task]["start"], "timeZone": "Europe/Lisbon"},
+                    "end": {"dateTime": new_events[task]["end"], "timeZone": "Europe/Lisbon"}
+                }
+             ).execute()
+
     with open("../JSON_file/output.json", mode="w", encoding="utf-8") as f:
         json.dump(schedule, f, ensure_ascii=False, indent=3)
 
@@ -177,7 +196,7 @@ def load_previous_schedule(reference_time):
     return result
 
 
-def get_credentials(token, credentials):
+def get_credentials(token = "../JSON_file/token.json", credentials = "../JSON_file/credentials.json"):
     SCOPES = ["https://www.googleapis.com/auth/calendar"]
     creds = None
     if os.path.exists(token):
