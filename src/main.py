@@ -55,8 +55,8 @@ def date_to_minutes(task, timeField, referenceTime):
     return task_minutes
 
 def minutes_into_schedule(minutes, reference_time):
-    date = reference_time + dt.timedelta(minutes=minutes)       #Problem Here!!!!!!!!
-    return {"dateTime": date.isoformat(timespec="seconds"), "day_week": INT_DAYS[date.weekday()]}
+    date = reference_time + dt.timedelta(minutes=minutes)
+    return date.isoformat(timespec="seconds")
 
 def date_time_field_to_minutes(event, field, reference_time):
     time = dt.datetime.fromisoformat(event[field]['dateTime']).replace(tzinfo=None)
@@ -152,15 +152,12 @@ def solve_schedule(model, reference_time):
         print("No solution found")
 
 def generate_output(solver, reference_time):
-    schedule = []
     new_events = {}
     for task in tasks:
-        if solver.value(tasks[task]["bool"]) == 1:
+        if solver.value(tasks[task]["bool"]) == 1 and not tasks[task]["from_google"]:
             begin = minutes_into_schedule(solver.value(tasks[task]["start"]), reference_time)
             end = minutes_into_schedule(solver.value(tasks[task]["end"]), reference_time)
-            schedule.append({"name": task, "start": begin, "end": end})
-            if not tasks[task]["from_google"]:
-                new_events[task] = {"start": begin["dateTime"], "end": end["dateTime"]}
+            new_events[task] = {"start": begin, "end": end}
     for task in new_events:
         print("New task:")
         print(f"Name: {task} \n Begin : {new_events[task]["start"]} \nEnd: {new_events[task]["end"]}\n")
@@ -177,8 +174,6 @@ def generate_output(solver, reference_time):
                 }
              ).execute()
 
-    with open("../JSON_file/output.json", mode="w", encoding="utf-8") as f:
-        json.dump(schedule, f, ensure_ascii=False, indent=3)
 
 def load_previous_schedule(reference_time):
     if not os.path.exists("../JSON_file/output.json"):
