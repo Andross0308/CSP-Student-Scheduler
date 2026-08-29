@@ -154,8 +154,6 @@ def solve_schedule(model, reference_time):
 def generate_output(solver, reference_time):
     schedule = []
     new_events = {}
-    for b in stability_bonus:
-        print(solver.value(b))
     for task in tasks:
         if solver.value(tasks[task]["bool"]) == 1:
             begin = minutes_into_schedule(solver.value(tasks[task]["start"]), reference_time)
