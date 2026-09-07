@@ -243,8 +243,6 @@ def execute_schedule(llm_response):
     reference_time = dt.datetime.now().replace(second=0, microsecond=0)
     previous_schedule = load_previous_schedule(reference_time)
     google_connection(reference_time, model, previous_schedule)
-    fixed_tasks(data["fixedTasks"], model, reference_time)
-    add_optional_tasks(data["optionalTasks"], model, reference_time, previous_schedule)
     llm_data = json.loads(llm_response)
     fixed_tasks(llm_data["fixedTasks"], model, reference_time)
     add_optional_tasks(llm_data["optionalTasks"], model, reference_time, previous_schedule)

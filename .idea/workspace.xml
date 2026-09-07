@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="Remove unrelevant loop">
-      <change afterPath="$PROJECT_DIR$/JSON_file/Library.json" afterDir="false" />
+    <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="Read the events of google Calendar and split it as fixed and optional tasks">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
     </list>
@@ -57,7 +56,7 @@
   "keyToString": {
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "Python.google_service.executor": "Debug",
-    "Python.main.executor": "Debug",
+    "Python.main.executor": "Run",
     "Python.test_calendar_auth.executor": "Run",
     "RunOnceActivity.MCP Project settings loaded": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -410,7 +409,15 @@
       <option name="project" value="LOCAL" />
       <updated>1788018800098</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="Read the events of google Calendar and split it as fixed and optional tasks">
+      <option name="closed" value="true" />
+      <created>1788032799289</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1788032799289</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -447,7 +454,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Changing the createNewOptionalTask to receive the JSON instead of the hardcode Python dict" />
     <MESSAGE value="Changing the fixedTasks to receive information from the JSON instead of the hardcoded Python dict" />
     <MESSAGE value="Creating function to create optional Tasks from the JSON" />
     <MESSAGE value="Changing minutesOfTheWeek function to receive the full task and calculate the minutes since the beginning of the week" />
@@ -472,7 +478,8 @@
     <MESSAGE value="Save it to tasks, whether it came from the Google Calendar or from the Tasks.json/LLM" />
     <MESSAGE value="Writes the task that came from the LLM in the Goggle Calendar" />
     <MESSAGE value="Remove unrelevant loop" />
-    <option name="LAST_COMMIT_MESSAGE" value="Remove unrelevant loop" />
+    <MESSAGE value="Read the events of google Calendar and split it as fixed and optional tasks" />
+    <option name="LAST_COMMIT_MESSAGE" value="Read the events of google Calendar and split it as fixed and optional tasks" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
