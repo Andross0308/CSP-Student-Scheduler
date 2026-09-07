@@ -63,11 +63,26 @@ def date_time_field_to_minutes(event, field, reference_time):
     minutes = int((time - reference_time).total_seconds() // 60)
     return minutes
 
-def add_google_events(events, model, reference_time):
+def add_google_events(events, model, reference_time, previous_schedule):
+    with open("../JSON_file/Library.json", encoding="utf-8") as f:
+        data = json.load(f)
     for event in events:
-        begin = date_time_field_to_minutes(event, "start", reference_time)
-        end = date_time_field_to_minutes(event, "end", reference_time)
-        add_fixed_entry(event["summary"], begin, end, model, True)
+        if data[event["summary"]]["kind"] == "fixed_task":
+            begin = date_time_field_to_minutes(event, "start", reference_time)
+            end = date_time_field_to_minutes(event, "end", reference_time)
+            add_fixed_entry(event["summary"], begin, end, model, True)
+        else:
+            task = data[event["summary"]]
+            windows = []
+            for domain in task["domains"]:
+                start = date_to_minutes(domain, "HoraInicio", reference_time)
+                start = 0 if start < 0 else start
+                end = date_to_minutes(domain, "HoraFim", reference_time)
+                if end >= 0:
+                    windows.append([start, end])
+            task["intervals"] = windows
+            create_new_optional_task(event["summary"], task, model, previous_schedule)
+
 
 def fixed_tasks(data, model, reference_time):
     for task in data:
@@ -215,11 +230,11 @@ def fetch_upcoming_events(creds, days=7):
         orderBy="startTime"
     ).execute()
 
-def google_connection(referenceTime, model):
+def google_connection(referenceTime, model, previous_schedule):
     creds = get_credentials("../JSON_file/token.json", "../JSON_file/credentials.json")
 
     events = fetch_upcoming_events(creds)
-    add_google_events(events['items'], model, referenceTime)
+    add_google_events(events['items'], model, referenceTime, previous_schedule)
 
 def execute_schedule(llm_response):
     with open("../JSON_file/Tasks.json", encoding="utf-8") as f:
@@ -227,9 +242,7 @@ def execute_schedule(llm_response):
     model = cp_model.CpModel()
     reference_time = dt.datetime.now().replace(second=0, microsecond=0)
     previous_schedule = load_previous_schedule(reference_time)
-    google_connection(reference_time, model)
-    fixed_tasks(data["fixedTasks"], model, reference_time)
-    add_optional_tasks(data["optionalTasks"], model, reference_time, previous_schedule)
+    google_connection(reference_time, model, previous_schedule)
     llm_data = json.loads(llm_response)
     fixed_tasks(llm_data["fixedTasks"], model, reference_time)
     add_optional_tasks(llm_data["optionalTasks"], model, reference_time, previous_schedule)

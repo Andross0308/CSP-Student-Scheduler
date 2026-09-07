@@ -1,0 +1,101 @@
+{
+  "Aula BD Pratica": {
+    "kind": "fixed_task",
+    "day": "Terça",
+    "HoraInicio": "16:00",
+    "HoraFim": "18:00"
+  },
+  "Aula LAP Pratica":{
+    "kind": "fixed_task",
+     "day": "Terça",
+    "HoraInicio": "14:00",
+    "HoraFim": "16:00"
+  },
+  "Aula PED Pratica": {
+    "kind": "fixed_task",
+    "day": "Segunda",
+    "HoraInicio": "10:00",
+    "HoraFim": "12:00"
+  },
+  "Aula TC Pratica": {
+    "kind": "fixed_task",
+    "day": "Segunda",
+    "HoraInicio": "8:00",
+    "HoraFim": "10:00"
+  },
+  "Aula BD Teorica": {
+    "kind": "fixed_task",
+    "day": "Quarta",
+    "HoraInicio": "10:00",
+    "HoraFim": "11:30"
+  },
+  "Aula LAP Teorica": {
+    "kind": "fixed_task",
+    "day": "Quinta",
+    "HoraInicio": "11:30",
+    "HoraFim": "13:00"
+  },
+
+  "Gym": {
+    "kind": "optional_task",
+    "domains": [
+      {
+        "day": "Segunda",
+        "HoraInicio": "8:00",
+        "HoraFim": "21:00"
+      },
+      {
+        "day": "Terça",
+        "HoraInicio": "8:00",
+        "HoraFim": "21:00"
+      }
+    ],
+    "durationMin": 60,
+    "durationMax": 60,
+    "peso": 3
+  },
+  "Chess": {
+    "kind": "optional_task",
+    "domains": [
+      {
+        "day": "Segunda",
+        "HoraInicio": "8:00",
+        "HoraFim": "21:00"
+      },
+      {
+        "day": "Terça",
+        "HoraInicio": "8:00",
+        "HoraFim": "21:00"
+      }
+    ],
+    "durationMin": 30,
+    "durationMax": 30,
+    "peso": 2
+  },
+  "Study": {
+    "kind": "optional_task",
+    "domains": [
+      {
+        "day": "Segunda",
+        "HoraInicio": "10:00",
+        "HoraFim": "16:00"
+      }
+    ],
+    "durationMin": 30,
+    "durationMax": 120,
+    "peso": 5
+  },
+  "Library": {
+    "kind": "optional_task",
+    "domains": [
+      {
+        "day": "Segunda",
+        "HoraInicio": "10:00",
+        "HoraFim": "16:00"
+      }
+    ],
+    "durationMin": 30,
+    "durationMax": 120,
+    "peso": 5
+  }
+}
