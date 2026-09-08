@@ -75,7 +75,7 @@ def minutes_into_schedule(minutes, reference_time):
     return date.isoformat(timespec="seconds")
 
 def date_time_field_to_minutes(event, field, reference_time):
-    time = dt.datetime.fromisoformat(event[field]['dateTime']).replace(tzinfo=None)
+    time = dt.datetime.fromisoformat(event[field]['date']).replace(tzinfo=None)
     minutes = int((time - reference_time).total_seconds() // 60)
     return minutes
 
@@ -83,7 +83,7 @@ def add_google_events(events, model, reference_time, previous_schedule):
     with open("../JSON_file/Library.json", encoding="utf-8") as f:
         data = json.load(f)
     for event in events:
-        if data[event["summary"]]["kind"] == "optional_task":
+        if event["summary"] in data and data[event["summary"]]["kind"] == "optional_task":
             task = data[event["summary"]]
             windows = []
             for domain in task["domains"]:
