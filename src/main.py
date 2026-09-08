@@ -20,19 +20,35 @@ Regras estritas:
 3. Não incluas os dados dos exemplos na resposta. Processa apenas o NOVO PEDIDO.
 
 Estrutura do JSON:
-- TAREFA FIXA (fixedTasks): "name", "day", "HoraInicio", "HoraFim"
-- TAREFA OPCIONAL (optionalTasks): "name", "domains" (lista com "day", "HoraInicio", "HoraFim"), "durationMin", "durationMax", "peso"
+- TAREFA FIXA com nome como chave (fixed_task): "kind", "day", "HoraInicio", "HoraFim"
+- TAREFA OPCIONAL com nome como chave (optional_task): "kind", "domains" (lista com "day", "HoraInicio", "HoraFim"), "durationMin", "durationMax", "peso"
 
 Exemplo de formato esperado (NÃO incluir estes dados na resposta):
 {
-  "fixedTasks": [],
-  "optionalTasks": [{
-    "name": "Exemplo",
-    "domains": [{"day": "Segunda", "HoraInicio": "8:00", "HoraFim": "21:00"}],
+  "Aula_X": {
+    "kind": "fixed_task"
+    "day": "Terça",
+    "HoraInicio": "14:00",
+    "HoraFim": "16:00"
+  },
+    "Gym": {
+    "kind": "optional_task",
+    "domains": [
+      {
+        "day": "Segunda",
+        "HoraInicio": "8:00",
+        "HoraFim": "21:00"
+      },
+      {
+        "day": "Terça",
+        "HoraInicio": "8:00",
+        "HoraFim": "21:00"
+      }
+    ],
     "durationMin": 60,
     "durationMax": 60,
     "peso": 3
-  }]
+  }
 }
 
 NOVO PEDIDO DO UTILIZADOR: [PEDIDO DO UTILIZADOR]"""
@@ -67,11 +83,7 @@ def add_google_events(events, model, reference_time, previous_schedule):
     with open("../JSON_file/Library.json", encoding="utf-8") as f:
         data = json.load(f)
     for event in events:
-        if data[event["summary"]]["kind"] == "fixed_task":
-            begin = date_time_field_to_minutes(event, "start", reference_time)
-            end = date_time_field_to_minutes(event, "end", reference_time)
-            add_fixed_entry(event["summary"], begin, end, model, True)
-        else:
+        if data[event["summary"]]["kind"] == "optional_task":
             task = data[event["summary"]]
             windows = []
             for domain in task["domains"]:
@@ -82,6 +94,28 @@ def add_google_events(events, model, reference_time, previous_schedule):
                     windows.append([start, end])
             task["intervals"] = windows
             create_new_optional_task(event["summary"], task, model, previous_schedule)
+        else:
+            begin = date_time_field_to_minutes(event, "start", reference_time)
+            end = date_time_field_to_minutes(event, "end", reference_time)
+            add_fixed_entry(event["summary"], begin, end, model, True)
+
+def add_llm_events(response, model, reference_time, previous_schedule):
+    data = json.loads(response)
+    for name, value in data.items():
+        if value["kind"] == "fixed_task":
+            begin = date_time_field_to_minutes(value, "HoraInicio", reference_time)
+            end = date_time_field_to_minutes(value, "HoraFim", reference_time)
+            add_fixed_entry(value, begin, end, model, False)
+        else:
+            windows = []
+            for domain in value["domains"]:
+                start = date_to_minutes(domain, "HoraInicio", reference_time)
+                start = 0 if start < 0 else start
+                end = date_to_minutes(domain, "HoraFim", reference_time)
+                if end >= 0:
+                    windows.append([start, end])
+            value["intervals"] = windows
+            create_new_optional_task(name, value, model, previous_schedule)
 
 
 def fixed_tasks(data, model, reference_time):
@@ -237,15 +271,11 @@ def google_connection(referenceTime, model, previous_schedule):
     add_google_events(events['items'], model, referenceTime, previous_schedule)
 
 def execute_schedule(llm_response):
-    with open("../JSON_file/Tasks.json", encoding="utf-8") as f:
-        data = json.load(f)
     model = cp_model.CpModel()
     reference_time = dt.datetime.now().replace(second=0, microsecond=0)
     previous_schedule = load_previous_schedule(reference_time)
     google_connection(reference_time, model, previous_schedule)
-    llm_data = json.loads(llm_response)
-    fixed_tasks(llm_data["fixedTasks"], model, reference_time)
-    add_optional_tasks(llm_data["optionalTasks"], model, reference_time, previous_schedule)
+    add_llm_events(llm_response, model, reference_time, previous_schedule)
     solve_schedule(model, reference_time)
 
 def ask_llm(user_request, client):
