@@ -267,8 +267,8 @@ def fetch_upcoming_events(creds, days=7):
 def google_connection(referenceTime, model, previous_schedule):
     creds = get_credentials("../JSON_file/token.json", "../JSON_file/credentials.json")
 
-    events = fetch_upcoming_events(creds)
-    add_google_events(events['items'], model, referenceTime, previous_schedule)
+    events = fetch_upcoming_events(creds)["items"]
+    add_google_events(events, model, referenceTime, previous_schedule)
 
 def execute_schedule(llm_response):
     model = cp_model.CpModel()

@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="Fixing bug on line 85, now checks if the event exists as a key in data">
+    <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="Update of certain things needed to do:&#10;- Simplify events in add_google_calendar&#10;- Verify if llm_events treats multiples tasks at once&#10;- Change previousSchedule to come from google and not from output.json&#10;- Dividing code into different classes to simplify and make it more beautiful&#10;- Changing objective to divide tasks during the day&#10;- LLM knows the tasks that exist and returns one if they existed&#10;- LLM figures if the task is important for that week or not">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,7 +23,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="dc83c605e010165c1014595a6ed395bd0772feb7" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -432,7 +433,15 @@
       <option name="project" value="LOCAL" />
       <updated>1788879806465</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="Update of certain things needed to do:&#10;- Simplify events in add_google_calendar&#10;- Verify if llm_events treats multiples tasks at once&#10;- Change previousSchedule to come from google and not from output.json&#10;- Dividing code into different classes to simplify and make it more beautiful&#10;- Changing objective to divide tasks during the day&#10;- LLM knows the tasks that exist and returns one if they existed&#10;- LLM figures if the task is important for that week or not">
+      <option name="closed" value="true" />
+      <created>1788880321876</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1788880321876</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -469,7 +478,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Changing minutesOfTheWeek function to receive the full task and calculate the minutes since the beginning of the week" />
     <MESSAGE value="Change fixedTasks() to receive only the fixed Tasks instead of all the JSON" />
     <MESSAGE value="Crates a JSON file (output.json) that stores all the tasks, in the correct schedule, divided into name, start and end (all tasks present have bool == 1)" />
     <MESSAGE value="Creating README.md and removing showInformation function" />
@@ -494,7 +502,8 @@
     <MESSAGE value="Read the events of google Calendar and split it as fixed and optional tasks" />
     <MESSAGE value="Changing order in the add_google_events, unknown events are treated as fixed" />
     <MESSAGE value="Fixing bug on line 85, now checks if the event exists as a key in data" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixing bug on line 85, now checks if the event exists as a key in data" />
+    <MESSAGE value="Update of certain things needed to do:&#10;- Simplify events in add_google_calendar&#10;- Verify if llm_events treats multiples tasks at once&#10;- Change previousSchedule to come from google and not from output.json&#10;- Dividing code into different classes to simplify and make it more beautiful&#10;- Changing objective to divide tasks during the day&#10;- LLM knows the tasks that exist and returns one if they existed&#10;- LLM figures if the task is important for that week or not" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update of certain things needed to do:&#10;- Simplify events in add_google_calendar&#10;- Verify if llm_events treats multiples tasks at once&#10;- Change previousSchedule to come from google and not from output.json&#10;- Dividing code into different classes to simplify and make it more beautiful&#10;- Changing objective to divide tasks during the day&#10;- LLM knows the tasks that exist and returns one if they existed&#10;- LLM figures if the task is important for that week or not" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -509,6 +518,7 @@
     <watches-manager>
       <configuration name="PythonConfigurationType">
         <watch expression="prompt" />
+        <watch expression="events['items']" />
       </configuration>
     </watches-manager>
   </component>
