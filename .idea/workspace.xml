@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="Changing order in the add_google_events, unknown events are treated as fixed">
-      <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
+    <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="Fixing bug on line 85, now checks if the event exists as a key in data">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -424,7 +424,15 @@
       <option name="project" value="LOCAL" />
       <updated>1788879249472</updated>
     </task>
-    <option name="localTasksCounter" value="42" />
+    <task id="LOCAL-00042" summary="Fixing bug on line 85, now checks if the event exists as a key in data">
+      <option name="closed" value="true" />
+      <created>1788879806465</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1788879806465</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -461,7 +469,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Creating function to create optional Tasks from the JSON" />
     <MESSAGE value="Changing minutesOfTheWeek function to receive the full task and calculate the minutes since the beginning of the week" />
     <MESSAGE value="Change fixedTasks() to receive only the fixed Tasks instead of all the JSON" />
     <MESSAGE value="Crates a JSON file (output.json) that stores all the tasks, in the correct schedule, divided into name, start and end (all tasks present have bool == 1)" />
@@ -486,7 +493,8 @@
     <MESSAGE value="Remove unrelevant loop" />
     <MESSAGE value="Read the events of google Calendar and split it as fixed and optional tasks" />
     <MESSAGE value="Changing order in the add_google_events, unknown events are treated as fixed" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changing order in the add_google_events, unknown events are treated as fixed" />
+    <MESSAGE value="Fixing bug on line 85, now checks if the event exists as a key in data" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixing bug on line 85, now checks if the event exists as a key in data" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -495,11 +503,6 @@
           <url>file://$PROJECT_DIR$/test_calendar_auth.py</url>
           <line>24</line>
           <option name="timeStamp" value="6" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/src/main.py</url>
-          <line>84</line>
-          <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
