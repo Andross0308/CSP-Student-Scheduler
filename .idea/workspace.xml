@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="Update of certain things needed to do:&#10;- Simplify events in add_google_calendar&#10;- Verify if llm_events treats multiples tasks at once&#10;- Change previousSchedule to come from google and not from output.json&#10;- Dividing code into different classes to simplify and make it more beautiful&#10;- Changing objective to divide tasks during the day&#10;- LLM knows the tasks that exist and returns one if they existed&#10;- LLM figures if the task is important for that week or not">
+    <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
     </list>
@@ -52,27 +52,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Python.google_service.executor": "Debug",
-    "Python.main.executor": "Debug",
-    "Python.test_calendar_auth.executor": "Run",
-    "RunOnceActivity.MCP Project settings loaded": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "C:/Users/acosm/OneDrive/Ambiente de Trabalho/AI projects/StudentAgentBitch",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Python.google_service.executor&quot;: &quot;Debug&quot;,
+    &quot;Python.main.executor&quot;: &quot;Debug&quot;,
+    &quot;Python.test_calendar_auth.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/acosm/OneDrive/Ambiente de Trabalho/AI projects/StudentAgentBitch&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   },
-  "keyToStringList": {
-    "ChangesTree.GroupingKeys": [
-      "directory",
-      "repository"
+  &quot;keyToStringList&quot;: {
+    &quot;ChangesTree.GroupingKeys&quot;: [
+      &quot;directory&quot;,
+      &quot;repository&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\acosm\OneDrive\Ambiente de Trabalho\AI projects\StudentAgentBitch" />
@@ -441,7 +441,15 @@
       <option name="project" value="LOCAL" />
       <updated>1788880321876</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="Tried the first problem, can't simplify events in add_google_calendar because of the information required&#10; What's left to do:&#10;     - Verify if llm_events treats multiples tasks at once&#10;    - Change previousSchedule to come from google and not from output.json&#10;    - Dividing code into different classes to simplify and make it more beautiful&#10;    - Changing objective to divide tasks during the day&#10;    - LLM knows the tasks that exist and returns one if they existed&#10;    - LLM figures if the task is important for that week or not">
+      <option name="closed" value="true" />
+      <created>1788881519289</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1788881519289</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -478,7 +486,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Change fixedTasks() to receive only the fixed Tasks instead of all the JSON" />
     <MESSAGE value="Crates a JSON file (output.json) that stores all the tasks, in the correct schedule, divided into name, start and end (all tasks present have bool == 1)" />
     <MESSAGE value="Creating README.md and removing showInformation function" />
     <MESSAGE value="Updating README.md" />
@@ -503,7 +510,8 @@
     <MESSAGE value="Changing order in the add_google_events, unknown events are treated as fixed" />
     <MESSAGE value="Fixing bug on line 85, now checks if the event exists as a key in data" />
     <MESSAGE value="Update of certain things needed to do:&#10;- Simplify events in add_google_calendar&#10;- Verify if llm_events treats multiples tasks at once&#10;- Change previousSchedule to come from google and not from output.json&#10;- Dividing code into different classes to simplify and make it more beautiful&#10;- Changing objective to divide tasks during the day&#10;- LLM knows the tasks that exist and returns one if they existed&#10;- LLM figures if the task is important for that week or not" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update of certain things needed to do:&#10;- Simplify events in add_google_calendar&#10;- Verify if llm_events treats multiples tasks at once&#10;- Change previousSchedule to come from google and not from output.json&#10;- Dividing code into different classes to simplify and make it more beautiful&#10;- Changing objective to divide tasks during the day&#10;- LLM knows the tasks that exist and returns one if they existed&#10;- LLM figures if the task is important for that week or not" />
+    <MESSAGE value="Tried the first problem, can't simplify events in add_google_calendar because of the information required&#10; What's left to do:&#10;     - Verify if llm_events treats multiples tasks at once&#10;    - Change previousSchedule to come from google and not from output.json&#10;    - Dividing code into different classes to simplify and make it more beautiful&#10;    - Changing objective to divide tasks during the day&#10;    - LLM knows the tasks that exist and returns one if they existed&#10;    - LLM figures if the task is important for that week or not" />
+    <option name="LAST_COMMIT_MESSAGE" value="Tried the first problem, can't simplify events in add_google_calendar because of the information required&#10; What's left to do:&#10;     - Verify if llm_events treats multiples tasks at once&#10;    - Change previousSchedule to come from google and not from output.json&#10;    - Dividing code into different classes to simplify and make it more beautiful&#10;    - Changing objective to divide tasks during the day&#10;    - LLM knows the tasks that exist and returns one if they existed&#10;    - LLM figures if the task is important for that week or not" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -512,6 +520,16 @@
           <url>file://$PROJECT_DIR$/test_calendar_auth.py</url>
           <line>24</line>
           <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/main.py</url>
+          <line>290</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/main.py</url>
+          <line>117</line>
+          <option name="timeStamp" value="9" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

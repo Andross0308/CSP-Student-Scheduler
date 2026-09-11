@@ -83,8 +83,9 @@ def add_google_events(events, model, reference_time, previous_schedule):
     with open("../JSON_file/Library.json", encoding="utf-8") as f:
         data = json.load(f)
     for event in events:
-        if event["summary"] in data and data[event["summary"]]["kind"] == "optional_task":
-            task = data[event["summary"]]
+        name = event["summary"]
+        if name in data and data[name]["kind"] == "optional_task":
+            task = data[name]
             windows = []
             for domain in task["domains"]:
                 start = date_to_minutes(domain, "HoraInicio", reference_time)
@@ -93,11 +94,11 @@ def add_google_events(events, model, reference_time, previous_schedule):
                 if end >= 0:
                     windows.append([start, end])
             task["intervals"] = windows
-            create_new_optional_task(event["summary"], task, model, previous_schedule)
+            create_new_optional_task(name, task, model, previous_schedule)
         else:
             begin = date_time_field_to_minutes(event, "start", reference_time)
             end = date_time_field_to_minutes(event, "end", reference_time)
-            add_fixed_entry(event["summary"], begin, end, model, True)
+            add_fixed_entry(name, begin, end, model, True)
 
 def add_llm_events(response, model, reference_time, previous_schedule):
     data = json.loads(response)
@@ -286,6 +287,6 @@ def ask_llm(user_request, client):
 if __name__ == "__main__":
     initialize_global_variables()
     client = OpenAI()
-    llm_help = ask_llm("Quero jogar Terraria à tarde, peso 3, entre 8h e 21h de Segunda a Sexta, durante 1 hora", client)
+    llm_help = ask_llm("Quero jogar Terraria à tarde, peso 3, e também ir à biblioteca estudar, peso 5, entre 10h e 16h de Segunda a Sexta, 1 a 2 horas", client)
     print(llm_help)
     execute_schedule(llm_help)
