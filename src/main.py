@@ -100,8 +100,9 @@ def add_google_events(events, model, reference_time, previous_schedule):
             end = date_time_field_to_minutes(event, "end", reference_time)
             add_fixed_entry(name, begin, end, model, True)
 
-def add_llm_events(response, model, reference_time, previous_schedule):
+def add_llm_events(response, model, reference_time):
     data = json.loads(response)
+    previous_schedule = None
     for name, value in data.items():
         if value["kind"] == "fixed_task":
             begin = date_time_field_to_minutes(value, "HoraInicio", reference_time)
@@ -135,9 +136,8 @@ def add_fixed_entry(name, begin, end, model, bool):
     intervals.append(interval)
 
 
-def create_tasks_stability(model, name, start, previous_schedule):
-    if name in previous_schedule:
-        previous_start = previous_schedule[name]["start"]
+def create_tasks_stability(model, name, start, previous_start=None, previous_end=None):
+    if previous_start is not None:
         keep_schedule = model.new_bool_var(f"{name}_Keep")
         model.add(start == previous_start).only_enforce_if(keep_schedule)
         model.add(start != previous_start).only_enforce_if(~keep_schedule)
@@ -171,11 +171,11 @@ def register_optional_tasks_interval(model, name, data, start, duration, end, bo
         "from_google": False
     }
 
-def create_new_optional_task(name, data, model, previousSchedule):
+def create_new_optional_task(name, data, model, previous_start, previous_end):
     bool_var = model.new_bool_var(f"{name}_Present")
     boolean_variables.append(bool_var)
     start, duration = create_tasks_start_and_duration(model, name, data)
-    create_tasks_stability(model, name, start, previousSchedule)
+    create_tasks_stability(model, name, start, previous_start=previous_start, previous_end=previous_end)
     end = create_task_end(model, name, data)
     register_optional_tasks_interval(model, name, data, start, duration, end, bool_var)
 
