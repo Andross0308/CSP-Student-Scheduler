@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="Adding a variable in add_google_events to store the name of the event to not repeat a lot of times">
+    <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="Changing the stability to work without previous_schedule, working with a previous_start coming from the Google Calendar API">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
     </list>
@@ -457,7 +457,15 @@
       <option name="project" value="LOCAL" />
       <updated>1789131544463</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL-00046" summary="Changing the stability to work without previous_schedule, working with a previous_start coming from the Google Calendar API">
+      <option name="closed" value="true" />
+      <created>1789417968442</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1789417968442</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -494,7 +502,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Creating README.md and removing showInformation function" />
     <MESSAGE value="Updating README.md" />
     <MESSAGE value="Pushing into GitHub" />
     <MESSAGE value="Change fixedTasks to calculate minutes of the week sice the current time and defining when it will take place" />
@@ -519,7 +526,8 @@
     <MESSAGE value="Update of certain things needed to do:&#10;- Simplify events in add_google_calendar&#10;- Verify if llm_events treats multiples tasks at once&#10;- Change previousSchedule to come from google and not from output.json&#10;- Dividing code into different classes to simplify and make it more beautiful&#10;- Changing objective to divide tasks during the day&#10;- LLM knows the tasks that exist and returns one if they existed&#10;- LLM figures if the task is important for that week or not" />
     <MESSAGE value="Tried the first problem, can't simplify events in add_google_calendar because of the information required&#10; What's left to do:&#10;     - Verify if llm_events treats multiples tasks at once&#10;    - Change previousSchedule to come from google and not from output.json&#10;    - Dividing code into different classes to simplify and make it more beautiful&#10;    - Changing objective to divide tasks during the day&#10;    - LLM knows the tasks that exist and returns one if they existed&#10;    - LLM figures if the task is important for that week or not" />
     <MESSAGE value="Adding a variable in add_google_events to store the name of the event to not repeat a lot of times" />
-    <option name="LAST_COMMIT_MESSAGE" value="Adding a variable in add_google_events to store the name of the event to not repeat a lot of times" />
+    <MESSAGE value="Changing the stability to work without previous_schedule, working with a previous_start coming from the Google Calendar API" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changing the stability to work without previous_schedule, working with a previous_start coming from the Google Calendar API" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -531,8 +539,8 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/src/main.py</url>
-          <line>291</line>
-          <option name="timeStamp" value="8" />
+          <line>85</line>
+          <option name="timeStamp" value="12" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

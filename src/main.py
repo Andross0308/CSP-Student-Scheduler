@@ -75,15 +75,17 @@ def minutes_into_schedule(minutes, reference_time):
     return date.isoformat(timespec="seconds")
 
 def date_time_field_to_minutes(event, field, reference_time):
-    time = dt.datetime.fromisoformat(event[field]['date']).replace(tzinfo=None)
+    time = dt.datetime.fromisoformat(event[field]['dateTime']).replace(tzinfo=None)
     minutes = int((time - reference_time).total_seconds() // 60)
     return minutes
 
-def add_google_events(events, model, reference_time, previous_schedule):
+def add_google_events(events, model, reference_time):
     with open("../JSON_file/Library.json", encoding="utf-8") as f:
         data = json.load(f)
     for event in events:
         name = event["summary"]
+        previous_start = date_time_field_to_minutes(event, 'start', reference_time)
+        previous_start = previous_start if previous_start >= 0 else None
         if name in data and data[name]["kind"] == "optional_task":
             task = data[name]
             windows = []
@@ -94,7 +96,7 @@ def add_google_events(events, model, reference_time, previous_schedule):
                 if end >= 0:
                     windows.append([start, end])
             task["intervals"] = windows
-            create_new_optional_task(name, task, model, previous_schedule)
+            create_new_optional_task(name, task, model, previous_start)
         else:
             begin = date_time_field_to_minutes(event, "start", reference_time)
             end = date_time_field_to_minutes(event, "end", reference_time)
@@ -102,7 +104,6 @@ def add_google_events(events, model, reference_time, previous_schedule):
 
 def add_llm_events(response, model, reference_time):
     data = json.loads(response)
-    previous_schedule = None
     for name, value in data.items():
         if value["kind"] == "fixed_task":
             begin = date_time_field_to_minutes(value, "HoraInicio", reference_time)
@@ -117,7 +118,7 @@ def add_llm_events(response, model, reference_time):
                 if end >= 0:
                     windows.append([start, end])
             value["intervals"] = windows
-            create_new_optional_task(name, value, model, previous_schedule)
+            create_new_optional_task(name, value, model)
 
 
 def fixed_tasks(data, model, reference_time):
@@ -136,7 +137,7 @@ def add_fixed_entry(name, begin, end, model, bool):
     intervals.append(interval)
 
 
-def create_tasks_stability(model, name, start, previous_start=None, previous_end=None):
+def create_tasks_stability(model, name, start, previous_start):
     if previous_start is not None:
         keep_schedule = model.new_bool_var(f"{name}_Keep")
         model.add(start == previous_start).only_enforce_if(keep_schedule)
@@ -171,25 +172,13 @@ def register_optional_tasks_interval(model, name, data, start, duration, end, bo
         "from_google": False
     }
 
-def create_new_optional_task(name, data, model, previous_start, previous_end):
+def create_new_optional_task(name, data, model, previous_start=None):
     bool_var = model.new_bool_var(f"{name}_Present")
     boolean_variables.append(bool_var)
     start, duration = create_tasks_start_and_duration(model, name, data)
-    create_tasks_stability(model, name, start, previous_start=previous_start, previous_end=previous_end)
+    create_tasks_stability(model, name, start, previous_start)
     end = create_task_end(model, name, data)
     register_optional_tasks_interval(model, name, data, start, duration, end, bool_var)
-
-def add_optional_tasks(optionals, model, reference_time, previous_schedule):
-    for task in optionals:
-        windows = []
-        for domain in task["domains"]:
-            start = date_to_minutes(domain, "HoraInicio", reference_time)
-            start = 0 if start < 0 else start
-            end = date_to_minutes(domain, "HoraFim", reference_time)
-            if end >= 0:
-                windows.append([start, end])
-        task["intervals"] = windows
-        create_new_optional_task(task["name"], task, model, previous_schedule)
 
 def solve_schedule(model, reference_time):
     model.maximize(sum(bool_var * peso for bool_var, peso in zip(boolean_variables, pesos)) + sum(stability_bonus))
@@ -265,18 +254,17 @@ def fetch_upcoming_events(creds, days=7):
         orderBy="startTime"
     ).execute()
 
-def google_connection(referenceTime, model, previous_schedule):
+def google_connection(referenceTime, model):
     creds = get_credentials("../JSON_file/token.json", "../JSON_file/credentials.json")
 
     events = fetch_upcoming_events(creds)["items"]
-    add_google_events(events, model, referenceTime, previous_schedule)
+    add_google_events(events, model, referenceTime)
 
 def execute_schedule(llm_response):
     model = cp_model.CpModel()
     reference_time = dt.datetime.now().replace(second=0, microsecond=0)
-    previous_schedule = load_previous_schedule(reference_time)
-    google_connection(reference_time, model, previous_schedule)
-    add_llm_events(llm_response, model, reference_time, previous_schedule)
+    google_connection(reference_time, model)
+    add_llm_events(llm_response, model, reference_time)
     solve_schedule(model, reference_time)
 
 def ask_llm(user_request, client):
