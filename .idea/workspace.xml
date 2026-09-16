@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="Changing the stability to work without previous_schedule, working with a previous_start coming from the Google Calendar API">
+    <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="Fixing bug on fixed tasks coming form the LLM, wrong function used to transform date into minutes, also changed the prompt, making sure that it received the day in the desired format and the &quot;start&quot;/&quot;end&quot; to correspond to the google Calendar format">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
     </list>
@@ -56,7 +56,7 @@
   &quot;keyToString&quot;: {
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
     &quot;Python.google_service.executor&quot;: &quot;Debug&quot;,
-    &quot;Python.main.executor&quot;: &quot;Debug&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
     &quot;Python.test_calendar_auth.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
@@ -465,7 +465,23 @@
       <option name="project" value="LOCAL" />
       <updated>1789417968442</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="Making so that stability only works for tasks coming from google Calendar, so that coming from the LLM, there will be no stability">
+      <option name="closed" value="true" />
+      <created>1789508637983</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1789508637983</updated>
+    </task>
+    <task id="LOCAL-00048" summary="Fixing bug on fixed tasks coming form the LLM, wrong function used to transform date into minutes, also changed the prompt, making sure that it received the day in the desired format and the &quot;start&quot;/&quot;end&quot; to correspond to the google Calendar format">
+      <option name="closed" value="true" />
+      <created>1789544378314</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1789544378315</updated>
+    </task>
+    <option name="localTasksCounter" value="49" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -502,8 +518,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Updating README.md" />
-    <MESSAGE value="Pushing into GitHub" />
     <MESSAGE value="Change fixedTasks to calculate minutes of the week sice the current time and defining when it will take place" />
     <MESSAGE value="Change addOptionalTasks() to calculate minutes of the week using the dateToMinutes function, also changing the dump in the output.json to write in paragraphs" />
     <MESSAGE value="Changing the format of the output.json so that contains both the day of the week and the date of the event" />
@@ -527,7 +541,9 @@
     <MESSAGE value="Tried the first problem, can't simplify events in add_google_calendar because of the information required&#10; What's left to do:&#10;     - Verify if llm_events treats multiples tasks at once&#10;    - Change previousSchedule to come from google and not from output.json&#10;    - Dividing code into different classes to simplify and make it more beautiful&#10;    - Changing objective to divide tasks during the day&#10;    - LLM knows the tasks that exist and returns one if they existed&#10;    - LLM figures if the task is important for that week or not" />
     <MESSAGE value="Adding a variable in add_google_events to store the name of the event to not repeat a lot of times" />
     <MESSAGE value="Changing the stability to work without previous_schedule, working with a previous_start coming from the Google Calendar API" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changing the stability to work without previous_schedule, working with a previous_start coming from the Google Calendar API" />
+    <MESSAGE value="Making so that stability only works for tasks coming from google Calendar, so that coming from the LLM, there will be no stability" />
+    <MESSAGE value="Fixing bug on fixed tasks coming form the LLM, wrong function used to transform date into minutes, also changed the prompt, making sure that it received the day in the desired format and the &quot;start&quot;/&quot;end&quot; to correspond to the google Calendar format" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixing bug on fixed tasks coming form the LLM, wrong function used to transform date into minutes, also changed the prompt, making sure that it received the day in the desired format and the &quot;start&quot;/&quot;end&quot; to correspond to the google Calendar format" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -536,11 +552,6 @@
           <url>file://$PROJECT_DIR$/test_calendar_auth.py</url>
           <line>24</line>
           <option name="timeStamp" value="6" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/src/main.py</url>
-          <line>85</line>
-          <option name="timeStamp" value="12" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -18,6 +18,7 @@ Regras estritas:
 1. Responde APENAS com o objeto JSON final.
 2. Não uses marcadores de código Markdown (como ```json ou ```). Não adiciones texto, explicações ou espaços antes ou depois do JSON.
 3. Não incluas os dados dos exemplos na resposta. Processa apenas o NOVO PEDIDO.
+4. Escreve somente o dia da semana, sem o "feira", por exemplo: "Quarta" em vez de "Quarta-Feira"
 
 Estrutura do JSON:
 - TAREFA FIXA com nome como chave (fixed_task): "kind", "day", "HoraInicio", "HoraFim"
@@ -28,21 +29,21 @@ Exemplo de formato esperado (NÃO incluir estes dados na resposta):
   "Aula_X": {
     "kind": "fixed_task"
     "day": "Terça",
-    "HoraInicio": "14:00",
-    "HoraFim": "16:00"
+    "start": "14:00",
+    "end": "16:00"
   },
     "Gym": {
     "kind": "optional_task",
     "domains": [
       {
         "day": "Segunda",
-        "HoraInicio": "8:00",
-        "HoraFim": "21:00"
+        "start": "8:00",
+        "end": "21:00"
       },
       {
         "day": "Terça",
-        "HoraInicio": "8:00",
-        "HoraFim": "21:00"
+        "start": "8:00",
+        "end": "21:00"
       }
     ],
     "durationMin": 60,
@@ -68,7 +69,7 @@ def date_to_minutes(task, timeField, referenceTime):
     hour, minute = task[timeField].split(":")
     task_date = (referenceTime + dt.timedelta(days=days)).replace(hour=int(hour), minute=int(minute))
     task_minutes = int((task_date - referenceTime).total_seconds() // 60)
-    return task_minutes
+    return task_minutes if task_minutes > 0 else (task_minutes + int(dt.timedelta(days=days+7).total_seconds()//60))
 
 def minutes_into_schedule(minutes, reference_time):
     date = reference_time + dt.timedelta(minutes=minutes)
@@ -106,9 +107,9 @@ def add_llm_events(response, model, reference_time):
     data = json.loads(response)
     for name, value in data.items():
         if value["kind"] == "fixed_task":
-            begin = date_time_field_to_minutes(value, "HoraInicio", reference_time)
-            end = date_time_field_to_minutes(value, "HoraFim", reference_time)
-            add_fixed_entry(value, begin, end, model, False)
+            begin = date_to_minutes(value, "HoraInicio", reference_time)
+            end = date_to_minutes(value, "HoraFim", reference_time)
+            add_fixed_entry(name, begin, end, model, False)
         else:
             windows = []
             for domain in value["domains"]:
@@ -275,6 +276,6 @@ def ask_llm(user_request, client):
 if __name__ == "__main__":
     initialize_global_variables()
     client = OpenAI()
-    llm_help = ask_llm("Quero jogar Terraria à tarde, peso 3, e também ir à biblioteca estudar, peso 5, entre 10h e 16h de Segunda a Sexta, 1 a 2 horas", client)
+    llm_help = ask_llm("Tenho uma aula de BD das 5h às 6h de Quarta-Feira", client)
     print(llm_help)
     execute_schedule(llm_help)
