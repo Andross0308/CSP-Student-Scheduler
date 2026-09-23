@@ -1,12 +1,12 @@
 import json
 import os
-import datetime as dt
 
 from ortools.sat.python import cp_model
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from openai import OpenAI
+from date_utils import *
 
 DAYS_INT = {"Segunda": 0, "Terça": 1, "Quarta": 2, "Quinta": 3, "Sexta": 4, "Sabado": 5, "Domingo": 6}
 INT_DAYS = {value: key for key, value in DAYS_INT.items()}
@@ -61,24 +61,6 @@ def initialize_global_variables():
     boolean_variables = []
     pesos = []
     stability_bonus = []
-
-def date_to_minutes(task, timeField, referenceTime):
-    today_day = referenceTime.weekday()
-    target_day = DAYS_INT[task["day"]]
-    days = (target_day - today_day) % 7
-    hour, minute = task[timeField].split(":")
-    task_date = (referenceTime + dt.timedelta(days=days)).replace(hour=int(hour), minute=int(minute))
-    task_minutes = int((task_date - referenceTime).total_seconds() // 60)
-    return task_minutes if task_minutes > 0 else (task_minutes + int(dt.timedelta(days=days+7).total_seconds()//60))
-
-def minutes_into_schedule(minutes, reference_time):
-    date = reference_time + dt.timedelta(minutes=minutes)
-    return date.isoformat(timespec="seconds")
-
-def date_time_field_to_minutes(event, field, reference_time):
-    time = dt.datetime.fromisoformat(event[field]['dateTime']).replace(tzinfo=None)
-    minutes = int((time - reference_time).total_seconds() // 60)
-    return minutes
 
 def add_google_events(events, model, reference_time):
     with open("../JSON_file/Library.json", encoding="utf-8") as f:
