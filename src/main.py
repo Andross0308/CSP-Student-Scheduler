@@ -18,6 +18,7 @@ Regras estritas:
 1. Responde APENAS com o objeto JSON final.
 2. Não uses marcadores de código Markdown (como ```json ou ```). Não adiciones texto, explicações ou espaços antes ou depois do JSON.
 3. Não incluas os dados dos exemplos na resposta. Processa apenas o NOVO PEDIDO.
+4. Escreve somente o dia da semana, sem o "feira", por exemplo: "Quarta" em vez de "Quarta-Feira"
 
 Estrutura do JSON:
 - TAREFA FIXA com nome como chave (fixed_task): "kind", "day", "HoraInicio", "HoraFim"
@@ -28,21 +29,21 @@ Exemplo de formato esperado (NÃO incluir estes dados na resposta):
   "Aula_X": {
     "kind": "fixed_task"
     "day": "Terça",
-    "HoraInicio": "14:00",
-    "HoraFim": "16:00"
+    "start": "14:00",
+    "end": "16:00"
   },
     "Gym": {
     "kind": "optional_task",
     "domains": [
       {
         "day": "Segunda",
-        "HoraInicio": "8:00",
-        "HoraFim": "21:00"
+        "start": "8:00",
+        "end": "21:00"
       },
       {
         "day": "Terça",
-        "HoraInicio": "8:00",
-        "HoraFim": "21:00"
+        "start": "8:00",
+        "end": "21:00"
       }
     ],
     "durationMin": 60,
@@ -68,22 +69,24 @@ def date_to_minutes(task, timeField, referenceTime):
     hour, minute = task[timeField].split(":")
     task_date = (referenceTime + dt.timedelta(days=days)).replace(hour=int(hour), minute=int(minute))
     task_minutes = int((task_date - referenceTime).total_seconds() // 60)
-    return task_minutes
+    return task_minutes if task_minutes > 0 else (task_minutes + int(dt.timedelta(days=days+7).total_seconds()//60))
 
 def minutes_into_schedule(minutes, reference_time):
     date = reference_time + dt.timedelta(minutes=minutes)
     return date.isoformat(timespec="seconds")
 
 def date_time_field_to_minutes(event, field, reference_time):
-    time = dt.datetime.fromisoformat(event[field]['date']).replace(tzinfo=None)
+    time = dt.datetime.fromisoformat(event[field]['dateTime']).replace(tzinfo=None)
     minutes = int((time - reference_time).total_seconds() // 60)
     return minutes
 
-def add_google_events(events, model, reference_time, previous_schedule):
+def add_google_events(events, model, reference_time):
     with open("../JSON_file/Library.json", encoding="utf-8") as f:
         data = json.load(f)
     for event in events:
         name = event["summary"]
+        previous_start = date_time_field_to_minutes(event, 'start', reference_time)
+        previous_start = previous_start if previous_start >= 0 else None
         if name in data and data[name]["kind"] == "optional_task":
             task = data[name]
             windows = []
@@ -94,19 +97,19 @@ def add_google_events(events, model, reference_time, previous_schedule):
                 if end >= 0:
                     windows.append([start, end])
             task["intervals"] = windows
-            create_new_optional_task(name, task, model, previous_schedule)
+            create_new_optional_task(name, task, model, previous_start)
         else:
             begin = date_time_field_to_minutes(event, "start", reference_time)
             end = date_time_field_to_minutes(event, "end", reference_time)
             add_fixed_entry(name, begin, end, model, True)
 
-def add_llm_events(response, model, reference_time, previous_schedule):
+def add_llm_events(response, model, reference_time):
     data = json.loads(response)
     for name, value in data.items():
         if value["kind"] == "fixed_task":
-            begin = date_time_field_to_minutes(value, "HoraInicio", reference_time)
-            end = date_time_field_to_minutes(value, "HoraFim", reference_time)
-            add_fixed_entry(value, begin, end, model, False)
+            begin = date_to_minutes(value, "HoraInicio", reference_time)
+            end = date_to_minutes(value, "HoraFim", reference_time)
+            add_fixed_entry(name, begin, end, model, False)
         else:
             windows = []
             for domain in value["domains"]:
@@ -116,7 +119,7 @@ def add_llm_events(response, model, reference_time, previous_schedule):
                 if end >= 0:
                     windows.append([start, end])
             value["intervals"] = windows
-            create_new_optional_task(name, value, model, previous_schedule)
+            create_new_optional_task(name, value, model)
 
 
 def fixed_tasks(data, model, reference_time):
@@ -135,9 +138,8 @@ def add_fixed_entry(name, begin, end, model, bool):
     intervals.append(interval)
 
 
-def create_tasks_stability(model, name, start, previous_schedule):
-    if name in previous_schedule:
-        previous_start = previous_schedule[name]["start"]
+def create_tasks_stability(model, name, start, previous_start):
+    if previous_start is not None:
         keep_schedule = model.new_bool_var(f"{name}_Keep")
         model.add(start == previous_start).only_enforce_if(keep_schedule)
         model.add(start != previous_start).only_enforce_if(~keep_schedule)
@@ -171,25 +173,13 @@ def register_optional_tasks_interval(model, name, data, start, duration, end, bo
         "from_google": False
     }
 
-def create_new_optional_task(name, data, model, previousSchedule):
+def create_new_optional_task(name, data, model, previous_start=None):
     bool_var = model.new_bool_var(f"{name}_Present")
     boolean_variables.append(bool_var)
     start, duration = create_tasks_start_and_duration(model, name, data)
-    create_tasks_stability(model, name, start, previousSchedule)
+    create_tasks_stability(model, name, start, previous_start)
     end = create_task_end(model, name, data)
     register_optional_tasks_interval(model, name, data, start, duration, end, bool_var)
-
-def add_optional_tasks(optionals, model, reference_time, previous_schedule):
-    for task in optionals:
-        windows = []
-        for domain in task["domains"]:
-            start = date_to_minutes(domain, "HoraInicio", reference_time)
-            start = 0 if start < 0 else start
-            end = date_to_minutes(domain, "HoraFim", reference_time)
-            if end >= 0:
-                windows.append([start, end])
-        task["intervals"] = windows
-        create_new_optional_task(task["name"], task, model, previous_schedule)
 
 def solve_schedule(model, reference_time):
     model.maximize(sum(bool_var * peso for bool_var, peso in zip(boolean_variables, pesos)) + sum(stability_bonus))
@@ -265,18 +255,17 @@ def fetch_upcoming_events(creds, days=7):
         orderBy="startTime"
     ).execute()
 
-def google_connection(referenceTime, model, previous_schedule):
+def google_connection(referenceTime, model):
     creds = get_credentials("../JSON_file/token.json", "../JSON_file/credentials.json")
 
     events = fetch_upcoming_events(creds)["items"]
-    add_google_events(events, model, referenceTime, previous_schedule)
+    add_google_events(events, model, referenceTime)
 
 def execute_schedule(llm_response):
     model = cp_model.CpModel()
     reference_time = dt.datetime.now().replace(second=0, microsecond=0)
-    previous_schedule = load_previous_schedule(reference_time)
-    google_connection(reference_time, model, previous_schedule)
-    add_llm_events(llm_response, model, reference_time, previous_schedule)
+    google_connection(reference_time, model)
+    add_llm_events(llm_response, model, reference_time)
     solve_schedule(model, reference_time)
 
 def ask_llm(user_request, client):
@@ -287,6 +276,6 @@ def ask_llm(user_request, client):
 if __name__ == "__main__":
     initialize_global_variables()
     client = OpenAI()
-    llm_help = ask_llm("Quero jogar Terraria à tarde, peso 3, e também ir à biblioteca estudar, peso 5, entre 10h e 16h de Segunda a Sexta, 1 a 2 horas", client)
+    llm_help = ask_llm("Tenho uma aula de BD das 5h às 6h de Quarta-Feira", client)
     print(llm_help)
     execute_schedule(llm_help)
