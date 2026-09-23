@@ -1,15 +1,10 @@
 import json
 import os
 
+from google_service import GoogleCalendarService
 from ortools.sat.python import cp_model
-from google.oauth2.credentials import Credentials
-from google_auth_oauthlib.flow import InstalledAppFlow
-from googleapiclient.discovery import build
 from openai import OpenAI
 from date_utils import *
-
-DAYS_INT = {"Segunda": 0, "Terça": 1, "Quarta": 2, "Quinta": 3, "Sexta": 4, "Sabado": 5, "Domingo": 6}
-INT_DAYS = {value: key for key, value in DAYS_INT.items()}
 
 PROMPT = """Atua como um conversor de texto para JSON.
 A tua tarefa é extrair as informações do "NOVO PEDIDO DO UTILIZADOR" e formatá-las na estrutura JSON especificada.
@@ -163,17 +158,17 @@ def create_new_optional_task(name, data, model, previous_start=None):
     end = create_task_end(model, name, data)
     register_optional_tasks_interval(model, name, data, start, duration, end, bool_var)
 
-def solve_schedule(model, reference_time):
+def solve_schedule(model, reference_time,google):
     model.maximize(sum(bool_var * peso for bool_var, peso in zip(boolean_variables, pesos)) + sum(stability_bonus))
     model.add_no_overlap(intervals)
     solver = cp_model.CpSolver()
     status = solver.solve(model)
     if status == cp_model.OPTIMAL or status == cp_model.FEASIBLE:
-        generate_output(solver, reference_time)
+        generate_output(solver, reference_time, google)
     else:
         print("No solution found")
 
-def generate_output(solver, reference_time):
+def generate_output(solver, reference_time, google):
     new_events = {}
     for task in tasks:
         if solver.value(tasks[task]["bool"]) == 1 and not tasks[task]["from_google"]:
@@ -185,16 +180,7 @@ def generate_output(solver, reference_time):
         print(f"Name: {task} \n Begin : {new_events[task]["start"]} \nEnd: {new_events[task]["end"]}\n")
     confirm = input("Confirm this are the correct options to add to your calendar:")
     if confirm == 'y':
-        service = build("calendar", "v3", credentials=get_credentials())
-        for task in new_events:
-            service.events().insert(
-                calendarId="primary",
-                body= {
-                    "summary": task,
-                    "start": {"dateTime": new_events[task]["start"], "timeZone": "Europe/Lisbon"},
-                    "end": {"dateTime": new_events[task]["end"], "timeZone": "Europe/Lisbon"}
-                }
-             ).execute()
+        google.write_upcoming_events(new_events)
 
 
 def load_previous_schedule(reference_time):
@@ -210,45 +196,13 @@ def load_previous_schedule(reference_time):
             result[task["name"]] = {"start": begin, "end": end}
     return result
 
-
-def get_credentials(token = "../JSON_file/token.json", credentials = "../JSON_file/credentials.json"):
-    SCOPES = ["https://www.googleapis.com/auth/calendar"]
-    creds = None
-    if os.path.exists(token):
-        creds = Credentials.from_authorized_user_file(token, SCOPES)
-
-    if not creds or not creds.valid:
-        flow = InstalledAppFlow.from_client_secrets_file(credentials, SCOPES)
-        creds = flow.run_local_server(port=8000)
-        with open("../JSON_file/token.json", "w") as f:
-            f.write(creds.to_json())
-
-    return creds
-
-def fetch_upcoming_events(creds, days=7):
-    service = build("calendar", "v3", credentials=creds)
-    time_min = dt.datetime.now(dt.timezone.utc)
-    time_max = (dt.timedelta(days) + time_min)
-    return service.events().list(
-        calendarId="primary",
-        timeMin=time_min.isoformat(),
-        timeMax=time_max.isoformat(),
-        singleEvents=True,
-        orderBy="startTime"
-    ).execute()
-
-def google_connection(referenceTime, model):
-    creds = get_credentials("../JSON_file/token.json", "../JSON_file/credentials.json")
-
-    events = fetch_upcoming_events(creds)["items"]
-    add_google_events(events, model, referenceTime)
-
 def execute_schedule(llm_response):
     model = cp_model.CpModel()
     reference_time = dt.datetime.now().replace(second=0, microsecond=0)
-    google_connection(reference_time, model)
+    google_service = GoogleCalendarService("../JSON_file/token.json", "../JSON_file/credentials.json")
+    google_events = google_service.fetch_upcoming_events()
     add_llm_events(llm_response, model, reference_time)
-    solve_schedule(model, reference_time)
+    solve_schedule(model, reference_time, google_service)
 
 def ask_llm(user_request, client):
     prompt = PROMPT.replace("[PEDIDO DO UTILIZADOR]", user_request)

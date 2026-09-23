@@ -4,7 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="Fixing bug on fixed tasks coming form the LLM, wrong function used to transform date into minutes, also changed the prompt, making sure that it received the day in the desired format and the &quot;start&quot;/&quot;end&quot; to correspond to the google Calendar format">
+    <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="Creating date_utils.py, contains all functions that transform dateTimes into minutes and vice-versa">
+      <change afterPath="$PROJECT_DIR$/src/google_service.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
     </list>
@@ -21,6 +22,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="andross03 &lt;acosmartins06@gmail.com&gt;" />
+      </list>
+    </option>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
         <entry key="$PROJECT_DIR$" value="master" />
@@ -52,27 +58,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;Python.google_service.executor&quot;: &quot;Debug&quot;,
-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test_calendar_auth.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;load__google__schedule__as__previous&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/acosm/OneDrive/Ambiente de Trabalho/AI projects/StudentAgentBitch&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python.google_service.executor": "Debug",
+    "Python.main.executor": "Debug",
+    "Python.test_calendar_auth.executor": "Run",
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "OOP",
+    "last_opened_file_path": "C:/Users/acosm/OneDrive/Ambiente de Trabalho/AI projects/StudentAgentBitch",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;ChangesTree.GroupingKeys&quot;: [
-      &quot;directory&quot;,
-      &quot;repository&quot;
+  "keyToStringList": {
+    "ChangesTree.GroupingKeys": [
+      "directory",
+      "repository"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\acosm\OneDrive\Ambiente de Trabalho\AI projects\StudentAgentBitch" />
@@ -481,7 +487,15 @@
       <option name="project" value="LOCAL" />
       <updated>1789544378315</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="Creating date_utils.py, contains all functions that transform dateTimes into minutes and vice-versa">
+      <option name="closed" value="true" />
+      <created>1790176358897</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1790176358897</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -518,7 +532,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Change fixedTasks to calculate minutes of the week sice the current time and defining when it will take place" />
     <MESSAGE value="Change addOptionalTasks() to calculate minutes of the week using the dateToMinutes function, also changing the dump in the output.json to write in paragraphs" />
     <MESSAGE value="Changing the format of the output.json so that contains both the day of the week and the date of the event" />
     <MESSAGE value="Making so that the output.json is read in the beginning to have a starting point&#10;Problem: With different reference times, there can't be a way to verify if the newStart and previousStart are the same" />
@@ -543,7 +556,8 @@
     <MESSAGE value="Changing the stability to work without previous_schedule, working with a previous_start coming from the Google Calendar API" />
     <MESSAGE value="Making so that stability only works for tasks coming from google Calendar, so that coming from the LLM, there will be no stability" />
     <MESSAGE value="Fixing bug on fixed tasks coming form the LLM, wrong function used to transform date into minutes, also changed the prompt, making sure that it received the day in the desired format and the &quot;start&quot;/&quot;end&quot; to correspond to the google Calendar format" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixing bug on fixed tasks coming form the LLM, wrong function used to transform date into minutes, also changed the prompt, making sure that it received the day in the desired format and the &quot;start&quot;/&quot;end&quot; to correspond to the google Calendar format" />
+    <MESSAGE value="Creating date_utils.py, contains all functions that transform dateTimes into minutes and vice-versa" />
+    <option name="LAST_COMMIT_MESSAGE" value="Creating date_utils.py, contains all functions that transform dateTimes into minutes and vice-versa" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
