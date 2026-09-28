@@ -1,5 +1,6 @@
 import os
 import datetime as dt
+from pathlib import Path
 
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -8,17 +9,17 @@ from googleapiclient.discovery import build
 SCOPES = ["https://www.googleapis.com/auth/calendar"]
 
 class GoogleCalendarService:
-    def __init__(self, token_path: str, credentials_path: str):
+    def __init__(self, token_path: Path, credentials_path: Path):
         self.token_path = token_path
         self.credentials_path = credentials_path
         self.creds = self.get_credentials()
 
     def get_credentials(self,):
         creds = None
-        if os.path.exists(self.token_path):
-            creds = Credentials.from_authorized_user_file(self.token_path, SCOPES)
+        if self.token_path.exists():
+            creds = Credentials.from_authorized_user_file(str(self.token_path), SCOPES)
         if not creds or not creds.valid:
-            flow = InstalledAppFlow.from_client_secrets_file(self.credentials_path, SCOPES)
+            flow = InstalledAppFlow.from_client_secrets_file(str(self.credentials_path), SCOPES)
             creds = flow.run_local_server(port=8000)
             with open("../JSON_file/token.json", "w") as f:
                 f.write(creds.to_json())
@@ -39,7 +40,7 @@ class GoogleCalendarService:
         return events.get("items", [])
 
     def write_upcoming_events(self, new_events: dict):
-        service = build("calendar", "v3", credentials=self.credentials_path)
+        service = build("calendar", "v3", credentials=self.creds)
         for task in new_events:
             service.events().insert(
                 calendarId="primary",

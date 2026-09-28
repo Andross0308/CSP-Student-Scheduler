@@ -1,5 +1,6 @@
 import json
 import os
+from pathlib import Path
 
 from google_service import GoogleCalendarService
 from ortools.sat.python import cp_model
@@ -48,6 +49,9 @@ Exemplo de formato esperado (NÃO incluir estes dados na resposta):
 }
 
 NOVO PEDIDO DO UTILIZADOR: [PEDIDO DO UTILIZADOR]"""
+
+JSON_DIR = Path(__file__).parent.parent / "JSON_file"
+
 
 def initialize_global_variables():
     global tasks, intervals, boolean_variables, pesos, stability_bonus
@@ -199,7 +203,7 @@ def load_previous_schedule(reference_time):
 def execute_schedule(llm_response):
     model = cp_model.CpModel()
     reference_time = dt.datetime.now().replace(second=0, microsecond=0)
-    google_service = GoogleCalendarService("../JSON_file/token.json", "../JSON_file/credentials.json")
+    google_service = GoogleCalendarService(JSON_DIR / "token.json", JSON_DIR / "credentials.json")
     google_events = google_service.fetch_upcoming_events()
     add_llm_events(llm_response, model, reference_time)
     solve_schedule(model, reference_time, google_service)

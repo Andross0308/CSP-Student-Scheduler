@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="Creating date_utils.py, contains all functions that transform dateTimes into minutes and vice-versa">
-      <change afterPath="$PROJECT_DIR$/src/google_service.py" afterDir="false" />
+    <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="Creating google_service.py, this creates the connection to Google Calendar to get the upcoming events and write the new ones">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/google_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/google_service.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -61,8 +61,8 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Python.google_service.executor": "Debug",
-    "Python.main.executor": "Debug",
+    "Python.google_service.executor": "Run",
+    "Python.main.executor": "Run",
     "Python.test_calendar_auth.executor": "Run",
     "RunOnceActivity.MCP Project settings loaded": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -102,22 +102,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1785192095880</updated>
-    </task>
-    <task id="LOCAL-00001" summary="Add tasks&#10;MinutesOfTheWeek() calculates the minutes of that time from the beginning of Monday&#10;OverlapTasks verifies if there is an overlap in the schedule of two tasks&#10;This tasks are not CSP variables because they are fixed values, but are used in the restriction to avoid overlaps&#10;The time is seen as a readable string and as a int to calculate the overlaps">
-      <option name="closed" value="true" />
-      <created>1785250028239</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1785250028239</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Initialize the CSP model and solver&#10;All tasks that are fixed are considered interval var because they have a specific begin, duration and end&#10;All optional tasks (in this case Gym) have a domain of possible intervals that can take, it's the solver job to find a opening to fill, this &quot;optional&quot; will be set according to a bool_var that defines if the task exists&#10;The solver doesn't have still an objective, so the solution it gives is the one where it doesn't put gym anywhere">
-      <option name="closed" value="true" />
-      <created>1785272736172</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1785272736172</updated>
     </task>
     <task id="LOCAL-00003" summary="Merge with flexibleTasks">
       <option name="closed" value="true" />
@@ -495,7 +479,23 @@
       <option name="project" value="LOCAL" />
       <updated>1790176358897</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="Creating google_service.py, this creates the connection to Google Calendar to get the upcoming events and write the new ones">
+      <option name="closed" value="true" />
+      <created>1790178376025</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1790178376025</updated>
+    </task>
+    <task id="LOCAL-00051" summary="Creating google_service.py, this creates the connection to Google Calendar to get the upcoming events and write the new ones">
+      <option name="closed" value="true" />
+      <created>1790178468570</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1790178468570</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -519,7 +519,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="master" />
+                        <option value="OOP" />
                       </list>
                     </value>
                   </entry>
@@ -532,7 +532,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Change addOptionalTasks() to calculate minutes of the week using the dateToMinutes function, also changing the dump in the output.json to write in paragraphs" />
     <MESSAGE value="Changing the format of the output.json so that contains both the day of the week and the date of the event" />
     <MESSAGE value="Making so that the output.json is read in the beginning to have a starting point&#10;Problem: With different reference times, there can't be a way to verify if the newStart and previousStart are the same" />
     <MESSAGE value="Solved the real problem, optional tasks were being put in past times&#10;Solution: if the task could already began but still not finished, the window would be [0, End], 0 being the current time&#10;Otherwise if the end already past, the window wouldn't be added to the solver" />
@@ -557,7 +556,8 @@
     <MESSAGE value="Making so that stability only works for tasks coming from google Calendar, so that coming from the LLM, there will be no stability" />
     <MESSAGE value="Fixing bug on fixed tasks coming form the LLM, wrong function used to transform date into minutes, also changed the prompt, making sure that it received the day in the desired format and the &quot;start&quot;/&quot;end&quot; to correspond to the google Calendar format" />
     <MESSAGE value="Creating date_utils.py, contains all functions that transform dateTimes into minutes and vice-versa" />
-    <option name="LAST_COMMIT_MESSAGE" value="Creating date_utils.py, contains all functions that transform dateTimes into minutes and vice-versa" />
+    <MESSAGE value="Creating google_service.py, this creates the connection to Google Calendar to get the upcoming events and write the new ones" />
+    <option name="LAST_COMMIT_MESSAGE" value="Creating google_service.py, this creates the connection to Google Calendar to get the upcoming events and write the new ones" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -566,6 +566,11 @@
           <url>file://$PROJECT_DIR$/test_calendar_auth.py</url>
           <line>24</line>
           <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/main.py</url>
+          <line>205</line>
+          <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
