@@ -1,54 +1,10 @@
 import json
-import os
 from pathlib import Path
 
 from google_service import GoogleCalendarService
+from llm_service import TaskExtractor
 from ortools.sat.python import cp_model
-from openai import OpenAI
 from date_utils import *
-
-PROMPT = """Atua como um conversor de texto para JSON.
-A tua tarefa é extrair as informações do "NOVO PEDIDO DO UTILIZADOR" e formatá-las na estrutura JSON especificada.
-
-Regras estritas:
-1. Responde APENAS com o objeto JSON final.
-2. Não uses marcadores de código Markdown (como ```json ou ```). Não adiciones texto, explicações ou espaços antes ou depois do JSON.
-3. Não incluas os dados dos exemplos na resposta. Processa apenas o NOVO PEDIDO.
-4. Escreve somente o dia da semana, sem o "feira", por exemplo: "Quarta" em vez de "Quarta-Feira"
-
-Estrutura do JSON:
-- TAREFA FIXA com nome como chave (fixed_task): "kind", "day", "HoraInicio", "HoraFim"
-- TAREFA OPCIONAL com nome como chave (optional_task): "kind", "domains" (lista com "day", "HoraInicio", "HoraFim"), "durationMin", "durationMax", "peso"
-
-Exemplo de formato esperado (NÃO incluir estes dados na resposta):
-{
-  "Aula_X": {
-    "kind": "fixed_task"
-    "day": "Terça",
-    "start": "14:00",
-    "end": "16:00"
-  },
-    "Gym": {
-    "kind": "optional_task",
-    "domains": [
-      {
-        "day": "Segunda",
-        "start": "8:00",
-        "end": "21:00"
-      },
-      {
-        "day": "Terça",
-        "start": "8:00",
-        "end": "21:00"
-      }
-    ],
-    "durationMin": 60,
-    "durationMax": 60,
-    "peso": 3
-  }
-}
-
-NOVO PEDIDO DO UTILIZADOR: [PEDIDO DO UTILIZADOR]"""
 
 JSON_DIR = Path(__file__).parent.parent / "JSON_file"
 
@@ -187,19 +143,6 @@ def generate_output(solver, reference_time, google):
         google.write_upcoming_events(new_events)
 
 
-def load_previous_schedule(reference_time):
-    if not os.path.exists("../JSON_file/output.json"):
-        return {}
-    with open("../JSON_file/output.json", encoding="utf-8") as f:
-        data = json.load(f)
-    result={}
-    for task in data:
-        begin = date_time_field_to_minutes(task, "start", reference_time)
-        end = date_time_field_to_minutes(task, "end", reference_time)
-        if begin >= 0:
-            result[task["name"]] = {"start": begin, "end": end}
-    return result
-
 def execute_schedule(llm_response):
     model = cp_model.CpModel()
     reference_time = dt.datetime.now().replace(second=0, microsecond=0)
@@ -208,14 +151,9 @@ def execute_schedule(llm_response):
     add_llm_events(llm_response, model, reference_time)
     solve_schedule(model, reference_time, google_service)
 
-def ask_llm(user_request, client):
-    prompt = PROMPT.replace("[PEDIDO DO UTILIZADOR]", user_request)
-    response = client.chat.completions.create(model="gpt-4o-mini", messages=[{"role": "user", "content": prompt}])
-    return response.choices[0].message.content
-
 if __name__ == "__main__":
     initialize_global_variables()
-    client = OpenAI()
-    llm_help = ask_llm("Tenho uma aula de BD das 5h às 6h de Quarta-Feira", client)
+    llm_service = TaskExtractor()
+    llm_help = llm_service.extract_task("Tenho uma aula de BD das 5h às 6h de Quarta-Feira")
     print(llm_help)
     execute_schedule(llm_help)

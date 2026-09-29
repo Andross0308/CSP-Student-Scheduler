@@ -14,7 +14,7 @@ class GoogleCalendarService:
         self.credentials_path = credentials_path
         self.creds = self.get_credentials()
 
-    def get_credentials(self,):
+    def get_credentials(self) -> Credentials:
         creds = None
         if self.token_path.exists():
             creds = Credentials.from_authorized_user_file(str(self.token_path), SCOPES)
@@ -25,7 +25,7 @@ class GoogleCalendarService:
                 f.write(creds.to_json())
         return creds
 
-    def fetch_upcoming_events(self, days=7):
+    def fetch_upcoming_events(self, days=7) -> dict:
         service = build("calendar", "v3", credentials=self.creds)
         time_min = dt.datetime.now(dt.timezone.utc)
         time_max = (dt.timedelta(days) + time_min)

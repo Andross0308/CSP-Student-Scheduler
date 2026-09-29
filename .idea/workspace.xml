@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="Creating google_service.py, this creates the connection to Google Calendar to get the upcoming events and write the new ones">
+    <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/llm_service.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/google_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/google_service.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -62,7 +62,7 @@
   "keyToString": {
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "Python.google_service.executor": "Run",
-    "Python.main.executor": "Run",
+    "Python.main.executor": "Debug",
     "Python.test_calendar_auth.executor": "Run",
     "RunOnceActivity.MCP Project settings loaded": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -102,14 +102,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1785192095880</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Merge with flexibleTasks">
-      <option name="closed" value="true" />
-      <created>1785273061253</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1785273061253</updated>
     </task>
     <task id="LOCAL-00004" summary="Adding weights to optimal tasks so that the solver prioritizes a tasks with higher priorities">
       <option name="closed" value="true" />
@@ -495,7 +487,15 @@
       <option name="project" value="LOCAL" />
       <updated>1790178468570</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="Using PathLib to create the path for the JSON files">
+      <option name="closed" value="true" />
+      <created>1790631032873</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1790631032874</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -532,7 +532,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Changing the format of the output.json so that contains both the day of the week and the date of the event" />
     <MESSAGE value="Making so that the output.json is read in the beginning to have a starting point&#10;Problem: With different reference times, there can't be a way to verify if the newStart and previousStart are the same" />
     <MESSAGE value="Solved the real problem, optional tasks were being put in past times&#10;Solution: if the task could already began but still not finished, the window would be [0, End], 0 being the current time&#10;Otherwise if the end already past, the window wouldn't be added to the solver" />
     <MESSAGE value="Changing signature of the googleEventsToMinutes() into dateTimeFieldToMinutes() and changing some variables to better understand" />
@@ -557,7 +556,8 @@
     <MESSAGE value="Fixing bug on fixed tasks coming form the LLM, wrong function used to transform date into minutes, also changed the prompt, making sure that it received the day in the desired format and the &quot;start&quot;/&quot;end&quot; to correspond to the google Calendar format" />
     <MESSAGE value="Creating date_utils.py, contains all functions that transform dateTimes into minutes and vice-versa" />
     <MESSAGE value="Creating google_service.py, this creates the connection to Google Calendar to get the upcoming events and write the new ones" />
-    <option name="LAST_COMMIT_MESSAGE" value="Creating google_service.py, this creates the connection to Google Calendar to get the upcoming events and write the new ones" />
+    <MESSAGE value="Using PathLib to create the path for the JSON files" />
+    <option name="LAST_COMMIT_MESSAGE" value="Using PathLib to create the path for the JSON files" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -569,7 +569,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/src/main.py</url>
-          <line>205</line>
+          <line>155</line>
           <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
