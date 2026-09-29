@@ -23,9 +23,9 @@ class SchedulerSolver:
                 task = data[name]
                 windows = []
                 for domain in task["domains"]:
-                    start = date_to_minutes(domain, "HoraInicio", self.reference_time)
+                    start = date_to_minutes(domain, "start", self.reference_time)
                     start = 0 if start < 0 else start
-                    end = date_to_minutes(domain, "HoraFim", self.reference_time)
+                    end = date_to_minutes(domain, "end", self.reference_time)
                     if end >= 0:
                         windows.append([start, end])
                 task["intervals"] = windows
@@ -90,15 +90,15 @@ class SchedulerSolver:
     def add_llm_events(self, response: dict):
         for name, value in response.items():
             if value["kind"] == "fixed_task":
-                begin = date_to_minutes(value, "HoraInicio", self.reference_time)
-                end = date_to_minutes(value, "HoraFim", self.reference_time)
+                begin = date_to_minutes(value, "start", self.reference_time)
+                end = date_to_minutes(value, "end", self.reference_time)
                 self.add_fixed_entry(name, begin, end, False)
             else:
                 windows = []
                 for domain in value["domains"]:
-                    start = date_to_minutes(domain, "HoraInicio", self.reference_time)
+                    start = date_to_minutes(domain, "start", self.reference_time)
                     start = 0 if start < 0 else start
-                    end = date_to_minutes(domain, "HoraFim", self.reference_time)
+                    end = date_to_minutes(domain, "end", self.reference_time)
                     if end >= 0:
                         windows.append([start, end])
                 value["intervals"] = windows

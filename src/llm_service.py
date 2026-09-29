@@ -11,8 +11,8 @@ Regras estritas:
 4. Escreve somente o dia da semana, sem o "feira", por exemplo: "Quarta" em vez de "Quarta-Feira"
 
 Estrutura do JSON:
-- TAREFA FIXA com nome como chave (fixed_task): "kind", "day", "HoraInicio", "HoraFim"
-- TAREFA OPCIONAL com nome como chave (optional_task): "kind", "domains" (lista com "day", "HoraInicio", "HoraFim"), "durationMin", "durationMax", "peso"
+- TAREFA FIXA com nome como chave (fixed_task): "kind", "day", "start", "end"
+- TAREFA OPCIONAL com nome como chave (optional_task): "kind", "domains" (lista com "day", "start", "end"), "durationMin", "durationMax", "peso"
 
 Exemplo de formato esperado (NÃO incluir estes dados na resposta):
 {
