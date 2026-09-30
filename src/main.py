@@ -13,7 +13,7 @@ def execute_schedule():
     google_service = GoogleCalendarService(JSON_DIR / "token.json", JSON_DIR / "credentials.json")
     google_events = google_service.fetch_upcoming_events()
     llm_service = TaskExtractor()
-    llm_help = llm_service.extract_task("Tenho uma aula de BD das 7h às 8h de Quarta-Feira")
+    llm_help = llm_service.extract_task("Quero ir ao ginasio na Segunda, podendo ir entre as 8h e as 21h e quero que dure 1h")
     scheduler.add_google_events(google_events, JSON_DIR / "Library.json")
     scheduler.add_llm_events(llm_help)
     events = scheduler.solve_schedule()

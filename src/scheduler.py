@@ -21,14 +21,6 @@ class SchedulerSolver:
             previous_start = previous_start if previous_start >= 0 else None
             if name in data and data[name]["kind"] == "optional_task":
                 task = data[name]
-                windows = []
-                for domain in task["domains"]:
-                    start = date_to_minutes(domain, "start", self.reference_time)
-                    start = 0 if start < 0 else start
-                    end = date_to_minutes(domain, "end", self.reference_time)
-                    if end >= 0:
-                        windows.append([start, end])
-                task["intervals"] = windows
                 self.create_new_optional_task(name, task, previous_start)
             else:
                 begin = date_time_field_to_minutes(event, "start", self.reference_time)
@@ -70,13 +62,25 @@ class SchedulerSolver:
             "from_google": False
         }
 
+    def create_task_window(self, task):
+        windows = []
+        for domain in task["domains"]:
+            start = date_to_minutes(domain, "start", self.reference_time)
+            start = 0 if start < 0 else start
+            end = date_to_minutes(domain, "end", self.reference_time)
+            if end >= 0:
+                windows.append([start, end])
+        task["intervals"] = windows
+        return task
+
     def create_new_optional_task(self, name, data, previous_start=None):
         bool_var = self.model.new_bool_var(f"{name}_Present")
         self.boolean_variables.append(bool_var)
-        start, duration = self.create_tasks_start_and_duration(name, data)
+        task = self.create_task_window(data)
+        start, duration = self.create_tasks_start_and_duration(name, task)
         self.create_tasks_stability(name, start, previous_start)
-        end = self.create_task_end(name, data)
-        self.register_optional_tasks_interval(name, data, start, duration, end, bool_var)
+        end = self.create_task_end(name, task)
+        self.register_optional_tasks_interval(name, task, start, duration, end, bool_var)
 
     def add_fixed_entry(self, name, begin, end, bool):
         begin_cons = self.model.new_constant(begin)
@@ -94,14 +98,6 @@ class SchedulerSolver:
                 end = date_to_minutes(value, "end", self.reference_time)
                 self.add_fixed_entry(name, begin, end, False)
             else:
-                windows = []
-                for domain in value["domains"]:
-                    start = date_to_minutes(domain, "start", self.reference_time)
-                    start = 0 if start < 0 else start
-                    end = date_to_minutes(domain, "end", self.reference_time)
-                    if end >= 0:
-                        windows.append([start, end])
-                value["intervals"] = windows
                 self.create_new_optional_task(name, value)
 
     def solve_schedule(self):

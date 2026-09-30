@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="Changing the format of the Library.json so that it corresponds to the google Calendar API, changing &quot;HoraInicio&quot; to &quot;start&quot; and &quot;HoraFim&quot; to &quot;end&quot;">
-      <change beforePath="$PROJECT_DIR$/src/llm_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/llm_service.py" afterDir="false" />
+    <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/scheduler.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/scheduler.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -57,28 +58,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Python.google_service.executor": "Debug",
-    "Python.main.executor": "Run",
-    "Python.scheduler.executor": "Run",
-    "Python.test_calendar_auth.executor": "Run",
-    "RunOnceActivity.MCP Project settings loaded": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "OOP",
-    "last_opened_file_path": "C:/Users/acosm/OneDrive/Ambiente de Trabalho/AI projects/StudentAgentBitch",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Python.google_service.executor&quot;: &quot;Debug&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.scheduler.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test_calendar_auth.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;OOP&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/acosm/OneDrive/Ambiente de Trabalho/AI projects/StudentAgentBitch&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   },
-  "keyToStringList": {
-    "ChangesTree.GroupingKeys": [
-      "directory",
-      "repository"
+  &quot;keyToStringList&quot;: {
+    &quot;ChangesTree.GroupingKeys&quot;: [
+      &quot;directory&quot;,
+      &quot;repository&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\acosm\OneDrive\Ambiente de Trabalho\AI projects\StudentAgentBitch" />
@@ -102,14 +103,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1785192095880</updated>
-    </task>
-    <task id="LOCAL-00008" summary="Create function createNewOptionalTask() to create a new Optional Task and a dict that stores all information of every task">
-      <option name="closed" value="true" />
-      <created>1785515350740</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1785515350740</updated>
     </task>
     <task id="LOCAL-00009" summary="Creating a data Structure with all optional tasks and simplify the signature of the createNewOptionalTask() function">
       <option name="closed" value="true" />
@@ -495,7 +488,15 @@
       <option name="project" value="LOCAL" />
       <updated>1790708004135</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="Changing the format of the Library.json so that it corresponds to the google Calendar API, changing &quot;HoraInicio&quot; to &quot;start&quot; and &quot;HoraFim&quot; to &quot;end&quot;">
+      <option name="closed" value="true" />
+      <created>1790708061171</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1790708061171</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -560,15 +561,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="Changing the format of the Library.json so that it corresponds to the google Calendar API, changing &quot;HoraInicio&quot; to &quot;start&quot; and &quot;HoraFim&quot; to &quot;end&quot;" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/src/main.py</url>
-          <line>16</line>
-          <option name="timeStamp" value="19" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
         <watch expression="prompt" />
