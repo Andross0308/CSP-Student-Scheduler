@@ -6,8 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/scheduler.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/scheduler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/google_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/google_service.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,7 +61,7 @@
   &quot;keyToString&quot;: {
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
     &quot;Python.google_service.executor&quot;: &quot;Debug&quot;,
-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Debug&quot;,
     &quot;Python.scheduler.executor&quot;: &quot;Run&quot;,
     &quot;Python.test_calendar_auth.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
@@ -103,14 +102,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1785192095880</updated>
-    </task>
-    <task id="LOCAL-00009" summary="Creating a data Structure with all optional tasks and simplify the signature of the createNewOptionalTask() function">
-      <option name="closed" value="true" />
-      <created>1785587243720</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1785587243720</updated>
     </task>
     <task id="LOCAL-00010" summary="Create solveSchedule() and showInformation() to clean the rest of the code, the solver and show information part">
       <option name="closed" value="true" />
@@ -496,7 +487,15 @@
       <option name="project" value="LOCAL" />
       <updated>1790708061171</updated>
     </task>
-    <option name="localTasksCounter" value="58" />
+    <task id="LOCAL-00058" summary="Simplifying the scheduler.py by creating a function that returns the window of intervals in a optional task">
+      <option name="closed" value="true" />
+      <created>1790792696469</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1790792696469</updated>
+    </task>
+    <option name="localTasksCounter" value="59" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -533,7 +532,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Splitting the googleConnection() into getCrediantials() and fetchUpcomingEvents()" />
     <MESSAGE value="Splitting the createNewOptionalTasks into small and different functions to simplify code" />
     <MESSAGE value="Changing signature of functions to snake_case" />
     <MESSAGE value="Adding first connection to OpenAi to receive a JSON of tasks using natural language" />
@@ -558,7 +556,8 @@
     <MESSAGE value="Adding llm_service.py, this takes care of the connection to Open AI and returns the dict of the new task, also changed some signatures in google_service.py" />
     <MESSAGE value="Creating scheduler.py, that takes care of adding information to the model and running the solution" />
     <MESSAGE value="Changing the format of the Library.json so that it corresponds to the google Calendar API, changing &quot;HoraInicio&quot; to &quot;start&quot; and &quot;HoraFim&quot; to &quot;end&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changing the format of the Library.json so that it corresponds to the google Calendar API, changing &quot;HoraInicio&quot; to &quot;start&quot; and &quot;HoraFim&quot; to &quot;end&quot;" />
+    <MESSAGE value="Simplifying the scheduler.py by creating a function that returns the window of intervals in a optional task" />
+    <option name="LAST_COMMIT_MESSAGE" value="Simplifying the scheduler.py by creating a function that returns the window of intervals in a optional task" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>

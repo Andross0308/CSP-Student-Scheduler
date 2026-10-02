@@ -1,10 +1,10 @@
-import os
 import datetime as dt
 from pathlib import Path
 
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
+from google.auth.transport.requests import Request
 
 SCOPES = ["https://www.googleapis.com/auth/calendar"]
 
@@ -13,23 +13,25 @@ class GoogleCalendarService:
         self.token_path = token_path
         self.credentials_path = credentials_path
         self.creds = self.get_credentials()
+        self.service = build("calendar", "v3", credentials=self.creds)
 
     def get_credentials(self) -> Credentials:
         creds = None
         if self.token_path.exists():
             creds = Credentials.from_authorized_user_file(str(self.token_path), SCOPES)
         if not creds or not creds.valid:
+            if creds and creds.expired and creds.refresh_token:
+                creds.refresh(Request())
             flow = InstalledAppFlow.from_client_secrets_file(str(self.credentials_path), SCOPES)
             creds = flow.run_local_server(port=8000)
-            with open("../JSON_file/token.json", "w") as f:
+            with open(self.token_path, "w") as f:
                 f.write(creds.to_json())
         return creds
 
     def fetch_upcoming_events(self, days=7) -> dict:
-        service = build("calendar", "v3", credentials=self.creds)
         time_min = dt.datetime.now(dt.timezone.utc)
         time_max = (dt.timedelta(days) + time_min)
-        events = service.events().list(
+        events = self.service.events().list(
             calendarId="primary",
             timeMin=time_min.isoformat(),
             timeMax=time_max.isoformat(),
@@ -39,14 +41,13 @@ class GoogleCalendarService:
 
         return events.get("items", [])
 
-    def write_upcoming_events(self, new_events: dict):
-        service = build("calendar", "v3", credentials=self.creds)
+    def write_upcoming_events(self, new_events: list, timezone: str = "Europe/Lisbon"):
         for task in new_events:
-            service.events().insert(
+            self.service.events().insert(
                 calendarId="primary",
                 body={
                     "summary": task,
-                    "start": {"dateTime": new_events[task]["start"], "timeZone": "Europe/Lisbon"},
-                    "end": {"dateTime": new_events[task]["end"], "timeZone": "Europe/Lisbon"}
+                    "start": {"dateTime": new_events[task]["start"], "timezone": timezone},
+                    "end": {"dateTime": new_events[task]["end"], "timezone": timezone}
                 }
             ).execute()
