@@ -31,5 +31,5 @@ if __name__ == "__main__":
     print("Please entre the new task you want: ")
     prompt = input()
     if prompt == "a":
-        prompt = "Quero ir ao ginasio na Segunda, podendo ir entre as 8h e as 21h e quero que dure 1h"
+        prompt = "Quero ir ao ginasio na Segunda podendo ir entre as 8h e as 21h e quero que dure 1h"
     execute_schedule(prompt)
