@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="Updating README.md and fixing some bugs&#10;Prepared to push" />
+    <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="Pushing files" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -99,30 +99,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1785192095880</updated>
-    </task>
-    <task id="LOCAL-00014" summary="Creating a JSON to store all the tasks, divided by fixed and optimal tasks">
-      <option name="closed" value="true" />
-      <created>1785671362460</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1785671362460</updated>
-    </task>
-    <task id="LOCAL-00015" summary="Changing the createNewOptionalTask to receive the JSON instead of the hardcode Python dict">
-      <option name="closed" value="true" />
-      <created>1785839642226</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1785839642226</updated>
-    </task>
-    <task id="LOCAL-00016" summary="Changing the fixedTasks to receive information from the JSON instead of the hardcoded Python dict">
-      <option name="closed" value="true" />
-      <created>1785924961852</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1785924961852</updated>
     </task>
     <task id="LOCAL-00017" summary="Creating function to create optional Tasks from the JSON">
       <option name="closed" value="true" />
@@ -492,7 +468,31 @@
       <option name="project" value="LOCAL" />
       <updated>1790960312329</updated>
     </task>
-    <option name="localTasksCounter" value="63" />
+    <task id="LOCAL-00063" summary="Pushing files">
+      <option name="closed" value="true" />
+      <created>1790960469116</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1790960469116</updated>
+    </task>
+    <task id="LOCAL-00064" summary="Pushing files">
+      <option name="closed" value="true" />
+      <created>1790960490024</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1790960490024</updated>
+    </task>
+    <task id="LOCAL-00065" summary="Pushing files">
+      <option name="closed" value="true" />
+      <created>1790960636013</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1790960636013</updated>
+    </task>
+    <option name="localTasksCounter" value="66" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -529,7 +529,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Changing the nomenclature of variables to all be snake_case" />
     <MESSAGE value="Adding prompt from user to create new tasks in the module and changing some other things" />
     <MESSAGE value="Save it to tasks, whether it came from the Google Calendar or from the Tasks.json/LLM" />
     <MESSAGE value="Writes the task that came from the LLM in the Goggle Calendar" />
@@ -554,7 +553,8 @@
     <MESSAGE value="Increasing the quality of the llm_service.py" />
     <MESSAGE value="Increasing the quality of the data_utils.py and scheduler.py" />
     <MESSAGE value="Updating README.md and fixing some bugs&#10;Prepared to push" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updating README.md and fixing some bugs&#10;Prepared to push" />
+    <MESSAGE value="Pushing files" />
+    <option name="LAST_COMMIT_MESSAGE" value="Pushing files" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
