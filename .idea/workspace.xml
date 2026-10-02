@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/google_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/google_service.py" afterDir="false" />
+    <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="Increasing the quality of the google_service.py">
+      <change beforePath="$PROJECT_DIR$/src/llm_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/llm_service.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,14 +101,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1785192095880</updated>
-    </task>
-    <task id="LOCAL-00010" summary="Create solveSchedule() and showInformation() to clean the rest of the code, the solver and show information part">
-      <option name="closed" value="true" />
-      <created>1785587982203</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1785587982203</updated>
     </task>
     <task id="LOCAL-00011" summary="Creation of a function that calls everything and is called in the beginning of the process">
       <option name="closed" value="true" />
@@ -495,7 +486,15 @@
       <option name="project" value="LOCAL" />
       <updated>1790792696469</updated>
     </task>
-    <option name="localTasksCounter" value="59" />
+    <task id="LOCAL-00059" summary="Increasing the quality of the google_service.py">
+      <option name="closed" value="true" />
+      <created>1790951942158</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1790951942159</updated>
+    </task>
+    <option name="localTasksCounter" value="60" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -532,7 +531,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Splitting the createNewOptionalTasks into small and different functions to simplify code" />
     <MESSAGE value="Changing signature of functions to snake_case" />
     <MESSAGE value="Adding first connection to OpenAi to receive a JSON of tasks using natural language" />
     <MESSAGE value="Creating a function to create initialize the global variables" />
@@ -557,7 +555,8 @@
     <MESSAGE value="Creating scheduler.py, that takes care of adding information to the model and running the solution" />
     <MESSAGE value="Changing the format of the Library.json so that it corresponds to the google Calendar API, changing &quot;HoraInicio&quot; to &quot;start&quot; and &quot;HoraFim&quot; to &quot;end&quot;" />
     <MESSAGE value="Simplifying the scheduler.py by creating a function that returns the window of intervals in a optional task" />
-    <option name="LAST_COMMIT_MESSAGE" value="Simplifying the scheduler.py by creating a function that returns the window of intervals in a optional task" />
+    <MESSAGE value="Increasing the quality of the google_service.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="Increasing the quality of the google_service.py" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
