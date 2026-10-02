@@ -1,22 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="Creating README.md and removing showInformation function">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-    </list>
+    <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="Pushing files" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="andross03 &lt;acosmartins06@gmail.com&gt;" />
+      </list>
+    </option>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
         <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Andross0308&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Andross0308/CSP-Student-Scheduler&quot;,
+    &quot;accountId&quot;: &quot;7e01523b-848c-4ee6-b30d-d0b4b0318840&quot;
+  }
+}</component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
@@ -29,18 +57,32 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python.google_service.executor": "Run",
     "Python.main.executor": "Run",
+    "Python.scheduler.executor": "Run",
+    "Python.test_calendar_auth.executor": "Run",
+    "RunOnceActivity.MCP Project settings loaded": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "Master",
     "last_opened_file_path": "C:/Users/acosm/OneDrive/Ambiente de Trabalho/AI projects/StudentAgentBitch",
     "settings.editor.selected.configurable": "preferences.pluginManager"
+  },
+  "keyToStringList": {
+    "ChangesTree.GroupingKeys": [
+      "directory",
+      "repository"
+    ]
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\acosm\OneDrive\Ambiente de Trabalho\AI projects\StudentAgentBitch" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\acosm\OneDrive\Ambiente de Trabalho\AI projects\StudentAgentBitch\src" />
+      <recent name="C:\Users\acosm\OneDrive\Ambiente de Trabalho\AI projects\StudentAgentBitch\JSON file" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -57,134 +99,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1785192095880</updated>
-    </task>
-    <task id="LOCAL-00001" summary="Add tasks&#10;MinutesOfTheWeek() calculates the minutes of that time from the beginning of Monday&#10;OverlapTasks verifies if there is an overlap in the schedule of two tasks&#10;This tasks are not CSP variables because they are fixed values, but are used in the restriction to avoid overlaps&#10;The time is seen as a readable string and as a int to calculate the overlaps">
-      <option name="closed" value="true" />
-      <created>1785250028239</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1785250028239</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Initialize the CSP model and solver&#10;All tasks that are fixed are considered interval var because they have a specific begin, duration and end&#10;All optional tasks (in this case Gym) have a domain of possible intervals that can take, it's the solver job to find a opening to fill, this &quot;optional&quot; will be set according to a bool_var that defines if the task exists&#10;The solver doesn't have still an objective, so the solution it gives is the one where it doesn't put gym anywhere">
-      <option name="closed" value="true" />
-      <created>1785272736172</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1785272736172</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Merge with flexibleTasks">
-      <option name="closed" value="true" />
-      <created>1785273061253</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1785273061253</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Adding weights to optimal tasks so that the solver prioritizes a tasks with higher priorities">
-      <option name="closed" value="true" />
-      <created>1785361336689</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1785361336689</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Fixing bug where there was not any fixed tasks and giving a valid interval for optimal tasks">
-      <option name="closed" value="true" />
-      <created>1785409504613</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1785409504613</updated>
-    </task>
-    <task id="LOCAL-00006" summary="Adding a new optional task with variable duration, add restriction to verify start + duration = end but the model chooses the minimum time possible">
-      <option name="closed" value="true" />
-      <created>1785411791721</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1785411791721</updated>
-    </task>
-    <task id="LOCAL-00007" summary="Creating a new optional task of variable duration which is &quot;Study in the Library&quot;, serves to see if multiple variables what is the parameters of the variable &#10;In this example, the library has a 9h to 16h schedule, but I don't want to be there before 10h, so the start domain is [10h, 16h]">
-      <option name="closed" value="true" />
-      <created>1785497683346</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1785497683346</updated>
-    </task>
-    <task id="LOCAL-00008" summary="Create function createNewOptionalTask() to create a new Optional Task and a dict that stores all information of every task">
-      <option name="closed" value="true" />
-      <created>1785515350740</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1785515350740</updated>
-    </task>
-    <task id="LOCAL-00009" summary="Creating a data Structure with all optional tasks and simplify the signature of the createNewOptionalTask() function">
-      <option name="closed" value="true" />
-      <created>1785587243720</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1785587243720</updated>
-    </task>
-    <task id="LOCAL-00010" summary="Create solveSchedule() and showInformation() to clean the rest of the code, the solver and show information part">
-      <option name="closed" value="true" />
-      <created>1785587982203</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1785587982203</updated>
-    </task>
-    <task id="LOCAL-00011" summary="Creation of a function that calls everything and is called in the beginning of the process">
-      <option name="closed" value="true" />
-      <created>1785588452270</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1785588452270</updated>
-    </task>
-    <task id="LOCAL-00012" summary="Now the solveSchedule verifies the status and only prints the information of the values if the status is OPTIMAL or FEASIBLE. Any other case prints error message">
-      <option name="closed" value="true" />
-      <created>1785603140757</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1785603140757</updated>
-    </task>
-    <task id="LOCAL-00013" summary="Changing order of the information of the solver values and status">
-      <option name="closed" value="true" />
-      <created>1785603277444</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1785603277444</updated>
-    </task>
-    <task id="LOCAL-00014" summary="Creating a JSON to store all the tasks, divided by fixed and optimal tasks">
-      <option name="closed" value="true" />
-      <created>1785671362460</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1785671362460</updated>
-    </task>
-    <task id="LOCAL-00015" summary="Changing the createNewOptionalTask to receive the JSON instead of the hardcode Python dict">
-      <option name="closed" value="true" />
-      <created>1785839642226</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1785839642226</updated>
-    </task>
-    <task id="LOCAL-00016" summary="Changing the fixedTasks to receive information from the JSON instead of the hardcoded Python dict">
-      <option name="closed" value="true" />
-      <created>1785924961852</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1785924961852</updated>
     </task>
     <task id="LOCAL-00017" summary="Creating function to create optional Tasks from the JSON">
       <option name="closed" value="true" />
@@ -226,12 +140,374 @@
       <option name="project" value="LOCAL" />
       <updated>1786028219809</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Updating README.md">
+      <option name="closed" value="true" />
+      <created>1786033479879</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1786033479879</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Pushing into GitHub">
+      <option name="closed" value="true" />
+      <created>1786033671085</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1786033671085</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Change fixedTasks to calculate minutes of the week sice the current time and defining when it will take place">
+      <option name="closed" value="true" />
+      <created>1786807854529</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1786807854529</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Change addOptionalTasks() to calculate minutes of the week using the dateToMinutes function, also changing the dump in the output.json to write in paragraphs">
+      <option name="closed" value="true" />
+      <created>1786808974010</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1786808974011</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Changing the format of the output.json so that contains both the day of the week and the date of the event">
+      <option name="closed" value="true" />
+      <created>1786812735080</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1786812735080</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Making so that the output.json is read in the beginning to have a starting point&#10;Problem: With different reference times, there can't be a way to verify if the newStart and previousStart are the same">
+      <option name="closed" value="true" />
+      <created>1787046028452</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1787046028453</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Solved the real problem, optional tasks were being put in past times&#10;Solution: if the task could already began but still not finished, the window would be [0, End], 0 being the current time&#10;Otherwise if the end already past, the window wouldn't be added to the solver">
+      <option name="closed" value="true" />
+      <created>1787050756738</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1787050756738</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Changing signature of the googleEventsToMinutes() into dateTimeFieldToMinutes() and changing some variables to better understand">
+      <option name="closed" value="true" />
+      <created>1787157365849</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1787157365849</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Splitting the googleConnection() into getCrediantials() and fetchUpcomingEvents()">
+      <option name="closed" value="true" />
+      <created>1787159358220</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1787159358220</updated>
+    </task>
+    <task id="LOCAL-00031" summary="Splitting the createNewOptionalTasks into small and different functions to simplify code">
+      <option name="closed" value="true" />
+      <created>1787321578289</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1787321578289</updated>
+    </task>
+    <task id="LOCAL-00032" summary="Changing signature of functions to snake_case">
+      <option name="closed" value="true" />
+      <created>1787427356370</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1787427356370</updated>
+    </task>
+    <task id="LOCAL-00033" summary="Adding first connection to OpenAi to receive a JSON of tasks using natural language">
+      <option name="closed" value="true" />
+      <created>1787569267217</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1787569267217</updated>
+    </task>
+    <task id="LOCAL-00034" summary="Creating a function to create initialize the global variables">
+      <option name="closed" value="true" />
+      <created>1787588042981</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1787588042981</updated>
+    </task>
+    <task id="LOCAL-00035" summary="Changing the nomenclature of variables to all be snake_case">
+      <option name="closed" value="true" />
+      <created>1787588820069</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1787588820069</updated>
+    </task>
+    <task id="LOCAL-00036" summary="Adding prompt from user to create new tasks in the module and changing some other things">
+      <option name="closed" value="true" />
+      <created>1787914297945</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1787914297945</updated>
+    </task>
+    <task id="LOCAL-00037" summary="Save it to tasks, whether it came from the Google Calendar or from the Tasks.json/LLM">
+      <option name="closed" value="true" />
+      <created>1787916462421</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1787916462421</updated>
+    </task>
+    <task id="LOCAL-00038" summary="Writes the task that came from the LLM in the Goggle Calendar">
+      <option name="closed" value="true" />
+      <created>1788018756582</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1788018756582</updated>
+    </task>
+    <task id="LOCAL-00039" summary="Remove unrelevant loop">
+      <option name="closed" value="true" />
+      <created>1788018800098</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1788018800098</updated>
+    </task>
+    <task id="LOCAL-00040" summary="Read the events of google Calendar and split it as fixed and optional tasks">
+      <option name="closed" value="true" />
+      <created>1788032799289</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1788032799289</updated>
+    </task>
+    <task id="LOCAL-00041" summary="Changing order in the add_google_events, unknown events are treated as fixed">
+      <option name="closed" value="true" />
+      <created>1788879249472</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1788879249472</updated>
+    </task>
+    <task id="LOCAL-00042" summary="Fixing bug on line 85, now checks if the event exists as a key in data">
+      <option name="closed" value="true" />
+      <created>1788879806465</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1788879806465</updated>
+    </task>
+    <task id="LOCAL-00043" summary="Update of certain things needed to do:&#10;- Simplify events in add_google_calendar&#10;- Verify if llm_events treats multiples tasks at once&#10;- Change previousSchedule to come from google and not from output.json&#10;- Dividing code into different classes to simplify and make it more beautiful&#10;- Changing objective to divide tasks during the day&#10;- LLM knows the tasks that exist and returns one if they existed&#10;- LLM figures if the task is important for that week or not">
+      <option name="closed" value="true" />
+      <created>1788880321876</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1788880321876</updated>
+    </task>
+    <task id="LOCAL-00044" summary="Tried the first problem, can't simplify events in add_google_calendar because of the information required&#10; What's left to do:&#10;     - Verify if llm_events treats multiples tasks at once&#10;    - Change previousSchedule to come from google and not from output.json&#10;    - Dividing code into different classes to simplify and make it more beautiful&#10;    - Changing objective to divide tasks during the day&#10;    - LLM knows the tasks that exist and returns one if they existed&#10;    - LLM figures if the task is important for that week or not">
+      <option name="closed" value="true" />
+      <created>1788881519289</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1788881519289</updated>
+    </task>
+    <task id="LOCAL-00045" summary="Adding a variable in add_google_events to store the name of the event to not repeat a lot of times">
+      <option name="closed" value="true" />
+      <created>1789131544463</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1789131544463</updated>
+    </task>
+    <task id="LOCAL-00046" summary="Changing the stability to work without previous_schedule, working with a previous_start coming from the Google Calendar API">
+      <option name="closed" value="true" />
+      <created>1789417968442</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1789417968442</updated>
+    </task>
+    <task id="LOCAL-00047" summary="Making so that stability only works for tasks coming from google Calendar, so that coming from the LLM, there will be no stability">
+      <option name="closed" value="true" />
+      <created>1789508637983</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1789508637983</updated>
+    </task>
+    <task id="LOCAL-00048" summary="Fixing bug on fixed tasks coming form the LLM, wrong function used to transform date into minutes, also changed the prompt, making sure that it received the day in the desired format and the &quot;start&quot;/&quot;end&quot; to correspond to the google Calendar format">
+      <option name="closed" value="true" />
+      <created>1789544378314</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1789544378315</updated>
+    </task>
+    <task id="LOCAL-00049" summary="Creating date_utils.py, contains all functions that transform dateTimes into minutes and vice-versa">
+      <option name="closed" value="true" />
+      <created>1790176358897</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1790176358897</updated>
+    </task>
+    <task id="LOCAL-00050" summary="Creating google_service.py, this creates the connection to Google Calendar to get the upcoming events and write the new ones">
+      <option name="closed" value="true" />
+      <created>1790178376025</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1790178376025</updated>
+    </task>
+    <task id="LOCAL-00051" summary="Creating google_service.py, this creates the connection to Google Calendar to get the upcoming events and write the new ones">
+      <option name="closed" value="true" />
+      <created>1790178468570</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1790178468570</updated>
+    </task>
+    <task id="LOCAL-00052" summary="Using PathLib to create the path for the JSON files">
+      <option name="closed" value="true" />
+      <created>1790631032873</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1790631032874</updated>
+    </task>
+    <task id="LOCAL-00053" summary="Adding llm_service.py, this takes care of the connection to Open AI and returns the dict of the new task, also changed some signatures in google_service.py">
+      <option name="closed" value="true" />
+      <created>1790673578396</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1790673578396</updated>
+    </task>
+    <task id="LOCAL-00054" summary="Creating scheduler.py, that takes care of adding information to the model and running the solution">
+      <option name="closed" value="true" />
+      <created>1790706339065</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1790706339065</updated>
+    </task>
+    <task id="LOCAL-00055" summary="Creating scheduler.py, that takes care of adding information to the model and running the solution">
+      <option name="closed" value="true" />
+      <created>1790707313527</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1790707313527</updated>
+    </task>
+    <task id="LOCAL-00056" summary="Changing the format of the Library.json so that it corresponds to the google Calendar API, changing &quot;HoraInicio&quot; to &quot;start&quot; and &quot;HoraFim&quot; to &quot;end&quot;">
+      <option name="closed" value="true" />
+      <created>1790708004135</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1790708004135</updated>
+    </task>
+    <task id="LOCAL-00057" summary="Changing the format of the Library.json so that it corresponds to the google Calendar API, changing &quot;HoraInicio&quot; to &quot;start&quot; and &quot;HoraFim&quot; to &quot;end&quot;">
+      <option name="closed" value="true" />
+      <created>1790708061171</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1790708061171</updated>
+    </task>
+    <task id="LOCAL-00058" summary="Simplifying the scheduler.py by creating a function that returns the window of intervals in a optional task">
+      <option name="closed" value="true" />
+      <created>1790792696469</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1790792696469</updated>
+    </task>
+    <task id="LOCAL-00059" summary="Increasing the quality of the google_service.py">
+      <option name="closed" value="true" />
+      <created>1790951942158</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1790951942159</updated>
+    </task>
+    <task id="LOCAL-00060" summary="Increasing the quality of the llm_service.py">
+      <option name="closed" value="true" />
+      <created>1790952583912</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1790952583912</updated>
+    </task>
+    <task id="LOCAL-00061" summary="Increasing the quality of the data_utils.py and scheduler.py">
+      <option name="closed" value="true" />
+      <created>1790954274266</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1790954274266</updated>
+    </task>
+    <task id="LOCAL-00062" summary="Updating README.md and fixing some bugs&#10;Prepared to push">
+      <option name="closed" value="true" />
+      <created>1790960312329</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1790960312329</updated>
+    </task>
+    <task id="LOCAL-00063" summary="Pushing files">
+      <option name="closed" value="true" />
+      <created>1790960469116</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1790960469116</updated>
+    </task>
+    <task id="LOCAL-00064" summary="Pushing files">
+      <option name="closed" value="true" />
+      <created>1790960490024</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1790960490024</updated>
+    </task>
+    <task id="LOCAL-00065" summary="Pushing files">
+      <option name="closed" value="true" />
+      <created>1790960636013</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1790960636013</updated>
+    </task>
+    <option name="localTasksCounter" value="66" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
+    <option name="OPEN_GENERIC_TABS">
+      <map>
+        <entry key="025e8642-5f1c-43b0-bf91-0de2949f6394" value="TOOL_WINDOW" />
+      </map>
+    </option>
     <option name="TAB_STATES">
       <map>
+        <entry key="025e8642-5f1c-43b0-bf91-0de2949f6394">
+          <value>
+            <State />
+          </value>
+        </entry>
         <entry key="MAIN">
           <value>
             <State>
@@ -240,7 +516,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="JSON" />
+                        <option value="Master" />
                       </list>
                     </value>
                   </entry>
@@ -253,27 +529,39 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Add tasks&#10;MinutesOfTheWeek() calculates the minutes of that time from the beginning of Monday&#10;OverlapTasks verifies if there is an overlap in the schedule of two tasks&#10;This tasks are not CSP variables because they are fixed values, but are used in the restriction to avoid overlaps&#10;The time is seen as a readable string and as a int to calculate the overlaps" />
-    <MESSAGE value="Initialize the CSP model and solver&#10;All tasks that are fixed are considered interval var because they have a specific begin, duration and end&#10;All optional tasks (in this case Gym) have a domain of possible intervals that can take, it's the solver job to find a opening to fill, this &quot;optional&quot; will be set according to a bool_var that defines if the task exists&#10;The solver doesn't have still an objective, so the solution it gives is the one where it doesn't put gym anywhere" />
-    <MESSAGE value="Merge with flexibleTasks" />
-    <MESSAGE value="Adding weights to optimal tasks so that the solver prioritizes a tasks with higher priorities" />
-    <MESSAGE value="Fixing bug where there was not any fixed tasks and giving a valid interval for optimal tasks" />
-    <MESSAGE value="Adding a new optional task with variable duration, add restriction to verify start + duration = end but the model chooses the minimum time possible" />
-    <MESSAGE value="Creating a new optional task of variable duration which is &quot;Study in the Library&quot;, serves to see if multiple variables what is the parameters of the variable &#10;In this example, the library has a 9h to 16h schedule, but I don't want to be there before 10h, so the start domain is [10h, 16h]" />
-    <MESSAGE value="Create function createNewOptionalTask() to create a new Optional Task and a dict that stores all information of every task" />
-    <MESSAGE value="Creating a data Structure with all optional tasks and simplify the signature of the createNewOptionalTask() function" />
-    <MESSAGE value="Create solveSchedule() and showInformation() to clean the rest of the code, the solver and show information part" />
-    <MESSAGE value="Creation of a function that calls everything and is called in the beginning of the process" />
-    <MESSAGE value="Now the solveSchedule verifies the status and only prints the information of the values if the status is OPTIMAL or FEASIBLE. Any other case prints error message" />
-    <MESSAGE value="Changing order of the information of the solver values and status" />
-    <MESSAGE value="Creating a JSON to store all the tasks, divided by fixed and optimal tasks" />
-    <MESSAGE value="Changing the createNewOptionalTask to receive the JSON instead of the hardcode Python dict" />
-    <MESSAGE value="Changing the fixedTasks to receive information from the JSON instead of the hardcoded Python dict" />
-    <MESSAGE value="Creating function to create optional Tasks from the JSON" />
-    <MESSAGE value="Changing minutesOfTheWeek function to receive the full task and calculate the minutes since the beginning of the week" />
-    <MESSAGE value="Change fixedTasks() to receive only the fixed Tasks instead of all the JSON" />
-    <MESSAGE value="Crates a JSON file (output.json) that stores all the tasks, in the correct schedule, divided into name, start and end (all tasks present have bool == 1)" />
-    <MESSAGE value="Creating README.md and removing showInformation function" />
-    <option name="LAST_COMMIT_MESSAGE" value="Creating README.md and removing showInformation function" />
+    <MESSAGE value="Adding prompt from user to create new tasks in the module and changing some other things" />
+    <MESSAGE value="Save it to tasks, whether it came from the Google Calendar or from the Tasks.json/LLM" />
+    <MESSAGE value="Writes the task that came from the LLM in the Goggle Calendar" />
+    <MESSAGE value="Remove unrelevant loop" />
+    <MESSAGE value="Read the events of google Calendar and split it as fixed and optional tasks" />
+    <MESSAGE value="Changing order in the add_google_events, unknown events are treated as fixed" />
+    <MESSAGE value="Fixing bug on line 85, now checks if the event exists as a key in data" />
+    <MESSAGE value="Update of certain things needed to do:&#10;- Simplify events in add_google_calendar&#10;- Verify if llm_events treats multiples tasks at once&#10;- Change previousSchedule to come from google and not from output.json&#10;- Dividing code into different classes to simplify and make it more beautiful&#10;- Changing objective to divide tasks during the day&#10;- LLM knows the tasks that exist and returns one if they existed&#10;- LLM figures if the task is important for that week or not" />
+    <MESSAGE value="Tried the first problem, can't simplify events in add_google_calendar because of the information required&#10; What's left to do:&#10;     - Verify if llm_events treats multiples tasks at once&#10;    - Change previousSchedule to come from google and not from output.json&#10;    - Dividing code into different classes to simplify and make it more beautiful&#10;    - Changing objective to divide tasks during the day&#10;    - LLM knows the tasks that exist and returns one if they existed&#10;    - LLM figures if the task is important for that week or not" />
+    <MESSAGE value="Adding a variable in add_google_events to store the name of the event to not repeat a lot of times" />
+    <MESSAGE value="Changing the stability to work without previous_schedule, working with a previous_start coming from the Google Calendar API" />
+    <MESSAGE value="Making so that stability only works for tasks coming from google Calendar, so that coming from the LLM, there will be no stability" />
+    <MESSAGE value="Fixing bug on fixed tasks coming form the LLM, wrong function used to transform date into minutes, also changed the prompt, making sure that it received the day in the desired format and the &quot;start&quot;/&quot;end&quot; to correspond to the google Calendar format" />
+    <MESSAGE value="Creating date_utils.py, contains all functions that transform dateTimes into minutes and vice-versa" />
+    <MESSAGE value="Creating google_service.py, this creates the connection to Google Calendar to get the upcoming events and write the new ones" />
+    <MESSAGE value="Using PathLib to create the path for the JSON files" />
+    <MESSAGE value="Adding llm_service.py, this takes care of the connection to Open AI and returns the dict of the new task, also changed some signatures in google_service.py" />
+    <MESSAGE value="Creating scheduler.py, that takes care of adding information to the model and running the solution" />
+    <MESSAGE value="Changing the format of the Library.json so that it corresponds to the google Calendar API, changing &quot;HoraInicio&quot; to &quot;start&quot; and &quot;HoraFim&quot; to &quot;end&quot;" />
+    <MESSAGE value="Simplifying the scheduler.py by creating a function that returns the window of intervals in a optional task" />
+    <MESSAGE value="Increasing the quality of the google_service.py" />
+    <MESSAGE value="Increasing the quality of the llm_service.py" />
+    <MESSAGE value="Increasing the quality of the data_utils.py and scheduler.py" />
+    <MESSAGE value="Updating README.md and fixing some bugs&#10;Prepared to push" />
+    <MESSAGE value="Pushing files" />
+    <option name="LAST_COMMIT_MESSAGE" value="Pushing files" />
+  </component>
+  <component name="XDebuggerManager">
+    <watches-manager>
+      <configuration name="PythonConfigurationType">
+        <watch expression="prompt" />
+        <watch expression="events['items']" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>
