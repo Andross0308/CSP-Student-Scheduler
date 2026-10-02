@@ -82,7 +82,7 @@ class SchedulerSolver:
         interval_var = self.model.new_optional_interval_var(start, duration, end, bool_var, f"{name}_Interval")
 
         self.intervals.append(interval_var)
-        self.weights.append(data["peso"])
+        self.weights.append(data["weight"])
         self.tasks[name] = {
             "bool": bool_var,
             "start": start,

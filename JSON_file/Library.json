@@ -51,7 +51,7 @@
     ],
     "durationMin": 60,
     "durationMax": 60,
-    "peso": 3
+    "weight": 3
   },
   "Chess": {
     "kind": "optional_task",
@@ -69,7 +69,7 @@
     ],
     "durationMin": 30,
     "durationMax": 30,
-    "peso": 2
+    "weight": 2
   },
   "Study": {
     "kind": "optional_task",
@@ -82,7 +82,7 @@
     ],
     "durationMin": 30,
     "durationMax": 120,
-    "peso": 5
+    "weight": 5
   },
   "Library": {
     "kind": "optional_task",
@@ -95,6 +95,6 @@
     ],
     "durationMin": 30,
     "durationMax": 120,
-    "peso": 5
+    "weight": 5
   }
 }

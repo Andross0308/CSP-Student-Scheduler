@@ -24,7 +24,7 @@ def execute_schedule(user_request: str) -> None:
             print("New task:")
             print(f"Name: {task} \n Begin : {events[task]["start"]} \nEnd: {events[task]["end"]}\n")
         confirm = input("Confirm this are the correct options to add to your calendar:")
-        if confirm == 'y':
+        if confirm.lower() == 'y':
             google_service.write_upcoming_events(events)
 
 if __name__ == "__main__":

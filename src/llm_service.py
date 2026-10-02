@@ -28,7 +28,7 @@ Exemplo de formato esperado:
     ],
     "durationMin": 60,
     "durationMax": 60,
-    "peso": 3
+    "weight": 3
   }
 }"""
 
