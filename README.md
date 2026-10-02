@@ -47,7 +47,7 @@ The tasks are created in the following formats:
 # Output Format
 The output is the new task, asked by the user, is added into Google calendar using the API after confirmation of the user
 
-# Design Choices:
+# Design Choices: 
  - Counting minutes since the beginning of the week to calculate the schedule
  - Objects Oriented Program using different classes and objects to give extra security to the projects
 
