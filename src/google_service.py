@@ -47,7 +47,7 @@ class GoogleCalendarService:
                 calendarId="primary",
                 body={
                     "summary": task,
-                    "start": {"dateTime": new_events[task]["start"], "timezone": timezone},
-                    "end": {"dateTime": new_events[task]["end"], "timezone": timezone}
+                    "start": {"dateTime": new_events[task]["start"], "timeZone": timezone},
+                    "end": {"dateTime": new_events[task]["end"], "timeZone": timezone}
                 }
             ).execute()

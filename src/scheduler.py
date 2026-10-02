@@ -39,7 +39,7 @@ class SchedulerSolver:
 
     def add_fixed_entry(self, name: str, begin: int, end: int, from_google: bool):
         duration = self.model.new_constant(end - begin)
-        interval = self.model.new_fixed_size_interval_var(begin, duration, end)
+        interval = self.model.new_fixed_size_interval_var(begin, duration, name)
         self.tasks[name] = {"bool": self.model.new_constant(1), "start": begin,
                        "duration": duration, "end": end, "from_google": from_google}
         self.intervals.append(interval)
@@ -115,11 +115,11 @@ class SchedulerSolver:
         for name, task in self.tasks.items():
             is_present = (
                 solver.value(task["bool"]) == 1
-                if isinstance(task["bool"], cp_model.BoolVar)
+                if isinstance(task["bool"], cp_model.BoolVarT)
                 else task["bool"] == 1
             )
             if is_present and not task["from_google"]:
-                begin = minutes_into_schedule(solver.value(self.tasks[task]["start"]), self.reference_time)
-                end = minutes_into_schedule(solver.value(self.tasks[task]["end"]), self.reference_time)
-                new_events[task] = {"start": begin, "end": end}
+                begin = minutes_into_schedule(solver.value(task["start"]), self.reference_time)
+                end = minutes_into_schedule(solver.value(task["end"]), self.reference_time)
+                new_events[name] = {"start": begin, "end": end}
         return new_events

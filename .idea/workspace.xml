@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="Increasing the quality of the llm_service.py">
+    <list default="true" id="132aa183-8965-40b1-95e0-ba91fba93198" name="Changes" comment="Increasing the quality of the data_utils.py and scheduler.py">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/date_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/date_utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/google_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/google_service.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/scheduler.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/scheduler.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -58,28 +59,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;Python.google_service.executor&quot;: &quot;Debug&quot;,
-    &quot;Python.main.executor&quot;: &quot;Debug&quot;,
-    &quot;Python.scheduler.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test_calendar_auth.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;OOP&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/acosm/OneDrive/Ambiente de Trabalho/AI projects/StudentAgentBitch&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python.google_service.executor": "Run",
+    "Python.main.executor": "Run",
+    "Python.scheduler.executor": "Run",
+    "Python.test_calendar_auth.executor": "Run",
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "OOP",
+    "last_opened_file_path": "C:/Users/acosm/OneDrive/Ambiente de Trabalho/AI projects/StudentAgentBitch",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;ChangesTree.GroupingKeys&quot;: [
-      &quot;directory&quot;,
-      &quot;repository&quot;
+  "keyToStringList": {
+    "ChangesTree.GroupingKeys": [
+      "directory",
+      "repository"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\acosm\OneDrive\Ambiente de Trabalho\AI projects\StudentAgentBitch" />
@@ -103,14 +104,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1785192095880</updated>
-    </task>
-    <task id="LOCAL-00012" summary="Now the solveSchedule verifies the status and only prints the information of the values if the status is OPTIMAL or FEASIBLE. Any other case prints error message">
-      <option name="closed" value="true" />
-      <created>1785603140757</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1785603140757</updated>
     </task>
     <task id="LOCAL-00013" summary="Changing order of the information of the solver values and status">
       <option name="closed" value="true" />
@@ -496,7 +489,15 @@
       <option name="project" value="LOCAL" />
       <updated>1790952583912</updated>
     </task>
-    <option name="localTasksCounter" value="61" />
+    <task id="LOCAL-00061" summary="Increasing the quality of the data_utils.py and scheduler.py">
+      <option name="closed" value="true" />
+      <created>1790954274266</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1790954274266</updated>
+    </task>
+    <option name="localTasksCounter" value="62" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -533,7 +534,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Adding first connection to OpenAi to receive a JSON of tasks using natural language" />
     <MESSAGE value="Creating a function to create initialize the global variables" />
     <MESSAGE value="Changing the nomenclature of variables to all be snake_case" />
     <MESSAGE value="Adding prompt from user to create new tasks in the module and changing some other things" />
@@ -558,7 +558,8 @@
     <MESSAGE value="Simplifying the scheduler.py by creating a function that returns the window of intervals in a optional task" />
     <MESSAGE value="Increasing the quality of the google_service.py" />
     <MESSAGE value="Increasing the quality of the llm_service.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="Increasing the quality of the llm_service.py" />
+    <MESSAGE value="Increasing the quality of the data_utils.py and scheduler.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="Increasing the quality of the data_utils.py and scheduler.py" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
